@@ -1,0 +1,39 @@
+package com.banet.ilooker.net;
+
+import com.banet.ilooker.model.IncommingCallSpam002;
+import com.banet.ilooker.model.IncommingSMS003;
+
+import java.util.Map;
+
+
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
+
+
+public interface HttpService {
+
+
+    @POST("ApiInstall/")
+    Call<ResponseData<Object>> api100requestInstall(@Body Map<String, Object> params);
+
+    @POST("ApiIncomingPhnCall/")
+    Call<ResponseData<IncommingCallSpam002>> api200requestIncommingCallSpam(@Body Map<String, Object> params);
+
+    @POST("ApiReceiveTxtMsg/")
+    Call<ResponseData<IncommingSMS003>> api300requestIncommingSMS(@Body Map<String, Object> params);
+
+    @POST("ApiReceiveUrlMsg/")
+    Call<ResponseData<Object>> api400requestUrlSMS(@Body Map<String, Object> params);
+
+    //신고전화
+    @POST("ApiReportRegPhn/")
+    Call<ResponseData<Object>> api500requestUrlSMS(@Body Map<String, Object> params);
+
+
+
+
+}
