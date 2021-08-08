@@ -108,7 +108,7 @@ public class CallingService extends Service {
         registerReceiver(receiver, filter);
     }
 
-    private void showIncomingPhoneUI(Context context, Intent intent, String state){
+    private void showIncomingPhoneUI(Context context, Intent intent, String state, IncommingCallSpam002 result002){
 
         if (TelephonyManager.EXTRA_STATE_RINGING.equals(state) || TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
             String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
@@ -116,6 +116,7 @@ public class CallingService extends Service {
 
             Intent intent_popup = new Intent(context, PopUpActivity.class);
             intent_popup.putExtra(Global.EXTRA_INCOMING_CALL_NUMBER, phone_number );
+            intent_popup.putExtra(Global.EXTRA_INCOMING_CALL_DATA, result002 );
             intent_popup.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent_popup, PendingIntent.FLAG_UPDATE_CURRENT);
             try {
@@ -172,59 +173,33 @@ public class CallingService extends Service {
   //  showIncomingPhoneUI(context, intent, state);
     private void request002IncommingCallSmissing(Context context, Intent intent, String state, String incomingCallNumber) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("phnno", incomingCallNumber);
+        params.put("UseLangCd", "KOR");
+        params.put("UserPhnNo", Util.getLineNumber(this));
+        params.put("PhnNo", incomingCallNumber);
+        params.put("MedPartCd", "001");
         DataInterface.getInstance().get002IncommingCallSmissing(this, params, new DataInterface.ResponseCallback<ResponseData<IncommingCallSpam002>>() {
 
 
             @Override
             public void onSuccess(ResponseData<IncommingCallSpam002> response) {
-               if( response.getProcRsltCd().equals("002-000")){
 
+                if( response.getProcRsltCd().equals("002-000")){
+                 IncommingCallSpam002 incommingCallSpam002 =  (IncommingCallSpam002) response.getData();
+                   showIncomingPhoneUI(context, intent, state, incommingCallSpam002);
                }
             }
 
             @Override
             public void onError(ResponseData<IncommingCallSpam002> response) {
-
+                       Toast.makeText(getApplicationContext(), response.getError(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Throwable t) {
-
+                Toast.makeText(getApplicationContext(), "failure", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-            //    private void setDraggable() {
-//
-//        rootView.setOnTouchListener(new View.OnTouchListener() {
-//            private int initialX;
-//            private int initialY;
-//            private float initialTouchX;
-//            private float initialTouchY;
-//
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        initialX = params.x;
-//                        initialY = params.y;
-//                        initialTouchX = event.getRawX();
-//                        initialTouchY = event.getRawY();
-//                        return true;
-//                    case MotionEvent.ACTION_UP:
-//                        return true;
-//                    case MotionEvent.ACTION_MOVE:
-//                        params.x = initialX + (int) (event.getRawX() - initialTouchX);
-//                        params.y = initialY + (int) (event.getRawY() - initialTouchY);
-//
-//                        if (rootView != null)
-//                            windowManager.updateViewLayout(rootView, params);
-//                        return true;
-//                }
-//                return false;
-//            }
-//        });
-//
-//    }
+
 }

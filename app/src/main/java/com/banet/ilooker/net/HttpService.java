@@ -20,8 +20,11 @@ public interface HttpService {
     @POST("ApiInstall/")
     Call<ResponseData<Object>> api100requestInstall(@Body Map<String, Object> params);
 
-    @POST("ApiIncomingPhnCall/")
+    @POST("app/002_ApiIncomingPhnCall/")
     Call<ResponseData<IncommingCallSpam002>> api200requestIncommingCallSpam(@Body Map<String, Object> params);
+
+    @GET("app/002_ApiIncomingPhnCall/PhnNo=01067841226")
+    Call<ResponseData<IncommingCallSpam002>> api200requestIncommingCallSpam();
 
     @POST("ApiReceiveTxtMsg/")
     Call<ResponseData<IncommingSMS003>> api300requestIncommingSMS(@Body Map<String, Object> params);

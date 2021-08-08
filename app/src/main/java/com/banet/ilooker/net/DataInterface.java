@@ -58,22 +58,56 @@ protected String TAG = getClass().getSimpleName();
 		return response.isSuccessful();
 	}
 
+	private void processCommonError(Context context, ResponseCallback callback, Response response) {
+		processCommonError(context, callback, response, true);
+	}
+
+	private void processCommonError(Context context, ResponseCallback callback, Response response, boolean isCommonError) {
+		if (callback == null) {
+			return;
+		}
+
+		ResponseData data = (ResponseData)response.body();
+
+		if (response.isSuccessful()) {
+			if (data != null) {
+			//	if (isCommonError && !data.getProcRsltCd().equals("S000")) {
+				//	showDialog(context, null, data.getError());
+			//	}
+				callback.onSuccess(data);
+			} else {
+				callback.onError(null);
+			}
+		} else {
+			if(isCommonError) {
+				if (data != null) {
+				//	showDialog(context, null, data.getError());
+				} else {
+				//	showDialog(context, null, "네트웍상태를 확인해주세요.");
+				}
+			} else {
+				callback.onError(null);
+			}
+		}
+	}
+
 
 	public void get002IncommingCallSmissing(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
-			Call<ResponseData<IncommingCallSpam002>> call = service.api200requestIncommingCallSpam(params);
+			Call<ResponseData<IncommingCallSpam002>> call = service.api200requestIncommingCallSpam();
 
 			call.enqueue(new Callback<ResponseData<IncommingCallSpam002>>() {
 				@Override
 				public void onResponse(Call<ResponseData<IncommingCallSpam002>> call, Response<ResponseData<IncommingCallSpam002>> response) {
-					if (callback == null) return;
-
-					if (response.isSuccessful()) {
-						callback.onSuccess(response.body());
-					} else {
-						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
-						callback.onError( response);
-					}
+					processCommonError(context, callback, response);
+//					if (callback == null) return;
+//
+//					if (response.isSuccessful()) {
+//						callback.onSuccess(response.body());
+//					} else {
+//						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+//						callback.onError( response);
+//					}
 				}
 
 				@Override

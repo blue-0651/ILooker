@@ -28,7 +28,7 @@ public class Global {
     private static Global instance;
 
     public static final String EXTRA_INCOMING_CALL_NUMBER = "extra_incoming_call_number" ;
-
+    public static final String  EXTRA_INCOMING_CALL_DATA ="extra_incoming_call_data" ;
     public Global(){
 
     }

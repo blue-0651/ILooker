@@ -6,10 +6,27 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 /*
-* 수신전화 스팸여부 응답
+ * 수신전화 스팸여부 응답
  */
 public class IncommingCallSpam002 implements Serializable {
-    @SerializedName("isSpam")
+    @SerializedName("TopTpClsNm")
     @Expose
-    String isSpam = "";
+    public String TopTpClsNm = "";
+
+    @SerializedName("WhtListYN")
+    @Expose
+    public String WhtListYN = "";
+
+    @SerializedName("OrgNm")
+    @Expose
+    public String OrgNm = "";
+
+    @SerializedName("GoodTotCnt")
+    @Expose
+    public String GoodTotCnt = "";
+
+    @SerializedName("BadTotCnt")
+    @Expose
+    public String BadTotCnt = "";
+
 }

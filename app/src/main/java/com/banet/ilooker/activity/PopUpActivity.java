@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.banet.ilooker.R;
 import com.banet.ilooker.common.Global;
+import com.banet.ilooker.model.IncommingCallSpam002;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.util.Util;
@@ -27,8 +28,8 @@ public class PopUpActivity extends AppCompatActivity {
     TextView tv ;
     ImageView btnClose;
     String incomingCallNumber = "";
-    TextView mTvTime;
-
+    TextView mTvTime, mTvGoodNumber , mTvBadNumber, mTvWhitelist;
+    IncommingCallSpam002 mIncommingCallSpam002 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,7 @@ public class PopUpActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             incomingCallNumber = bundle.getString(Global.EXTRA_INCOMING_CALL_NUMBER);
+            mIncommingCallSpam002 = (IncommingCallSpam002) bundle.getSerializable(Global.EXTRA_INCOMING_CALL_DATA);
         }
 
         tv =  findViewById(R.id.tv_call_number);
@@ -45,6 +47,20 @@ public class PopUpActivity extends AppCompatActivity {
         mTvTime=  findViewById(R.id.tv_time);
         mTvTime.setText(getDateTime());
 
+        mTvGoodNumber = findViewById(R.id.tv_like_num);
+        mTvGoodNumber.setText(mIncommingCallSpam002.GoodTotCnt);
+
+        mTvBadNumber = findViewById(R.id.tv_dislike_num);
+        mTvBadNumber.setText(mIncommingCallSpam002.BadTotCnt);
+
+        mTvWhitelist = findViewById(R.id.tv_whitelist);
+        if(mIncommingCallSpam002.WhtListYN == "Y") {
+            mTvWhitelist.setText("화이트리스트 기관입니다.");
+          //  mTvWhitelist.setTextColor(R.color.good_number_color);
+        }
+        else if(mIncommingCallSpam002.WhtListYN == "N")
+            mTvWhitelist.setText("블랙리스트 기관입니다.");
+
         btnClose = findViewById(R.id.btn_close);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,8 +68,6 @@ public class PopUpActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        request001Install("KOR", Util.getLineNumber(PopUpActivity.this),"홍길동", "추천인");
     }
 
     @Override
@@ -69,32 +83,4 @@ public class PopUpActivity extends AppCompatActivity {
     }
 
 
-    private void request001Install(String UseLangCd, String UserPhnNo, String UserNm , String RecPhnNo){
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("UseLangCd", UseLangCd);  //사용자 국가코드 "KOR"
-        params.put("UserPhnNo", UserPhnNo);   //사용자 전화번호
-        params.put("UserNm", UserNm);        //사용자 이름
-        params.put("RecPhnNo", RecPhnNo);   //추천인 전화번호
-
-        DataInterface.getInstance().get001Install( PopUpActivity.this, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
-            @Override
-            public void onSuccess(ResponseData<Object> response) {
-                if(response.getProcRsltCd().equals(100-000)){
-
-                }
-            }
-
-            @Override
-            public void onError(ResponseData<Object> response) {
-
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-
-        });
-
-    }
 }
