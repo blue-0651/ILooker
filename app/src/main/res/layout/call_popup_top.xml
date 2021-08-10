@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/popup_back_white"
+        android:background="#ffffff"
         android:orientation="vertical"
         android:padding="5dp">
 
