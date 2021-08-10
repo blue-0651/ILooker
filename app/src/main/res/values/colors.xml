@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#38dbdc</color>
+    <color name="bg"> #3dd6df</color>
+    <color name="txtColorWhite"> #FFFFFF</color>
+    <color name="bgColorWhite"> #FFFFFF</color>
+    <color name="txtRed"> #FF0000</color>
+    <color name="txtPink"> #FF1C74</color>
+    <color name="txtGray"> #E2E2E2</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -9,6 +18,28 @@
     <color name="teal_700">#FF018786</color>
     <color name="text_black">#FF000000</color>
     <color name="black">#FF000000</color>
-    <color name="popup_back_white">#FFFFFFFF</color>
 
+    <color name="color01">#ffffff</color> <!-- 흰색 -->
+    <color name="color02">#000000</color> <!-- 검정색 -->
+    <color name="color03">#666666</color> <!-- 회색 -->
+    <color name="color04">#de690a</color> <!-- 주황색 -->
+    <color name="color05">#dddddd</color> <!-- 밝은회색 -->
+    <color name="color06">#d50000</color> <!-- 빨간색 -->
+    <color name="color07">#006dd8</color> <!-- 파란색 -->
+    <color name="color08">#c6c6c6</color> <!-- 회색 -->
+    <color name="color09">#2a2a2a</color> <!-- 어두운회색 -->
+    <color name="color10">#333333</color> <!-- 좀어두운회색 -->
+    <color name="color11">#181818</color> <!-- 진한회색 -->
+    <color name="color12">#999999</color> <!-- 회색 -->
+    <color name="color13">#555555</color> <!-- 진한회색 -->
+    <color name="color14">#f2f2f2</color> <!-- 아주밝은회색 -->
+    <color name="color15">#d85100</color> <!-- 어두운주황색 -->
+    <color name="color16">#f3f2ec</color> <!-- 약간밝은회색1-->
+    <color name="color17">#f8f8f8</color> <!-- 약간밝은회색2 -->
+    <color name="color18">#eeeeee</color> <!-- 약간밝은회색3 -->
+    <color name="color19">#adadad</color> <!-- 약간밝은회색4 -->
+    <color name="color20">#888888</color> <!-- 회색 -->
+    <color name="color21">#f6e0bd</color> <!-- 베이지색 -->
+    <color name="color22">#767676</color> <!-- 회색 -->
+    <color name="color23">#fafafa</color> <!-- 회색 -->
 </resources>
