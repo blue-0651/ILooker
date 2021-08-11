@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TitleH1" >
+    <style name="TitleH1"  parent="fontStyleWithoutPadding">
         <item name="android:fontFamily">@font/noto_sans_cj_kkr</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">25sp</item>
         <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:textColor">@color/color11</item>
     </style>
-    <style name="TitleH1Bold" >
+    <style name="TitleH1Bold"  parent="fontStyleWithoutPadding">
         <item name="android:fontFamily">@font/noto_sans_cj_kkr</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">25sp</item>
         <item name="android:lineSpacingExtra">3dp</item>
         <item name="android:textColor">@color/color11</item>
     </style>
-    <style name="TitleH2" >
+    <style name="TitleH2"  parent="fontStyleWithoutPadding">
         <item name="android:fontFamily">@font/noto_sans_cj_kkr</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">20sp</item>
         <item name="android:lineSpacingExtra">6dp</item>
 
     </style>
+    <style name="NormalDescText"  parent="fontStyleWithoutPadding">
+        <item name="android:fontFamily">@font/noto_sans_cj_kkr</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
 
-    <style name="TitleH2Bold" >
+    </style>
+
+    <style name="TitleH2Bold"  parent="fontStyleWithoutPadding">
         <item name="android:fontFamily">@font/noto_sans_cj_kkr</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20sp</item>
@@ -32,7 +39,7 @@
 
     </style>
 
-    <style name="ItemPointNumber" >
+    <style name="ItemPointNumber"  parent="fontStyleWithoutPadding">
     <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     <item name="android:textStyle">normal</item>
     <item name="android:textSize">15sp</item>
@@ -40,21 +47,30 @@
         <item name="android:textColor">@color/color11</item>
     </style>
 
-    <style name="ItemName" >
+    <style name="ItemName"  parent="fontStyleWithoutPadding">
         <item name="android:fontFamily">@font/noto_sans_cj_kkr</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/color11</item>
+        <item name="android:titleMarginBottom">5dp</item>
     </style>
 
-    <style name="MenuName" >
+    <style name="MenuName"  parent="fontStyleWithoutPadding">
         <item name="android:fontFamily">@font/noto_sans_cj_kkr</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/text_black</item>
         <item name="android:layout_marginLeft">20dp</item>
     </style>
+    <style name="BottomTitleText" parent="fontStyleWithoutPadding">
+        <item name="android:fontFamily">@font/noto_sans_cj_kkr</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_black</item>
+    </style>
 
-
+    <style name="fontStyleWithoutPadding">
+        <item name="android:includeFontPadding">false</item>
+    </style>
 
 </resources>
