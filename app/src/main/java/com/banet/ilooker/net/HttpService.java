@@ -23,7 +23,7 @@ public interface HttpService {
     @POST("app/002_ApiIncomingPhnCall/")
     Call<ResponseData<IncommingCallSpam002>> api200requestIncommingCallSpam(@Body Map<String, Object> params);
 
-    @GET("app/002_ApiIncomingPhnCall/PhnNo=01067841226")
+    @GET("app/002_ApiIncomingPhnCallView/?UseLangCd=KOR&UserPhnNo=01011111111&PhnNo=01022222222&MedPartCd=003")
     Call<ResponseData<IncommingCallSpam002>> api200requestIncommingCallSpam();
 
     @POST("ApiReceiveTxtMsg/")
