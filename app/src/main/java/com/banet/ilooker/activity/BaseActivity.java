@@ -1,33 +1,30 @@
 package com.banet.ilooker.activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import java.util.HashMap;
+import com.banet.ilooker.R;
+import com.banet.ilooker.fragment.MainWorkFragment;
+import com.banet.ilooker.fragment.BaseFragment;
 
 
 
 public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
     private T mVd;
-    protected NativeFragment mNativeFragment;
-    protected DrawerLayout mDlHomeView;
+    protected BaseFragment mNativeFragment;
     protected String TAG = getClass().getSimpleName();
     protected OnTitleListener mOnTitleListener;
-    protected BackPressCloseHandler backPressCloseHandler;
+//    protected BackPressCloseHandler backPressCloseHandler;
     private boolean isForward = true;
     private ProgressDialog pd; // 프로그레스바 선언
 
@@ -35,7 +32,7 @@ public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        backPressCloseHandler = new BackPressCloseHandler(this);
+      //  backPressCloseHandler = new BackPressCloseHandler(this);
     }
 
     @Override
@@ -55,10 +52,6 @@ public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
     }
 
 
-    public DrawerLayout getDrawerLayout() {
-        if (drawer != null) return drawer;
-        else return null;
-    }
 
 
     /**
@@ -89,7 +82,7 @@ public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
 
     // parameter1 : activity 내에서 fragment 를 삽입할 Layout id
     // parameter2 : 삽입할 fragment
-    public void GoNativeScreen(NativeFragment fragment, Bundle bundle) {
+    public void GoNativeScreen(BaseFragment fragment, Bundle bundle) {
         if (fragment == null) {
             return;
         }
@@ -103,7 +96,7 @@ public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
         transaction.replace(R.id.vw_NativeContent, mNativeFragment).commitAllowingStateLoss();
     }
 
-    public void GoNativeScreenAdd(NativeFragment fragment, Bundle bundle) {
+    public void GoNativeScreenAdd(BaseFragment fragment, Bundle bundle) {
         if (fragment == null) {
             return;
         }
@@ -118,14 +111,14 @@ public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (isForward) {
-            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+            transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
         } else {
-            transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+            transaction.setCustomAnimations(R.anim.horizon_slide_in_left, R.anim.horizon_slide_out_right);
         }
         transaction.replace(R.id.vw_NativeContent, mNativeFragment).commitAllowingStateLoss();
     }
 
-    public void GoNativeScreenAdd(NativeFragment fragment, Bundle bundle, String backStack) {
+    public void GoNativeScreenAdd(BaseFragment fragment, Bundle bundle, String backStack) {
         if (fragment == null)
             return;
 
@@ -136,9 +129,9 @@ public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (isForward) {
-            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+            transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
         } else {
-            transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+            transaction.setCustomAnimations(R.anim.horizon_slide_in_left, R.anim.horizon_slide_out_right);
         }
         transaction.replace(R.id.vw_NativeContent, mNativeFragment).commitAllowingStateLoss();
 
@@ -153,7 +146,7 @@ public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
      *
      * @return Fragment
      */
-    public NativeFragment getRootFragment() {
+    public BaseFragment getRootFragment() {
         return new MainWorkFragment();
     }
 
@@ -173,9 +166,9 @@ public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
 //        transaction.replace(R.id.vw_NativeContent, mNativeFragment).commit();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (isForward) {
-            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+            transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
         } else {
-            transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+            transaction.setCustomAnimations(R.anim.horizon_slide_in_left, R.anim.horizon_slide_out_right);
         }
         transaction.replace(R.id.vw_NativeContent, mNativeFragment).commit();
 
@@ -209,146 +202,11 @@ public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
             fragmentManager.popBackStack();
 
         } else {
-            if (PrefUtil.getBackKeyCheck(this)) {  // 백키가 막혔을때 (출근버튼을 누른 이후일때)
-                GoNativeScreenAdd(new DrivingFragment(), null);
-            } else {
-                GoHomeScreen();
-            }
-        }
-    }
-
-    /**
-     * 메뉴 View 초기화
-     */
-    protected void SetMenuView() {
-        mDlHomeView = findViewById(R.id.drawer_layout);
-
-        mDlHomeView.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        mDlHomeView.addDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                if (mNativeFragment != null) {
-                    //  mNativeFragment.checkMyMenuPosition();
-                }
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                mDlHomeView.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-
-
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-
-                mDlHomeView.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-            }
-        });
-
-
-    }
-
-
-    public void sendChauffeurStatusAndGoNextScreen(final Context context, final AppDef.ChauffeurStatus chauffeurStatus, final ChangeStatusInterface changeStatusInterface) {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("fcm_id", chauffeurStatus.toString());
-        params.put("lat", MacaronApp.lastLocation.getLatitude());
-        params.put("lon", MacaronApp.lastLocation.getLongitude());
-        params.put("poi", Util.GetLocationAddress(context, MacaronApp.lastLocation));
-
-        DataInterface.getInstance().sendChauffeurStatus(context, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
-
-            @Override
-            public void onSuccess(ResponseData<Object> response) {
-                if ("S000".equals(response.getResultCode())) {
-                    Logger.i(TAG, chauffeurStatus.toString() + " 상태 전환 성공");
-//                    switchToChauffeurStatusFragment(chauffeurStatus, changeStatusInterface);
-                    if (changeStatusInterface != null) changeStatusInterface.onSuccess();
-                } else {
-                    if (changeStatusInterface != null) changeStatusInterface.onErrorCode(response);
-                }
-            }
-
-            @Override
-            public void onError(ResponseData<Object> response) {
-                if (changeStatusInterface != null) changeStatusInterface.onError();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                if (changeStatusInterface != null) changeStatusInterface.onFailed();
-            }
-        });
-    }
-
-//    public  void sendAllocStatusAndGoNextScreen(final Context context, long allocationIdx, final AppDef.AllocationStatus allocStatus, ChangeStatusInterface changeStatusInterface) {
-//        sendAllocStatusAndGoNextScreen(context, allocationIdx, allocStatus, Util.GetLocationAddress(context, MacaronApp.lastLocation), changeStatusInterface);
-//    }
-
-    public void sendAllocStatusAndGoNextScreen(final Context context, long allocationIdx, final AppDef.AllocationStatus allocStatus, String poi, final ChangeStatusInterface changeStatusInterface) {
-        Log.e("<PHD>", "## POI = " + poi);
-
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("allocationIdx", allocationIdx);
-        params.put("allocationStatus", allocStatus.toString());
-        params.put("lat", MacaronApp.lastLocation.getLatitude());
-        params.put("lon", MacaronApp.lastLocation.getLongitude());
-        params.put("poi", poi);
-
-        DataInterface.getInstance().changeAllocationStatus(context, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
-            @Override
-            public void onSuccess(ResponseData<Object> response) {
-                if ("S000".equals(response.getResultCode())) {
-                    Logger.i(TAG, allocStatus.toString() + " 배차상태 전환 성공");
-                    if (changeStatusInterface != null) changeStatusInterface.onSuccess();
-                } else {
-                    if (changeStatusInterface != null) changeStatusInterface.onErrorCode(response);
-                }
-            }
-
-            @Override
-            public void onError(ResponseData<Object> response) {
-                if (changeStatusInterface != null) changeStatusInterface.onError();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                if (changeStatusInterface != null) changeStatusInterface.onFailed();
-            }
-        });
-    }
-
-    public void switchToChauffeurStatusFragment(AppDef.ChauffeurStatus status, ChangeStatusInterface ChangeStatusInterface) {
-        switch (status) {
-            case WORK:
-                //   GoNativeScreenAdd(new OrgArrivedFragment(), null, true);
-                break;
-            case LOAD:
-
-                break;
-            case REST:
-                GoNativeScreenAdd(new BreakTimeFragment(), null);
-                break;
-            case ACCIDENT:
-                break;
-            case RETIRE:
-                GoNativeScreenAdd(new MoveGarageFragment(), null);
-                break;
-            case LEAVE:
-                break;
-            case ALLOC:
-                break;
-            case CONNECT:
-                break;
-            default:
-                Logger.i(TAG, "Unknown Status");
-                break;
+//            if (PrefUtil.getBackKeyCheck(this)) {  // 백키가 막혔을때 (출근버튼을 누른 이후일때)
+//                GoNativeScreenAdd(new DrivingFragment(), null);
+//            } else {
+//                GoHomeScreen();
+//            }
         }
     }
 

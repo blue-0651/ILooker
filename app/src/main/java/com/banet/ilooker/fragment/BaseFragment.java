@@ -2,29 +2,24 @@ package com.banet.ilooker.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import kst.macaron.chauffeur.R;
-import kst.macaron.chauffeur.activity.BaseActivity;
-import kst.macaron.chauffeur.activity.MainActivity;
-import kst.macaron.chauffeur.common.AppDef;
-import kst.macaron.chauffeur.common.AppDef.ChauffeurStatus;
-import kst.macaron.chauffeur.common.Global;
-import kst.macaron.chauffeur.common.UIThread;
-import kst.macaron.chauffeur.listner.ChangeStatusInterface;
-import kst.macaron.chauffeur.listner.OnTitleListener;
-import kst.macaron.chauffeur.utility.Logger;
-import kst.macaron.chauffeur.utility.MacaronCustomDialog;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.banet.ilooker.R;
+import com.banet.ilooker.activity.BaseActivity;
+import com.banet.ilooker.activity.OnTitleListener;
+import com.banet.ilooker.common.Global;
+import com.banet.ilooker.common.UIThread;
+import com.banet.ilooker.util.Logger;
+
 
 //layout(content view)을 갖고 있지 않음
-public class NativeFragment extends Fragment {
+public class BaseFragment extends Fragment {
 
     protected Global mGlobalInstance;
     protected String TAG;
@@ -68,10 +63,10 @@ public class NativeFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        tvTitle = mParentActivity.findViewById(R.id.tvTitle);
-        ivDivider = mParentActivity.findViewById(R.id.ivDivider);
-        btnDrawerOpen = mParentActivity.findViewById(R.id.btnDrawerOpen);
-        btnBackArrow = mParentActivity.findViewById(R.id.btnTitleBack);
+//        tvTitle = mParentActivity.findViewById(R.id.tvTitle);
+//        ivDivider = mParentActivity.findViewById(R.id.ivDivider);
+//        btnDrawerOpen = mParentActivity.findViewById(R.id.btnDrawerOpen);
+//        btnBackArrow = mParentActivity.findViewById(R.id.btnTitleBack);
 
         if ("y".equals(arrowBack)) {
             btnBackArrow.setVisibility(View.VISIBLE);
@@ -97,9 +92,6 @@ public class NativeFragment extends Fragment {
                 mParentActivity.GoNativeBackStack();
                 break;
 
-            case R.id.btnDrawerOpen:
-                ((MainActivity) mParentActivity).OpenMenuMap();
-                break;
         }
     }
 
@@ -129,13 +121,13 @@ public class NativeFragment extends Fragment {
      * @param fragment  Native 화면 개체
      * @param bundle    Parameter 번들
      */
-    public void GoNativeScreen(NativeFragment fragment, Bundle bundle) {
+    public void GoNativeScreen(BaseFragment fragment, Bundle bundle) {
         if (mParentActivity != null)
             mParentActivity.GoNativeScreen(fragment, bundle);
     }
 
 
-    public  void GoNativeScreenAdd(NativeFragment fragment, Bundle bundle) {
+    public  void GoNativeScreenAdd(BaseFragment fragment, Bundle bundle) {
         if (mParentActivity != null) {
             mParentActivity.GoNativeScreenAdd(fragment, bundle);
         }
@@ -171,49 +163,6 @@ public class NativeFragment extends Fragment {
     public void SetDividerVisibility(final boolean isVisible) {
         if (ivDivider != null) ivDivider.setVisibility(isVisible ? View.VISIBLE : View.INVISIBLE);
     }
-
-    public void setDrawerLayoutEnable(final boolean isEnable) {
-        if (mParentActivity != null) {
-            if(mParentActivity.getDrawerLayout() != null) {
-                if(isEnable) {
-                    mParentActivity.getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                } else {
-                    mParentActivity.getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                }
-            } else {
-                Log.e("<PHD>", "## NavigationView Null..!!!!!!!");
-            }
-        }
-    }
-
-
-    private MacaronCustomDialog commonDialog;
-
-    public void showCarStatusErrorDialog(Context context, String msg) {
-        commonDialog = new MacaronCustomDialog(context, null, msg, "확인", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                commonDialog.dismiss();
-                GoNativeScreenAdd(new DrivingFragment(), null);
-            }
-        });
-
-        try {
-            commonDialog.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void changeChauffeurStatusAndGoNextScreen(Context context, ChauffeurStatus status, ChangeStatusInterface ChangeStatusInterface) {
-        mParentActivity.sendChauffeurStatusAndGoNextScreen(context, status, ChangeStatusInterface);
-    }
-
-    public void changeAllocStatusAndGoNextScreen(Context context, long allocationIdx, AppDef.AllocationStatus status, String poi, ChangeStatusInterface changeStatusInterface) {
-        mParentActivity.sendAllocStatusAndGoNextScreen(context, allocationIdx, status, poi, changeStatusInterface);
-    }
-
 
 
 }
