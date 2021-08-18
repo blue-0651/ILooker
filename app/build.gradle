@@ -24,8 +24,11 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding = true
+    }
+    buildFeatures {
+        dataBinding = true
     }
 
     compileOptions {
@@ -42,6 +45,7 @@ ext {
 dependencies {
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -70,11 +74,6 @@ dependencies {
     implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
 
-
-
-//    implementation "com.android.support:appcompat-v7:${supportVersion}"
-//    implementation "com.android.support:design:${supportVersion}"
-//    implementation "com.android.support:support-v4:${supportVersion}"
 
     implementation 'com.jakewharton:butterknife:6.1.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'

@@ -14,14 +14,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.banet.ilooker.R;
+import com.banet.ilooker.fragment.BaseBindingFragment;
 import com.banet.ilooker.fragment.MainWorkFragment;
-import com.banet.ilooker.fragment.BaseFragment;
 
 
 
 public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
     private T mVd;
-    protected BaseFragment mNativeFragment;
+    protected BaseBindingFragment<T> mNativeFragment;
     protected String TAG = getClass().getSimpleName();
     protected OnTitleListener mOnTitleListener;
 //    protected BackPressCloseHandler backPressCloseHandler;
@@ -82,7 +82,7 @@ public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
 
     // parameter1 : activity 내에서 fragment 를 삽입할 Layout id
     // parameter2 : 삽입할 fragment
-    public void GoNativeScreen(BaseFragment fragment, Bundle bundle) {
+    public void GoNativeScreen(BaseBindingFragment<T> fragment, Bundle bundle) {
         if (fragment == null) {
             return;
         }
@@ -96,7 +96,7 @@ public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
         transaction.replace(R.id.vw_NativeContent, mNativeFragment).commitAllowingStateLoss();
     }
 
-    public void GoNativeScreenAdd(BaseFragment fragment, Bundle bundle) {
+    public void GoNativeScreenAdd(BaseBindingFragment<T> fragment, Bundle bundle) {
         if (fragment == null) {
             return;
         }
@@ -118,7 +118,7 @@ public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
         transaction.replace(R.id.vw_NativeContent, mNativeFragment).commitAllowingStateLoss();
     }
 
-    public void GoNativeScreenAdd(BaseFragment fragment, Bundle bundle, String backStack) {
+    public void GoNativeScreenAdd(BaseBindingFragment<T> fragment, Bundle bundle, String backStack) {
         if (fragment == null)
             return;
 
@@ -146,8 +146,8 @@ public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
      *
      * @return Fragment
      */
-    public BaseFragment getRootFragment() {
-        return new MainWorkFragment();
+    public BaseBindingFragment<T>  getRootFragment() {
+        return (BaseBindingFragment<T>) new MainWorkFragment();
     }
 
     /**
