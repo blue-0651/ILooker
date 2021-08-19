@@ -15,12 +15,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.banet.ilooker.R;
 import com.banet.ilooker.fragment.BaseBindingFragment;
+import com.banet.ilooker.fragment.BlockPhoneNumberFragment;
 import com.banet.ilooker.fragment.MainWorkFragment;
 
 
 
-public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
-    private T mVd;
+public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
+    protected T mViewBinding;
     protected BaseBindingFragment<T> mNativeFragment;
     protected String TAG = getClass().getSimpleName();
     protected OnTitleListener mOnTitleListener;
@@ -31,8 +32,7 @@ public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-      //  backPressCloseHandler = new BackPressCloseHandler(this);
+        setLayoutId(getLayoutId());
     }
 
     @Override
@@ -41,14 +41,16 @@ public class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
     }
 
 
-    protected void setBind(@LayoutRes int layId) {
-        if (mVd == null) {
-            mVd = DataBindingUtil.setContentView(this, layId);
+    public abstract   @LayoutRes int getLayoutId( );
+
+    private void setLayoutId(@LayoutRes int layId){
+        if (mViewBinding == null) {
+            mViewBinding = DataBindingUtil.setContentView(this, layId);
         }
     }
 
-    protected T getBind() {
-        return mVd;
+    protected T getBinding() {
+        return mViewBinding;
     }
 
 

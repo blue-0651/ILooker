@@ -3,8 +3,8 @@ package com.banet.ilooker.model;
 //005
 public class AILookerPhoneNumber {
 
-    public AILookerPhoneNumber(String UserPhnNo,  String BlockCategory, String BlockYN , String  BlockDateTime){
-        this.UserPhnNo = UserPhnNo;
+    public AILookerPhoneNumber(String PhnNo,  String BlockCategory, String BlockYN , String  BlockDateTime){
+        this.PhnNo = PhnNo;
         this.BlockCategory = BlockCategory;
         this.BlockYN = BlockYN;
         this.BlockDateTime = BlockDateTime;

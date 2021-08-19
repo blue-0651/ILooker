@@ -1,5 +1,6 @@
 package com.banet.ilooker.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,17 +13,29 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.viewbinding.ViewBinding;
 
+import com.banet.ilooker.activity.BaseActivity;
+import com.banet.ilooker.activity.MainActivity;
+import com.banet.ilooker.common.AppDef;
+
 /**
  * BaseFragment (공통)
  */
 public abstract class BaseBindingFragment<T extends ViewBinding> extends Fragment {
 
     private T mViewBinding;
+    protected BaseActivity mBaseActivity;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mBaseActivity = (BaseActivity) getActivity();
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            ( (MainActivity)mBaseActivity).setTitleName(bundle.getString(AppDef.FRAGMENT_TITLE_NAME));
+        }
+
     }
 
     @Nullable
@@ -35,6 +48,7 @@ public abstract class BaseBindingFragment<T extends ViewBinding> extends Fragmen
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         init(savedInstanceState);
     }
 
@@ -47,6 +61,31 @@ public abstract class BaseBindingFragment<T extends ViewBinding> extends Fragmen
 
     public T getBinding() {
         return mViewBinding;
+    }
+
+    public void GoHomeScreen() {
+        if (mBaseActivity != null) {
+            mBaseActivity.GoHomeScreen();
+        }
+    }
+
+    public void GoHomeScreen(Bundle bundle) {
+        if (mBaseActivity != null) {
+            mBaseActivity.GoHomeScreen(bundle);
+        }
+    }
+
+
+    public void GoNativeScreen(BlockPhoneNumberFragment fragment, Bundle bundle) {
+        if (mBaseActivity != null)
+            mBaseActivity.GoNativeScreen(fragment, bundle);
+    }
+
+
+    public  void GoNativeScreenAdd(BaseBindingFragment<T>  fragment, Bundle bundle) {
+        if (mBaseActivity != null) {
+            mBaseActivity.GoNativeScreenAdd(fragment, bundle);
+        }
     }
 
 }

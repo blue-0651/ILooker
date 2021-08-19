@@ -17,6 +17,11 @@ public class AppDef {
     public enum CarStatus{
         NORMAL, ACCIDENT
     }
+    public static final String FRAGMENT_TITLE_NAME = "fragment_title";
+    //각 프래그먼트화면 이를을 정의한다. 번들에서 사용
+    public static final String title_main_fragment = "메인" ;
+    public static final String title_block_phone_number_fragment = "신고내역" ;
+
 
 
 

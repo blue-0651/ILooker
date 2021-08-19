@@ -1,42 +1,33 @@
 package com.banet.ilooker.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.View;
 
 import com.banet.ilooker.R;
+import com.banet.ilooker.common.AppDef;
+import com.banet.ilooker.databinding.ActivityMainBinding;
+import com.banet.ilooker.databinding.FragmentBlockPhoneNumberBinding;
+import com.banet.ilooker.fragment.BlockPhoneNumberFragment;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.service.CallingService;
-import com.banet.ilooker.util.DateUtils;
-import com.banet.ilooker.util.Util;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity<ActivityMainBinding> {
     public static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         Log.i(TAG, "aaaaa");
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED
@@ -48,14 +39,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Intent serviceIntent = new Intent(this, CallingService.class);
-        //   serviceIntent.putExtra("inputExtra", "Foreground Service Example in Android");
-
         ContextCompat.startForegroundService(this, serviceIntent);
-
         //request001Install("KOR", Util.getLineNumber(MainActivity.this),"홍길동", "추천인");
-        setPichart();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_main_fragment );
+        GoHomeScreen();
+
 
     }
+
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_main ;
+    }
+
+     public void setTitleName(String titleName){
+        getBinding().titleBar.tvTitle.setText(titleName);
+     }
+
 
     private void request001Install(String UseLangCd, String UserPhnNo, String UserNm, String RecPhnNo) {
         HashMap<String, Object> params = new HashMap<>();
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         DataInterface.getInstance().get001Install(MainActivity.this, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
             @Override
             public void onSuccess(ResponseData<Object> response) {
-                if (response.getProcRsltCd().equals(100 - 000)) {
+                if (response.getProcRsltCd().equals("100-000")) {
 
                 }
             }
@@ -86,41 +89,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setPichart() {
-        PieChart pieChart = findViewById(R.id.piechart);
-        ArrayList NoOfEmp = new ArrayList();
-        NoOfEmp.add(new Entry(945f, 0));
-        NoOfEmp.add(new Entry(1040f, 1));
-        NoOfEmp.add(new Entry(1133f, 2));
-        NoOfEmp.add(new Entry(1240f, 3));
-        NoOfEmp.add(new Entry(1369f, 4));
-        NoOfEmp.add(new Entry(1487f, 5));
-        NoOfEmp.add(new Entry(1501f, 6));
-        NoOfEmp.add(new Entry(1645f, 7));
-        NoOfEmp.add(new Entry(1578f, 8));
-        NoOfEmp.add(new Entry(1695f, 9));
-        PieDataSet dataSet = new PieDataSet(NoOfEmp, "활동분야");
-        ArrayList year = new ArrayList();
-        year.add("");
-        year.add("");
-        year.add("");
-        year.add("");
-        year.add("");
-        year.add("");
-        year.add("");
-        year.add("");
-        year.add("");
-        year.add("");
-        PieData data = new PieData(year,dataSet); // MPAndroidChart v3.X 오류 발생 pieChart.setData(data); dataSet.setColors(ColorTemplate.COLORFUL_COLORS); pieChart.animateXY(5000, 5000);
-        pieChart.setData(data);
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieChart.setDescription("활동지수 ");
-        pieChart.animateXY(2000, 2000);
-
-
-
-
+    public void setBottomTabBarVisible(Boolean isVisible){
+        if(! isVisible){
+            getBinding().bottomTabBar.getRoot().setVisibility(View.GONE);
+        }else{
+            getBinding().bottomTabBar.getRoot().setVisibility(View.VISIBLE);
+        }
     }
-
-
 }
+

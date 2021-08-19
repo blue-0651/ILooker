@@ -26,7 +26,6 @@ public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<BlockPhone
 
     private Context context;
     private ArrayList<AILookerPhoneNumber> mItemList;
-    private int inputType;//0타투타 1계좌추가해지
 
     public BlockPhoneNumberListAdapter(Context context, ArrayList<AILookerPhoneNumber> mItemList) {
 
@@ -58,28 +57,13 @@ public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<BlockPhone
     public void onBindViewHolder(@NonNull BlockPhoneNumberListViewHolder viewHolder, int position) {
 
         AILookerPhoneNumber item = mItemList.get(position);
-//        if (item.prod_risk_grad != "") {
-//
-//            viewHolder.tvRisk.setVisibility(View.VISIBLE);
-//            viewHolder.tvRisk.setText(item.prod_risk_grad);
-//            viewHolder.tvRisk.setTextColor(Color.WHITE);
-//            viewHolder.tvRisk.setBackground(switchGradeBackground(item.prod_risk_grad));
-//
-//        }
-//        if (item.online_yn != "") {
-//            viewHolder.tvOnLine.setVisibility(View.VISIBLE);
-//            viewHolder.tvOnLine.setText("온라인");
-//
-//        }
-//        if (item.online_yn != "") {
-//            viewHolder.tvOnLineRep.setVisibility(View.VISIBLE);
-//            viewHolder.tvOnLineRep.setText("온라인대표");
-//
-//        }
-
+        if(item.BlockYN.equals("Y")) {
+            viewHolder.tvBlockPhoneNumber.setText(item.PhnNo);
+            viewHolder.tvBlockCategory.setText(item.BlockCategory);
+            viewHolder.tvIncommingDateTime.setText(item.BlockDateTime);
+        }
 
     }
-
 
 
     @Override
@@ -89,41 +73,24 @@ public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<BlockPhone
     }
 
     public class BlockPhoneNumberListViewHolder extends RecyclerView.ViewHolder {
-        public CheckBox checkBox;
-        //종목명
-        public TextView item_nm;
-        //펀드 등급
-        public TextView grade;
-        //수익률
-        public TextView prfrt;
 
-        public TextView tvRisk;
-
-        public TextView tvOnLine;
-
-        public TextView tvOnLineRep;
+        public TextView tvBlockPhoneNumber;
+        public TextView tvBlockCategory;
+        public TextView tvIncommingDateTime;
 
         public BlockPhoneNumberListViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
-//            checkBox = (CheckBox) itemView.findViewById(R.id.rp_fund_check);
-//            //종목명
-//            //  viewHolder.item_nm = (TextView) view.findViewById(R.id.rp_fund_item_nm);
-//            //등급
-//            grade = (TextView) itemView.findViewById(R.id.rp_fund_grade);
-//            //수익률
-//            prfrt = (TextView) itemView.findViewById(R.id.rp_fund_prfrt);
-//            tvRisk = (TextView) itemView.findViewById(R.id.tvRisk);
-//            tvOnLine = (TextView) itemView.findViewById(R.id.tvOnline);
-//            tvOnLineRep = (TextView) itemView.findViewById(R.id.tvOnLineRep);
+            tvBlockPhoneNumber = itemView.findViewById(R.id.tv_phone_number);
+            tvBlockCategory = itemView.findViewById(R.id.tv_category);
+            tvIncommingDateTime = itemView.findViewById(R.id.tv_incomming_date_time);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION) {
-//                        Intent intent = new Intent(context, HMRPFundProfile.class);
-//                        intent.putExtra("intent_item_cd", mItemList.get(pos).item_cd);
-//                        intent.putExtra("intent_item_nm", mItemList.get(pos).fund_nm);
-//                        intent.putExtra("intent_prfrt",  mItemList.get(pos).prfrt);
+ //                       상세화면 띄우기
+//                        Intent intent = new Intent(context, detail.class);
 //                        context.startActivity(intent);
                     }
                 }
