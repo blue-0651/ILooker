@@ -302,6 +302,7 @@
                     android:weightSum="10">
 
                     <LinearLayout
+                        android:id="@+id/llNoti"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"

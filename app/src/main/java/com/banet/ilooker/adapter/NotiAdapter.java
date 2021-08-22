@@ -16,14 +16,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-
-public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<NotiAdapter.NotiViewHolder> {
+public class NotiAdapter extends RecyclerView.Adapter<NotiAdapter.NotiViewHolder> {
 
 
     private Context context;
     private ArrayList<AILookerPhoneNumber> mItemList;
 
-    public BlockPhoneNumberListAdapter(Context context, ArrayList<AILookerPhoneNumber> mItemList) {
+    public NotiAdapter(Context context, ArrayList<AILookerPhoneNumber> mItemList) {
 
         this.mItemList = mItemList;
         this.context = context;
@@ -42,15 +41,15 @@ public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<NotiAdapte
 
     @NonNull
     @Override
-    public BlockPhoneNumberListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NotiViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.layout_block_number_item, parent, false);
-        BlockPhoneNumberListViewHolder holder = new BlockPhoneNumberListViewHolder(v);
+        NotiViewHolder holder = new NotiViewHolder(v);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BlockPhoneNumberListViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull NotiViewHolder viewHolder, int position) {
 
         AILookerPhoneNumber item = mItemList.get(position);
         if(item.BlockYN.equals("Y")) {
@@ -68,13 +67,13 @@ public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<NotiAdapte
         return mItemList.size();
     }
 
-    public class BlockPhoneNumberListViewHolder extends RecyclerView.ViewHolder {
+    public class NotiViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvBlockPhoneNumber;
         public TextView tvBlockCategory;
         public TextView tvIncommingDateTime;
 
-        public BlockPhoneNumberListViewHolder(@NonNull @NotNull View itemView) {
+        public NotiViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             tvBlockPhoneNumber = itemView.findViewById(R.id.tv_phone_number);
             tvBlockCategory = itemView.findViewById(R.id.tv_category);
@@ -85,7 +84,7 @@ public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<NotiAdapte
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION) {
- //                       상세화면 띄우기
+                        //                       상세화면 띄우기
 //                        Intent intent = new Intent(context, detail.class);
 //                        context.startActivity(intent);
                     }
@@ -97,3 +96,4 @@ public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<NotiAdapte
     }
 
 }
+

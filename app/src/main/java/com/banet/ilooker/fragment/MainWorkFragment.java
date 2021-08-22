@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 
 import com.banet.ilooker.R;
 import com.banet.ilooker.common.AppDef;
-import com.banet.ilooker.databinding.FragmentBlockPhoneNumberBinding;
 import com.banet.ilooker.databinding.MainFragmentBinding;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -98,6 +97,15 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding>{
                 Bundle bundle = new Bundle();
                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_phone_number_fragment );
                GoNativeScreen(new BlockPhoneNumberFragment(), bundle);
+            }
+        });
+
+        getBinding().llNoti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_noti_fragment );
+                GoNativeScreen(new BlockPhoneNumberFragment(), bundle);
             }
         });
     }

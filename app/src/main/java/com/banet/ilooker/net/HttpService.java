@@ -2,16 +2,14 @@ package com.banet.ilooker.net;
 
 import com.banet.ilooker.model.IncommingCallSpam002;
 import com.banet.ilooker.model.IncommingSMS003;
+import com.banet.ilooker.model.Noti104;
 
 import java.util.Map;
-
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 
 public interface HttpService {
@@ -36,6 +34,8 @@ public interface HttpService {
     @POST("ApiReportRegPhn/")
     Call<ResponseData<Object>> api500requestUrlSMS(@Body Map<String, Object> params);
 
+    @GET("app/104_ApiGeneralNoticeInq/?UseLangCd=KOR&UserPhnNo=01012340005")
+    Call<ResponseData<Noti104>> api104requestNormalNoti();
 
 
 

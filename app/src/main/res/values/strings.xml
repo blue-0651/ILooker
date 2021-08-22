@@ -1,5 +1,29 @@
 <resources>
     <string name="app_name">AILooker</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="like">좋아요</string>
+    <string name="dislike">싫어요</string>
+    <string name="Loan">대출</string>
+    <string name="Gamble">도박/게임</string>
+    <string name="Adult">성인/유흥</string>
+    <string name="PhoneSales">휴대폰판매</string>
+    <string name="Insurance">보험안내</string>
+    <string name="Alter_Driving">대리운전</string>
+    <string name="InternetSales">인터넷가입</string>
+    <string name="Stock">주식/투자</string>
+    <string name="Delivery">택배/물류</string>
+    <string name="Advertisement">(상품)광고</string>
+    <string name="Goverment">공공기관</string>
+    <string name="Bank">금융기관</string>
+    <string name="Telemarketing">텔레마케팅</string>
+    <string name="VoicePissing">보이스피싱</string>
+    <string name="Call">전화유도</string>
+    <string name="Census">설문조사</string>
+    <string name="UsedProductFake">중고사기</string>
+    <string name="Smissing">스미싱</string>
+    <string name="Micellaneous">기타</string>
+
+
 </resources>
+

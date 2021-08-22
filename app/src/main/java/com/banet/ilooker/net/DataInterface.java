@@ -2,7 +2,9 @@ package com.banet.ilooker.net;
 
 import android.content.Context;
 
+import com.banet.ilooker.fragment.NotiFragment_104;
 import com.banet.ilooker.model.IncommingCallSpam002;
+import com.banet.ilooker.model.Noti104;
 
 import java.util.HashMap;
 
@@ -112,6 +114,39 @@ protected String TAG = getClass().getSimpleName();
 
 				@Override
 				public void onFailure(Call<ResponseData<IncommingCallSpam002>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void getapi104requestNormalNoti(NotiFragment_104 context, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Noti104>> call = service.api104requestNormalNoti();
+
+			call.enqueue(new Callback<ResponseData<Noti104>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Noti104>> call, Response<ResponseData<Noti104>> response) {
+					processCommonError(context, callback, response);
+//					if (callback == null) return;
+//
+//					if (response.isSuccessful()) {
+//						callback.onSuccess(response.body());
+//					} else {
+//						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+//						callback.onError( response);
+//					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Noti104>> call, Throwable t) {
 					if (callback == null) return;
 
 					t.printStackTrace();
