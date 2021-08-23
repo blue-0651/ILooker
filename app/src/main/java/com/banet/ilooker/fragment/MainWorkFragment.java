@@ -17,6 +17,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 
 
+
 public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding>{
     protected String TAG = getClass().getSimpleName();
 
@@ -90,13 +91,15 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding>{
 
     }
 
+
+
     public void setMenuFragmentClick(){
         getBinding().llBlockPhoneNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_phone_number_fragment );
-               GoNativeScreen(new BlockPhoneNumberFragment(), bundle);
+               GoNativeScreen((BaseBindingFragment)new BlockPhoneNumberFragment(), bundle);
             }
         });
 
@@ -105,7 +108,8 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding>{
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_noti_fragment );
-                GoNativeScreen(new BlockPhoneNumberFragment(), bundle);
+
+                GoNativeScreen( (BaseBindingFragment)new NotiFragment_104(), bundle);
             }
         });
     }

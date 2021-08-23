@@ -1,9 +1,5 @@
 package com.banet.ilooker.activity;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,11 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.banet.ilooker.R;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.databinding.ActivityMainBinding;
-import com.banet.ilooker.databinding.FragmentBlockPhoneNumberBinding;
-import com.banet.ilooker.fragment.BlockPhoneNumberFragment;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.service.CallingService;
@@ -43,7 +40,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         //request001Install("KOR", Util.getLineNumber(MainActivity.this),"홍길동", "추천인");
 
         Bundle bundle = new Bundle();
-        bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_main_fragment );
+        bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_main_fragment);
         GoHomeScreen();
 
 
@@ -52,12 +49,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_main ;
+        return R.layout.activity_main;
     }
 
-     public void setTitleName(String titleName){
+    public void setTitleName(String titleName) {
         getBinding().titleBar.tvTitle.setText(titleName);
-     }
+    }
 
 
     private void request001Install(String UseLangCd, String UserPhnNo, String UserNm, String RecPhnNo) {
@@ -89,12 +86,22 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     }
 
-    public void setBottomTabBarVisible(Boolean isVisible){
-        if(! isVisible){
+    public void setBottomTabBarVisible(Boolean isVisible) {
+        if (!isVisible) {
             getBinding().bottomTabBar.getRoot().setVisibility(View.GONE);
-        }else{
+        } else {
             getBinding().bottomTabBar.getRoot().setVisibility(View.VISIBLE);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+
+        backPressCloseHandler.onBackPressed();
+//            if(! PrefUtil.getBackKeyCheck(MainActivity.this)) {
+//                backPressCloseHandler.onBackPressed();
+//            }
+    }
+
 }
 

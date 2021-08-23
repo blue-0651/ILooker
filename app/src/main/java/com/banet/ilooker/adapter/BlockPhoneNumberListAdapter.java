@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 
-public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<NotiAdapter.NotiViewHolder> {
+public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<BlockPhoneNumberListAdapter.BlockPhoneNumberListViewHolder> {
 
 
     private Context context;
@@ -42,12 +42,15 @@ public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<NotiAdapte
 
     @NonNull
     @Override
-    public BlockPhoneNumberListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BlockPhoneNumberListAdapter.BlockPhoneNumberListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.layout_block_number_item, parent, false);
         BlockPhoneNumberListViewHolder holder = new BlockPhoneNumberListViewHolder(v);
         return holder;
     }
+
+
+
 
     @Override
     public void onBindViewHolder(@NonNull BlockPhoneNumberListViewHolder viewHolder, int position) {

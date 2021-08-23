@@ -5,31 +5,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.banet.ilooker.R;
-import com.banet.ilooker.model.AILookerPhoneNumber;
+import com.banet.ilooker.model.Noti104;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class NotiAdapter extends RecyclerView.Adapter<NotiAdapter.NotiViewHolder> {
 
 
     private Context context;
-    private ArrayList<AILookerPhoneNumber> mItemList;
+    private List<Noti104> mItemList;
 
-    public NotiAdapter(Context context, ArrayList<AILookerPhoneNumber> mItemList) {
+    public NotiAdapter(Context context, List<Noti104> mItemList) {
 
         this.mItemList = mItemList;
         this.context = context;
     }
 
-    public void setDataList(ArrayList<AILookerPhoneNumber> mItemList) {
-        this.mItemList = new ArrayList<AILookerPhoneNumber>(mItemList);
+    public void setDataList(List<Noti104> mItemList) {
+        this.mItemList = mItemList;
         this.notifyDataSetChanged();
     }
 
@@ -43,7 +44,7 @@ public class NotiAdapter extends RecyclerView.Adapter<NotiAdapter.NotiViewHolder
     @Override
     public NotiViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.layout_block_number_item, parent, false);
+        View v = inflater.inflate(R.layout.layout_noti_item, parent, false);
         NotiViewHolder holder = new NotiViewHolder(v);
         return holder;
     }
@@ -51,11 +52,15 @@ public class NotiAdapter extends RecyclerView.Adapter<NotiAdapter.NotiViewHolder
     @Override
     public void onBindViewHolder(@NonNull NotiViewHolder viewHolder, int position) {
 
-        AILookerPhoneNumber item = mItemList.get(position);
-        if(item.BlockYN.equals("Y")) {
-            viewHolder.tvBlockPhoneNumber.setText(item.PhnNo);
-            viewHolder.tvBlockCategory.setText(item.BlockCategory);
-            viewHolder.tvIncommingDateTime.setText(item.BlockDateTime);
+        Noti104 item = mItemList.get(position);
+        if(mItemList.size()>0) {
+            viewHolder.tvTitle.setText(item.NtcTitl);
+            viewHolder.tvNotiSeq.setText(item.NtcNo);
+
+            viewHolder.tvStartDate.setText(item.NtcStaDate);
+
+        }else{
+            Toast.makeText(context, "공지사항이 존재하지 않습니다.", Toast.LENGTH_SHORT) .show();
         }
 
     }
@@ -68,16 +73,15 @@ public class NotiAdapter extends RecyclerView.Adapter<NotiAdapter.NotiViewHolder
     }
 
     public class NotiViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView tvBlockPhoneNumber;
-        public TextView tvBlockCategory;
-        public TextView tvIncommingDateTime;
+        public TextView tvNotiSeq;
+        public TextView tvTitle;
+        public TextView tvStartDate;
 
         public NotiViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
-            tvBlockPhoneNumber = itemView.findViewById(R.id.tv_phone_number);
-            tvBlockCategory = itemView.findViewById(R.id.tv_category);
-            tvIncommingDateTime = itemView.findViewById(R.id.tv_incomming_date_time);
+            tvTitle = itemView.findViewById(R.id.tvNotiTitle);
+            tvStartDate = itemView.findViewById(R.id.tvNotiStartDate);
+            tvNotiSeq = itemView.findViewById(R.id.tvNotiSeq);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

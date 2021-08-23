@@ -15,9 +15,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.banet.ilooker.R;
 import com.banet.ilooker.fragment.BaseBindingFragment;
-import com.banet.ilooker.fragment.BlockPhoneNumberFragment;
 import com.banet.ilooker.fragment.MainWorkFragment;
-
+import com.banet.ilooker.util.BackPressCloseHandler;
 
 
 public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
@@ -25,7 +24,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     protected BaseBindingFragment<T> mNativeFragment;
     protected String TAG = getClass().getSimpleName();
     protected OnTitleListener mOnTitleListener;
-//    protected BackPressCloseHandler backPressCloseHandler;
+    protected BackPressCloseHandler backPressCloseHandler;
     private boolean isForward = true;
     private ProgressDialog pd; // 프로그레스바 선언
 
@@ -33,6 +32,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setLayoutId(getLayoutId());
+        backPressCloseHandler = new BackPressCloseHandler(this);
     }
 
     @Override
@@ -95,52 +95,53 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         }
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.vw_NativeContent, mNativeFragment).commitAllowingStateLoss();
+        transaction.add(R.id.vw_NativeContent, mNativeFragment).commitAllowingStateLoss();
+        transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
     }
 
-    public void GoNativeScreenAdd(BaseBindingFragment<T> fragment, Bundle bundle) {
-        if (fragment == null) {
-            return;
-        }
-
-        mNativeFragment = fragment;
-        if (bundle != null) {
-            mNativeFragment.setArguments(bundle);
-        }
-
+//    public void GoNativeScreenAdd(BaseBindingFragment<T> fragment, Bundle bundle) {
+//        if (fragment == null) {
+//            return;
+//        }
+//
+//        mNativeFragment = fragment;
+//        if (bundle != null) {
+//            mNativeFragment.setArguments(bundle);
+//        }
+//
+////        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+////        transaction.replace(R.id.vw_NativeContent, mNativeFragment).addToBackStack(null).commitAllowingStateLoss();
+//
 //        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.vw_NativeContent, mNativeFragment).addToBackStack(null).commitAllowingStateLoss();
+//        if (isForward) {
+//            transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
+//        } else {
+//            transaction.setCustomAnimations(R.anim.horizon_slide_in_left, R.anim.horizon_slide_out_right);
+//        }
+//        transaction.replace(R.id.vw_NativeContent, mNativeFragment).commitAllowingStateLoss();
+//    }
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (isForward) {
-            transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
-        } else {
-            transaction.setCustomAnimations(R.anim.horizon_slide_in_left, R.anim.horizon_slide_out_right);
-        }
-        transaction.replace(R.id.vw_NativeContent, mNativeFragment).commitAllowingStateLoss();
-    }
-
-    public void GoNativeScreenAdd(BaseBindingFragment<T> fragment, Bundle bundle, String backStack) {
-        if (fragment == null)
-            return;
-
-        mNativeFragment = fragment;
-        if (bundle != null) {
-            mNativeFragment.setArguments(bundle);
-        }
-
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (isForward) {
-            transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
-        } else {
-            transaction.setCustomAnimations(R.anim.horizon_slide_in_left, R.anim.horizon_slide_out_right);
-        }
-        transaction.replace(R.id.vw_NativeContent, mNativeFragment).commitAllowingStateLoss();
-
-
+//    public void GoNativeScreenAdd(BaseBindingFragment<T> fragment, Bundle bundle, String backStack) {
+//        if (fragment == null)
+//            return;
+//
+//        mNativeFragment = fragment;
+//        if (bundle != null) {
+//            mNativeFragment.setArguments(bundle);
+//        }
+//
 //        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.vw_NativeContent, mNativeFragment).addToBackStack(null).commitAllowingStateLoss();
-    }
+//        if (isForward) {
+//            transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
+//        } else {
+//            transaction.setCustomAnimations(R.anim.horizon_slide_in_left, R.anim.horizon_slide_out_right);
+//        }
+//        transaction.replace(R.id.vw_NativeContent, mNativeFragment).commitAllowingStateLoss();
+//
+//
+////        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+////        transaction.replace(R.id.vw_NativeContent, mNativeFragment).addToBackStack(null).commitAllowingStateLoss();
+//    }
 
 
     /**

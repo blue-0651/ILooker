@@ -1,9 +1,10 @@
 package com.banet.ilooker.fragment;
 
 import android.os.Bundle;
+
 import com.banet.ilooker.R;
 import com.banet.ilooker.activity.MainActivity;
-import com.banet.ilooker.adapter.NotiAdapter;
+import com.banet.ilooker.adapter.BlockPhoneNumberListAdapter;
 import com.banet.ilooker.databinding.FragmentBlockPhoneNumberBinding;
 import com.banet.ilooker.model.AILookerPhoneNumber;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 
 public class BlockPhoneNumberFragment extends BaseBindingFragment<FragmentBlockPhoneNumberBinding>{
 
-    private NotiAdapter mBlockListAdapter;
+    private BlockPhoneNumberListAdapter mBlockListAdapter;
     private ArrayList<AILookerPhoneNumber> mBlockList = new ArrayList<>();
 
     public BlockPhoneNumberFragment() {
@@ -40,7 +41,7 @@ public class BlockPhoneNumberFragment extends BaseBindingFragment<FragmentBlockP
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        mBlockListAdapter = new NotiAdapter(getActivity(), mBlockList) ;
+        mBlockListAdapter = new BlockPhoneNumberListAdapter(getActivity(), mBlockList) ;
         getBinding().rvSearchBlockNumber.setAdapter(mBlockListAdapter);
         ( (MainActivity)getActivity()).setBottomTabBarVisible(false);
 

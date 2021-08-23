@@ -2,7 +2,6 @@ package com.banet.ilooker.net;
 
 import android.content.Context;
 
-import com.banet.ilooker.fragment.NotiFragment_104;
 import com.banet.ilooker.model.IncommingCallSpam002;
 import com.banet.ilooker.model.Noti104;
 
@@ -127,7 +126,7 @@ protected String TAG = getClass().getSimpleName();
 		}
 	}
 
-	public void getapi104requestNormalNoti(NotiFragment_104 context, final ResponseCallback callback ){
+	public void getapi104requestNormalNoti(Context context, final ResponseCallback callback ){
 		try {
 			Call<ResponseData<Noti104>> call = service.api104requestNormalNoti();
 

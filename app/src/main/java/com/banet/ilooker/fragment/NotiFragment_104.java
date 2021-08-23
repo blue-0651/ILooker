@@ -4,8 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
+import androidx.annotation.Nullable;
 
+import com.banet.ilooker.R;
+import com.banet.ilooker.adapter.NotiAdapter;
+import com.banet.ilooker.databinding.FragmentNoti104Binding;
 import com.banet.ilooker.model.Noti104;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
@@ -13,12 +16,13 @@ import com.banet.ilooker.net.ResponseData;
 import java.util.List;
 
 
-public class NotiFragment_104 extends Fragment {
+public class NotiFragment_104 extends BaseBindingFragment<FragmentNoti104Binding> {
 
+    List<Noti104> noti104List = null;
 
-    public NotiFragment_104() {
-        // Required empty public constructor
-    }
+//    public NotiFragment_104() {
+//        // Required empty public constructor
+//    }
 
 
     public static NotiFragment_104 newInstance(String param1, String param2) {
@@ -35,6 +39,23 @@ public class NotiFragment_104 extends Fragment {
         if (getArguments() != null) {
 
         }
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    protected int getLayoutId() {
+
+        return R.layout.fragment_noti_104 ;
+    }
+
+    @Override
+    protected void init(Bundle savedInstanceState) {
+        request104NormalNoti(getActivity());
     }
 
     private void request104NormalNoti(Context context) {
@@ -43,14 +64,16 @@ public class NotiFragment_104 extends Fragment {
 //        params.put("UserPhnNo", Util.getLineNumber(this));
 //        params.put("PhnNo", incomingCallNumber);
 //        params.put("MedPartCd", "001");
-        DataInterface.getInstance().getapi104requestNormalNoti(this, new DataInterface.ResponseCallback<ResponseData<Noti104>>() {
+        DataInterface.getInstance().getapi104requestNormalNoti(context, new DataInterface.ResponseCallback<ResponseData<Noti104>>() {
 
 
             @Override
             public void onSuccess(ResponseData<Noti104> response) {
 
                 if( response.getProcRsltCd().equals("104-000")){
-                   List<Noti104>  noti104List =  (List<Noti104>) response.getList();
+                    noti104List =  (List<Noti104>) response.getList();
+                    NotiAdapter notiAdapter = new NotiAdapter(getActivity(), noti104List);
+                    getBinding().rvNoti.setAdapter(notiAdapter);
 
                 }
             }

@@ -1,6 +1,5 @@
 package com.banet.ilooker.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,16 +75,12 @@ public abstract class BaseBindingFragment<T extends ViewBinding> extends Fragmen
     }
 
 
-    public void GoNativeScreen(BlockPhoneNumberFragment fragment, Bundle bundle) {
+    public void GoNativeScreen(BaseBindingFragment<T>  fragment, Bundle bundle) {
         if (mBaseActivity != null)
             mBaseActivity.GoNativeScreen(fragment, bundle);
     }
 
 
-    public  void GoNativeScreenAdd(BaseBindingFragment<T>  fragment, Bundle bundle) {
-        if (mBaseActivity != null) {
-            mBaseActivity.GoNativeScreenAdd(fragment, bundle);
-        }
-    }
+
 
 }
