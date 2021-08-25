@@ -95,7 +95,7 @@ protected String TAG = getClass().getSimpleName();
 
 	public void get002IncommingCallSmissing(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
-			Call<ResponseData<IncommingCallSpam002>> call = service.api200requestIncommingCallSpam();
+			Call<ResponseData<IncommingCallSpam002>> call = service.api200requestIncommingCallSpam(params);
 
 			call.enqueue(new Callback<ResponseData<IncommingCallSpam002>>() {
 				@Override
@@ -126,9 +126,9 @@ protected String TAG = getClass().getSimpleName();
 		}
 	}
 
-	public void getapi104requestNormalNoti(Context context, final ResponseCallback callback ){
+	public void getapi104requestNormalNoti(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
-			Call<ResponseData<Noti104>> call = service.api104requestNormalNoti();
+			Call<ResponseData<Noti104>> call = service.api104requestNormalNoti(params);
 
 			call.enqueue(new Callback<ResponseData<Noti104>>() {
 				@Override
@@ -158,6 +158,40 @@ protected String TAG = getClass().getSimpleName();
 			ex.printStackTrace();
 		}
 	}
+
+	public void getapi005requestReportPhonNo(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Object>> call = service.api005requestRegPhonNo(params);
+
+			call.enqueue(new Callback<ResponseData<Object>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Object>> call, Response<ResponseData<Object>> response) {
+					processCommonError(context, callback, response);
+//					if (callback == null) return;
+//
+//					if (response.isSuccessful()) {
+//						callback.onSuccess(response.body());
+//					} else {
+//						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+//						callback.onError( response);
+//					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Object>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
 
 	public void get001Install(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
 		try {

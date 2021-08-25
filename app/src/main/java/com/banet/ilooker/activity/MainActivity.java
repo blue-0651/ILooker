@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -13,12 +14,10 @@ import androidx.core.content.ContextCompat;
 import com.banet.ilooker.R;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.databinding.ActivityMainBinding;
-import com.banet.ilooker.databinding.MainFragmentBinding;
 import com.banet.ilooker.fragment.MainWorkFragment;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.service.CallingService;
-import com.banet.ilooker.util.PrefUtil;
 import com.banet.ilooker.util.Util;
 
 import java.util.HashMap;
@@ -89,8 +88,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         DataInterface.getInstance().get001Install(MainActivity.this, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
             @Override
             public void onSuccess(ResponseData<Object> response) {
-                if (response.getProcRsltCd().equals("100-000")) {
-
+                if (response.getProcRsltCd().equals("001-000")) {
+                    Toast.makeText(MainActivity.this, "사용자등록이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -101,7 +100,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
             @Override
             public void onFailure(Throwable t) {
-
+                Toast.makeText(MainActivity.this, "사용자등록 실패. 관리자에게 문의하십시요.", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -116,14 +115,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         }
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        if( getTopFragment() != null && getTopFragment() instanceof MainWorkFragment){
-//                backPressCloseHandler.onBackPressed();
-//            }
-//        else
-//            ( (BaseActivity)this).fragmentManager.popBackStack();
-//    }
+    @Override
+    public void onBackPressed() {
+        if( getTopFragment() != null && getTopFragment() instanceof MainWorkFragment){
+                backPressCloseHandler.onBackPressed();
+            }
+        else
+            ( (BaseActivity)this).fragmentManager.popBackStack();
+    }
 
 }
 

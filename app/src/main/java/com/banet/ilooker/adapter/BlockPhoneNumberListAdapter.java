@@ -1,6 +1,7 @@
 package com.banet.ilooker.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.banet.ilooker.R;
+import com.banet.ilooker.activity.MainActivity;
+import com.banet.ilooker.common.AppDef;
+import com.banet.ilooker.fragment.BaseBindingFragment;
+import com.banet.ilooker.fragment.Report_RegFragment_005;
 import com.banet.ilooker.model.AILookerPhoneNumber;
 
 import org.jetbrains.annotations.NotNull;
@@ -88,9 +93,11 @@ public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<BlockPhone
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION) {
- //                       상세화면 띄우기
-//                        Intent intent = new Intent(context, detail.class);
-//                        context.startActivity(intent);
+                        Bundle bundle = new Bundle();
+                        bundle.putString(AppDef.incoming_number_extra,  tvBlockPhoneNumber.getText().toString() );
+                        bundle.putString(AppDef.incoming_date_time,  tvIncommingDateTime.getText().toString() );
+                        bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_and_report_phone_number_fragment );
+                        ( (MainActivity)context).GoNativeScreen((BaseBindingFragment)new Report_RegFragment_005(), bundle);
                     }
                 }
             });

@@ -31,6 +31,7 @@ public class BlockPhoneNumberFragment extends BaseBindingFragment<FragmentBlockP
             mBlockList.add(new AILookerPhoneNumber("010-1234-6666", "대출", "Y", "21/06/09 14:00"));
         }
 
+
     }
 
 
@@ -44,6 +45,7 @@ public class BlockPhoneNumberFragment extends BaseBindingFragment<FragmentBlockP
         mBlockListAdapter = new BlockPhoneNumberListAdapter(getActivity(), mBlockList) ;
         getBinding().rvSearchBlockNumber.setAdapter(mBlockListAdapter);
         ( (MainActivity)getActivity()).setBottomTabBarVisible(false);
+        getBinding().tvTotalNo.setText("차단번호 총: " + mBlockList.size());
 
     }
 }

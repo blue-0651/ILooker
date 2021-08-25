@@ -17,11 +17,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/tv_total_no"
                 style="@style/NormalDescText"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
-                android:text="차단번호 총 :" />
+                android:text="" />
 
             <LinearLayout
                 android:id="@+id/ll_search"

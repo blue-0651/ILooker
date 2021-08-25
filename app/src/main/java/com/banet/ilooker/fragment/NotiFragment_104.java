@@ -12,7 +12,9 @@ import com.banet.ilooker.databinding.FragmentNoti104Binding;
 import com.banet.ilooker.model.Noti104;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
+import com.banet.ilooker.util.Util;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -59,12 +61,11 @@ public class NotiFragment_104 extends BaseBindingFragment<FragmentNoti104Binding
     }
 
     private void request104NormalNoti(Context context) {
-//        HashMap<String, Object> params = new HashMap<>();
-//        params.put("UseLangCd", "KOR");
-//        params.put("UserPhnNo", Util.getLineNumber(this));
-//        params.put("PhnNo", incomingCallNumber);
-//        params.put("MedPartCd", "001");
-        DataInterface.getInstance().getapi104requestNormalNoti(context, new DataInterface.ResponseCallback<ResponseData<Noti104>>() {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("UseLangCd", "KOR");
+        params.put("UserPhnNo", Util.getLineNumber(getActivity()));
+
+        DataInterface.getInstance().getapi104requestNormalNoti(context, params, new DataInterface.ResponseCallback<ResponseData<Noti104>>() {
 
 
             @Override
@@ -74,6 +75,8 @@ public class NotiFragment_104 extends BaseBindingFragment<FragmentNoti104Binding
                     noti104List =  (List<Noti104>) response.getList();
                     NotiAdapter notiAdapter = new NotiAdapter(getActivity(), noti104List);
                     getBinding().rvNoti.setAdapter(notiAdapter);
+                    getBinding().tvTotalNoti.setText("일반공지 총 :" + noti104List.size());
+
 
                 }
             }

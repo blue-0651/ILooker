@@ -52,16 +52,13 @@
                     />
             </LinearLayout>
             <RadioGroup
+                android:id="@+id/rdLikeGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
+                android:weightSum="10"
+                android:orientation="horizontal">
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -77,14 +74,14 @@
                         android:text="@string/dislike"
                         android:textSize="20sp" />
 
-                </LinearLayout>
             </RadioGroup>
 
             <RadioGroup
-                android:id="@+id/rdGroup"
+                android:id="@+id/rdCategoryGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -318,6 +315,7 @@
             android:weightSum="12"
             >
             <LinearLayout
+                android:id="@+id/ll_report_block"
                 android:layout_width="0dp"
                 android:layout_weight="4"
                 android:layout_height="match_parent"
@@ -337,6 +335,7 @@
                     android:text="신고/차단" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_report"
                 android:layout_width="0dp"
                 android:layout_weight="4"
                 android:layout_height="match_parent"
@@ -355,6 +354,7 @@
                     android:text="신고" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_block"
                 android:layout_width="0dp"
                 android:layout_weight="4"
                 android:layout_height="match_parent"
