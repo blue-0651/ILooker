@@ -21,10 +21,10 @@ public class Global {
     /**
      * 접속 호스트 주소. 개발계
      */
-    public static final String HOST_ADDRESS_DEV = "http://222.112.109.110:8080" +
-            "";
+   // public static final String HOST_ADDRESS_DEV = "http://222.112.109.110:8080" +
+   //         "";
+    public static final String HOST_ADDRESS_DEV = "http://www.ai-looker.com:8080/" ;
 
-    public static final String COMPANY_PHONENO = "01067841226" ;
     private static Global instance;
 
     public static final String EXTRA_INCOMING_CALL_NUMBER = "extra_incoming_call_number" ;

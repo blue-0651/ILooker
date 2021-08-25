@@ -103,12 +103,12 @@ public class Util {
     }
 
 
-    public static void callCompany(Activity activity) {
-
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Global.COMPANY_PHONENO));
-        activity.startActivity(intent);
-        activity.finish();
-    }
+//    public static void callCompany(Activity activity) {
+//
+//        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Global.COMPANY_PHONENO));
+//        activity.startActivity(intent);
+//        activity.finish();
+//    }
 
 
     /**

@@ -15,7 +15,7 @@ import retrofit2.http.POST;
 public interface HttpService {
 
 
-    @POST("ApiInstall/")
+    @POST("app/001_ApiInstall/")
     Call<ResponseData<Object>> api100requestInstall(@Body Map<String, Object> params);
 
     @POST("app/002_ApiIncomingPhnCall/")

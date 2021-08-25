@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -18,16 +19,18 @@ import com.banet.ilooker.fragment.BaseBindingFragment;
 import com.banet.ilooker.fragment.MainWorkFragment;
 import com.banet.ilooker.util.BackPressCloseHandler;
 
+import java.util.List;
+
 
 public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
     protected T mViewBinding;
-    protected BaseBindingFragment<T> mNativeFragment;
+    protected BaseBindingFragment<T> mBaseFragment;
     protected String TAG = getClass().getSimpleName();
     protected OnTitleListener mOnTitleListener;
     protected BackPressCloseHandler backPressCloseHandler;
     private boolean isForward = true;
     private ProgressDialog pd; // 프로그레스바 선언
-
+    protected FragmentManager fragmentManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,13 +92,13 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
             return;
         }
 
-        mNativeFragment = fragment;
+        mBaseFragment = fragment;
         if (bundle != null) {
-            mNativeFragment.setArguments(bundle);
+            mBaseFragment.setArguments(bundle);
         }
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.vw_NativeContent, mNativeFragment).commitAllowingStateLoss();
+        transaction.add(R.id.vw_NativeContent, mBaseFragment).commitAllowingStateLoss();
         transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
     }
 
@@ -159,22 +162,34 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
      * @param bundle Parameter 번들
      */
     protected void GoRootScreen(Bundle bundle) {
-        mNativeFragment = getRootFragment();
+        mBaseFragment = getRootFragment();
 
         if (bundle != null) {
-            mNativeFragment.setArguments(bundle);
+            mBaseFragment.setArguments(bundle);
         }
 
 //        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //        transaction.replace(R.id.vw_NativeContent, mNativeFragment).commit();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (isForward) {
-            transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
-        } else {
-            transaction.setCustomAnimations(R.anim.horizon_slide_in_left, R.anim.horizon_slide_out_right);
-        }
-        transaction.replace(R.id.vw_NativeContent, mNativeFragment).commit();
+//        if (isForward) {
+//            transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
+//        } else {
+//            transaction.setCustomAnimations(R.anim.horizon_slide_in_left, R.anim.horizon_slide_out_right);
+//        }
 
+        transaction.add(R.id.vw_NativeContent, mBaseFragment).commitAllowingStateLoss();
+        transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
+
+    }
+
+    public Fragment getTopFragment(){
+         fragmentManager = getSupportFragmentManager();
+
+      List<Fragment>  fragments = fragmentManager.getFragments();
+        if(fragments.size()>0){
+          return  fragments.get(fragments.size() -1);
+        }
+        return null;
     }
 
 

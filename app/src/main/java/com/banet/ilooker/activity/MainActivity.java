@@ -13,9 +13,13 @@ import androidx.core.content.ContextCompat;
 import com.banet.ilooker.R;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.databinding.ActivityMainBinding;
+import com.banet.ilooker.databinding.MainFragmentBinding;
+import com.banet.ilooker.fragment.MainWorkFragment;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.service.CallingService;
+import com.banet.ilooker.util.PrefUtil;
+import com.banet.ilooker.util.Util;
 
 import java.util.HashMap;
 
@@ -37,7 +41,25 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         Intent serviceIntent = new Intent(this, CallingService.class);
         ContextCompat.startForegroundService(this, serviceIntent);
-        //request001Install("KOR", Util.getLineNumber(MainActivity.this),"홍길동", "추천인");
+        request001Install("KOR", Util.getLineNumber(MainActivity.this),"홍길동", "추천인");
+
+        getBinding().bottomTabBar.llHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_main_fragment);
+                GoHomeScreen();
+            }
+        });
+
+        getBinding().titleBar.btnTitleBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_main_fragment);
+                GoHomeScreen();
+            }
+        });
 
         Bundle bundle = new Bundle();
         bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_main_fragment);
@@ -94,14 +116,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-
-        backPressCloseHandler.onBackPressed();
-//            if(! PrefUtil.getBackKeyCheck(MainActivity.this)) {
+//    @Override
+//    public void onBackPressed() {
+//        if( getTopFragment() != null && getTopFragment() instanceof MainWorkFragment){
 //                backPressCloseHandler.onBackPressed();
 //            }
-    }
+//        else
+//            ( (BaseActivity)this).fragmentManager.popBackStack();
+//    }
 
 }
 
