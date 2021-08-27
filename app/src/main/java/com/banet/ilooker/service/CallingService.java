@@ -183,10 +183,11 @@ public class CallingService extends Service {
             @Override
             public void onSuccess(ResponseData<IncommingCallSpam002> response) {
 
-                if( response.getProcRsltCd().equals("002-000")){
+                if( response.getProcRsltCd().equals("002-000") && response.getMsgPopupYN().equals("Y")){
                  IncommingCallSpam002 incommingCallSpam002 =  (IncommingCallSpam002) response.getData();
                    showIncomingPhoneUI(context, intent, state, incommingCallSpam002);
                }
+
             }
 
             @Override
