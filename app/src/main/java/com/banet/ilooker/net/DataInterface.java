@@ -3,6 +3,7 @@ package com.banet.ilooker.net;
 import android.content.Context;
 
 import com.banet.ilooker.model.IncommingCallSpam002;
+import com.banet.ilooker.model.MainUserInfo101;
 import com.banet.ilooker.model.Noti104;
 
 import java.util.HashMap;
@@ -224,6 +225,39 @@ protected String TAG = getClass().getSimpleName();
 			ex.printStackTrace();
 		}
 	}
+
+	public void get101UserInfo(HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<MainUserInfo101>> call = service.api101UserInfo(params);
+
+			call.enqueue(new Callback<ResponseData<MainUserInfo101>>() {
+				@Override
+				public void onResponse(Call<ResponseData<MainUserInfo101>> call, Response<ResponseData<MainUserInfo101>> response) {
+					if (callback == null) return;
+
+					if (response.isSuccessful()) {
+						callback.onSuccess(response.body());
+					} else {
+						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+						callback.onError( response);
+					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<MainUserInfo101>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
 
 
 //

@@ -2,12 +2,17 @@ package com.banet.ilooker.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.banet.ilooker.R;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.databinding.MainFragmentBinding;
+import com.banet.ilooker.model.MainUserInfo101;
+import com.banet.ilooker.net.DataInterface;
+import com.banet.ilooker.net.ResponseData;
+import com.banet.ilooker.util.Util;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -15,7 +20,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 
 public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding>{
@@ -29,6 +34,7 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding>{
         if (bundle != null) {
 
         }
+
 
     }
 
@@ -54,7 +60,9 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding>{
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        request101MainUserInfo(Util.getLineNumber(getActivity()));
         setPichart();
+
     }
 
     private void setPichart() {
@@ -111,6 +119,35 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding>{
 
                 GoNativeScreen( (BaseBindingFragment)new NotiFragment_104(), bundle);
             }
+        });
+    }
+
+    private void request101MainUserInfo(String userPhoneNo){
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("UseLangCd", "KOR");  //사용자 국가코드 "KOR"
+        params.put("UserPhnNo", userPhoneNo);   //사용자 전화번호
+
+        DataInterface.getInstance().get101UserInfo(params, new DataInterface.ResponseCallback<ResponseData<MainUserInfo101>>() {
+            @Override
+            public void onSuccess(ResponseData<MainUserInfo101> response) {
+                if (response.getProcRsltCd().equals("101-000")) {
+                  MainUserInfo101 mainUserInfo101 = (MainUserInfo101) response.getData();
+                  getBinding().tvCustName.setText(mainUserInfo101.UserNm);
+                  getBinding().tvcurrPoint.setText(mainUserInfo101.CurrPnt);
+
+                }
+            }
+
+            @Override
+            public void onError(ResponseData<MainUserInfo101> response) {
+                Toast.makeText(getActivity(), "사용자등록 실패. 관리자에게 문의하십시요.", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(getActivity(), "사용자등록 실패. 관리자에게 문의하십시요.", Toast.LENGTH_SHORT).show();
+            }
+
         });
     }
 

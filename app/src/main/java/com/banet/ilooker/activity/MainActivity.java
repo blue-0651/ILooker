@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 || ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this
                     , new String[]{Manifest.permission.READ_CALL_LOG, Manifest.permission.INTERNET
-                            , Manifest.permission.READ_PHONE_STATE, Manifest.permission.FOREGROUND_SERVICE}
+                            , Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_PHONE_NUMBERS, Manifest.permission.FOREGROUND_SERVICE}
                     , 1);
         }
 

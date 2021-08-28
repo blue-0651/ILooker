@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<layout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_pop_up"
     android:layout_width="match_parent"
@@ -41,9 +41,17 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="10dp"
-            android:gravity="center">
+
+            >
+            <ImageView
+                android:id="@+id/iv_call_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_calling"
+                android:layout_alignParentLeft="true"
+                />
 
             <TextView
                 android:id="@+id/tv_call_number"
@@ -51,59 +59,108 @@
                 android:layout_height="wrap_content"
                 android:text="1800-5567"
                 android:textColor="@color/good_number_color"
-                android:textSize="30sp" />
+                android:textSize="25sp"
+                android:layout_toRightOf="@id/iv_call_status"
+                />
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/ll_favorite"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="30dp"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/iv_left"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="5dp"
+                />
 
             <TextView
-                android:id="@+id/tv_dislike"
+                android:id="@+id/tv_favorite_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="    싫어요"
-                android:textColor="@color/bad_number_color"
-                android:textSize="10sp" />
+                android:text="좋아요"
+                android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tv_dislike_num"
+                android:id="@+id/tv_favorite_left_num"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginLeft="5dp"
+                android:text="0"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <!--            <TextView-->
+<!--                android:id="@+id/tv_type_num"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:text="20"-->
+<!--                android:textSize="16sp" />-->
+
+            <TextView
+                android:id="@+id/tv_type_cate"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="주식"
+                android:textColor="@color/teal_700"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_right"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="40dp"
+                />
+            <TextView
+                android:id="@+id/tv_favorite_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="싫어요"
+                android:textSize="16sp"
+                 />
+
+            <TextView
+                android:id="@+id/tv_favorite_right_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:text="0"
-                android:textColor="@color/bad_number_color"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/tv_like"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="    좋아요"
-                android:textColor="@color/good_number_color"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/tv_like_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="0"
-                android:textColor="@color/good_number_color"
-                android:textSize="10sp" />
+                android:textColor="#000000"
+                android:textSize="16sp" />
         </LinearLayout>
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_whitelist"
+            android:layout_width="match_parent"
+             android:layout_height="40dp"
+             android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:visibility="invisible">
+             <TextView
+                 android:id="@+id/tv_org_name"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textSize="18sp"
+                 android:text="대우증권"
+                 android:textColor="#000000"
+                 />
+
              <TextView
                  android:id="@+id/tv_whitelist"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:textSize="20sp" />
+                 android:text="  입니다."
+                 android:textSize="16sp" />
+
          </LinearLayout>
 
         <LinearLayout
@@ -114,6 +171,7 @@
             android:weightSum="4">
 
             <LinearLayout
+                android:id="@+id/ll_call_return"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -139,16 +197,20 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_call_deny"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="10dp"
+                >
 
                 <ImageView
+                    android:id="@+id/iv_call_deny"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_deny" />
+                    android:src="@drawable/ic_deny"
+                    />
 
                 <TextView
                     android:id="@+id/tv_call_deny"
@@ -164,6 +226,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_sned_sms"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -182,13 +245,14 @@
                     android:layout_weight="1"
                     android:background="#ffffff"
                     android:gravity="center"
-                    android:text="문자보내기"
+                    android:text="문자전송"
                     android:textColor="@color/text_black"
                     android:textSize="12sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_report_block"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -233,3 +297,4 @@
             android:textSize="30dp" />
     </LinearLayout>
 </LinearLayout>
+</layout>

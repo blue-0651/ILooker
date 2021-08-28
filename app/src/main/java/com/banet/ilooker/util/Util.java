@@ -9,6 +9,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -20,8 +21,6 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Debug;
 import android.os.Vibrator;
-//import android.support.v4.content.ContextCompat;
-//import android.support.v4.content.res.ResourcesCompat;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -39,8 +38,6 @@ import android.widget.ListView;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-
-import com.banet.ilooker.common.Global;
 
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
@@ -71,6 +68,9 @@ import java.util.Vector;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
+
+//import android.support.v4.content.ContextCompat;
+//import android.support.v4.content.res.ResourcesCompat;
 
 
 public class Util {
@@ -789,7 +789,7 @@ public class Util {
     }
 
     public static String getLineNumber(Context context) {
-        int permissionCheck = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE);
+        int permissionCheck = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE );
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (tm == null || tm.getLine1Number() == null || tm.getLine1Number().isEmpty()) {
@@ -1600,6 +1600,14 @@ public class Util {
         }
 
         return phrase.toString();
+    }
+    //******************************************************************
+    public static Drawable getDrawable(Context context, int drawable){
+        return ContextCompat.getDrawable(context, drawable);
+    }
+
+    public static int getColor(Context context, int id){
+        return ContextCompat.getColor(context, id);
     }
 
 }

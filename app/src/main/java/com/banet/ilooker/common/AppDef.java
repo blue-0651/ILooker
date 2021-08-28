@@ -7,6 +7,8 @@ public class AppDef {
     public static final String FRAGMENT_TITLE_NAME = "fragment_title";
     public static final String incoming_number_extra = "incoming_number_extra";
     public static final String incoming_date_time = "called_date_time";
+    public static final String action_phone_state_changed = "action_phone_state_changed";
+    public static final String phone_state = "phone_state";
 
     //각 프래그먼트화면 이를을 정의한다. 번들에서 사용
     public static final String title_main_fragment = "메인" ;
@@ -19,6 +21,11 @@ public class AppDef {
         Loan, Gamble, Adult, PhoneSales, Insurance, Alter_Driving, InternetSales, Stock
         ,Delivery, Advertisement, Goverment, Bank, Telemarketing, VoicePissing, Call, Sensus,
         UsedProductFake, Smissing, Micellaneous
+    }
+
+
+    public enum PhoneCallStatus{
+        Ringing, Idle, OffHook
     }
 
 }

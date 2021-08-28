@@ -3,7 +3,9 @@ package com.banet.ilooker.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class IncommingSMS003 {
+import java.io.Serializable;
+
+public class IncommingSMS003 implements Serializable {
     @SerializedName("TopTpClsNm")
     @Expose
     String TopTpClsNm;    //대표유형분류명

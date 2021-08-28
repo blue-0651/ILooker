@@ -2,6 +2,7 @@ package com.banet.ilooker.net;
 
 import com.banet.ilooker.model.IncommingCallSpam002;
 import com.banet.ilooker.model.IncommingSMS003;
+import com.banet.ilooker.model.MainUserInfo101;
 import com.banet.ilooker.model.Noti104;
 
 import java.util.Map;
@@ -16,6 +17,8 @@ public interface HttpService {
 
     @POST("app/001_ApiInstall/")
     Call<ResponseData<Object>> api100requestInstall(@Body Map<String, Object> params);
+    @POST("app/101_ApiMainPageInq/")
+    Call<ResponseData<MainUserInfo101>> api101UserInfo(@Body Map<String, Object> params);
 
     @POST("app/002_ApiIncomingPhnCall/")
     Call<ResponseData<IncommingCallSpam002>> api200requestIncommingCallSpam(@Body Map<String, Object> params);

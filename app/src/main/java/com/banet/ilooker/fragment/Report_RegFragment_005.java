@@ -82,7 +82,7 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
         });
 
     }
-    private void request005RequestReportPhoneNo(Context context) {
+    public  void request005RequestReportPhoneNo(Context context) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("UseLangCd", "KOR");
         params.put("UserPhnNo", Util.getLineNumber(getActivity()));
