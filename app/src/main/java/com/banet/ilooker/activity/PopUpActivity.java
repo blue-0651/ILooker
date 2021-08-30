@@ -1,29 +1,37 @@
 package com.banet.ilooker.activity;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.telecom.TelecomManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.banet.ilooker.R;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.common.Global;
 import com.banet.ilooker.databinding.CallPopupTopBinding;
+import com.banet.ilooker.fragment.BaseBindingFragment;
+import com.banet.ilooker.fragment.BlockPhoneNumberFragment;
 import com.banet.ilooker.model.IncommingCallSpam002;
+import com.banet.ilooker.service.CallingService;
 import com.banet.ilooker.util.Util;
 
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 
 public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
@@ -33,6 +41,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
     String incomingCallNumber = "";
     TextView mTvTime, mTvLeft, mTvLeftNum, mTvRight, mTvRightNum, mTvWhitelist, mTvOrg, mTvType, mTvTypeNum, mTvCallDeny;
     IncommingCallSpam002 mIncommingCallSpam002;
+    TelecomManager tcm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +54,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
             mIncommingCallSpam002 = (IncommingCallSpam002) bundle.getSerializable(Global.EXTRA_INCOMING_CALL_DATA);
 
         }
-        //  mIncommingCallSpam002 = new IncommingCallSpam002();
+        tcm = (TelecomManager) PopUpActivity.this.getSystemService(Context.TELECOM_SERVICE);
 
         tvPhoneNumber = findViewById(R.id.tv_call_number);
         tvPhoneNumber.setText(incomingCallNumber);
@@ -82,30 +91,35 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
 
         mllCallDeny = findViewById(R.id.ll_call_deny);
         mllCallDeny.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.P)
             @Override
             public void onClick(View v) {
 
-                TelecomManager tm = (TelecomManager) getApplicationContext().getSystemService(Context.TELECOM_SERVICE);
-                try {
-                    Method m = tm.getClass().getDeclaredMethod("endCall");
+                if (checkSelfPermission(Manifest.permission.ANSWER_PHONE_CALLS) == PackageManager.PERMISSION_GRANTED) {
 
-                    m.setAccessible(true);
-
-                    if ((incomingCallNumber != null && incomingCallNumber != "")) {
-                        boolean temp = (boolean) m.invoke(tm);
-                        Toast.makeText(getApplicationContext(), Boolean.toString(temp), Toast.LENGTH_SHORT).show();
+                    if (tcm != null) {
+                        try {
+                            if (incomingCallNumber != null) {
+                                tcm.endCall();
+                                Log.d(TAG, "Incoming Call Blocked " + incomingCallNumber);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
 
             }
         });
-        getBinding().llSnedSms.setOnClickListener(new View.OnClickListener() {
+
+        mllSendSms = findViewById(R.id.ll_send_sms);
+        mllSendSms.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.P)
             @Override
             public void onClick(View v) {
-
+                if (CallingService.mLastState.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
+                    endCall();
+                }
                 Uri uri = Uri.parse("smsto:" + incomingCallNumber); //sms 문자와 관련된 Data는 'smsto:'로 시작. 이후는 문자를 받는 사람의 전화번호
 
                 Intent i = new Intent(Intent.ACTION_SENDTO, uri); //시스템 액티비티인 SMS문자보내기 Activity의 action값
@@ -120,26 +134,30 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
 
         mllReturnCall = findViewById(R.id.ll_call_return);
         mllReturnCall.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.P)
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent("android.intent.action.CALL", Uri.parse(incomingCallNumber)));
-                Uri uri= Uri.parse("tel:" + incomingCallNumber); //전화와 관련된 Data는 'Tel:'으로 시작. 이후는 전화번호
+                if (CallingService.mLastState.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
+                    endCall();
+                }
 
-               Intent i= new Intent(Intent.ACTION_DIAL,uri); //시스템 액티비티인 Dial Activity의 action값
+                Uri uri = Uri.parse("tel:" + incomingCallNumber);
+                Intent i = new Intent(Intent.ACTION_DIAL, uri);
 
                 startActivity(i);//액티비티 실행
                 finish();
             }
         });
 
-     //   mllReportBlock = findViewById(R.id.ll_report_block);
+
         getBinding().llReportBlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_phone_number_fragment);
-//                GoNativeScreen((BaseBindingFragment) new BlockPhoneNumberFragment(), bundle);
-                Toast.makeText(getApplicationContext(), "공사중입니다.", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(PopUpActivity.this, MainActivity.class);
+                intent.putExtra(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_phone_number_fragment);
+                intent.putExtra(AppDef.MOVE_TO_BLOCK_PHONE_NUMBER, incomingCallNumber);
+                startActivity(intent);
             }
         });
 
@@ -155,6 +173,24 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
         showFavoritePart();
         showOrgWhiteList();
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.P)
+    private void endCall() {
+        if (tcm != null) {
+            try {
+                if (incomingCallNumber != null) {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ANSWER_PHONE_CALLS) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    tcm.endCall();
+                    Log.d(TAG, "Incoming Call Blocked " + incomingCallNumber);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     @Override
     protected void onResume() {

@@ -34,8 +34,8 @@ import java.util.HashMap;
 public class CallingService extends Service {
     public static final String CHANNEL_ID = "ILOOKER_00";
     public static final String EXTRA_CALL_NUMBER = "call_number";
-    public static final String TAG = "PHONE_STATE";
-    private static String mLastState;
+    public static final String TAG = "CallingService";
+    public  static String mLastState;
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -80,7 +80,7 @@ public class CallingService extends Service {
     };
 
     private void sendCallStatus(String state) {
-       // Log.d("messagePhoneState", "Broadcasting message");
+        Log.d(TAG, "Broadcasting call state");
         Intent intent = new Intent(AppDef.action_phone_state_changed);
         intent.putExtra(AppDef.phone_state, state);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);

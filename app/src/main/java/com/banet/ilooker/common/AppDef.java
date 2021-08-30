@@ -9,6 +9,9 @@ public class AppDef {
     public static final String incoming_date_time = "called_date_time";
     public static final String action_phone_state_changed = "action_phone_state_changed";
     public static final String phone_state = "phone_state";
+    public static final String MOVE_TO_FRAGMENT = "move_to_fragment";
+    public static final String MOVE_TO_BLOCK_PHONE_NUMBER = "move_to_block_phone_number";
+
 
     //각 프래그먼트화면 이를을 정의한다. 번들에서 사용
     public static final String title_main_fragment = "메인" ;
