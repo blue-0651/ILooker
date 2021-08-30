@@ -32,6 +32,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     public static final String TAG = "MainActivity";
     public static String MOVE_TO_FRAGMENT_NAME = "";
     public static String MOVE_TO_BLOCK_PHONE_NUMBER = "";
+    boolean firstInit = true; //Preference로 변경
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,17 +42,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             MOVE_TO_BLOCK_PHONE_NUMBER = bundle_main.getString(AppDef.MOVE_TO_BLOCK_PHONE_NUMBER);
         }
 
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this
-                    , new String[]{Manifest.permission.READ_CALL_LOG, Manifest.permission.INTERNET, Manifest.permission.ANSWER_PHONE_CALLS
-                            , Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_PHONE_NUMBERS, Manifest.permission.FOREGROUND_SERVICE}
-                    , 1);
+        if(bundle_main == null ){
+            init();
+            firstInit = false;
         }
 
-        Intent serviceIntent = new Intent(this, CallingService.class);
-        ContextCompat.startForegroundService(this, serviceIntent);
-        request001Install("KOR", Util.getLineNumber(MainActivity.this), "홍길동", "추천인");
 
         getBinding().bottomTabBar.llHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +68,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         //popup에서 번호 차단시 바로 차단 프래그먼트로 이동
         if (MOVE_TO_FRAGMENT_NAME != "") {  //신고차단 타이틀 만들것
-            if(MOVE_TO_FRAGMENT_NAME.equals(AppDef.title_block_phone_number_fragment)) {
+            if(MOVE_TO_FRAGMENT_NAME.equals(AppDef.title_block_and_report_phone_number_fragment)) {
                 Bundle bundle_move_to_005_block_report = new Bundle();
                 bundle_move_to_005_block_report.putString(AppDef.incoming_number_extra, MOVE_TO_BLOCK_PHONE_NUMBER);
                 bundle_move_to_005_block_report.putString(AppDef.incoming_date_time, getDateTime());
@@ -150,6 +145,20 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             backPressCloseHandler.onBackPressed();
         } else
             ((BaseActivity) this).fragmentManager.popBackStack();
+    }
+
+    private void init(){
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this
+                    , new String[]{Manifest.permission.READ_CALL_LOG, Manifest.permission.INTERNET, Manifest.permission.ANSWER_PHONE_CALLS
+                            , Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_PHONE_NUMBERS, Manifest.permission.FOREGROUND_SERVICE}
+                    , 1);
+        }
+
+        Intent serviceIntent = new Intent(this, CallingService.class);
+        ContextCompat.startForegroundService(this, serviceIntent);
+        request001Install("KOR", Util.getLineNumber(MainActivity.this), "홍길동", "추천인");
     }
 
 }

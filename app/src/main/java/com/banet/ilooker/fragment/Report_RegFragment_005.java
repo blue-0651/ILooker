@@ -100,7 +100,7 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                 if( response.getProcRsltCd().equals("005-000")){
                     Toast.makeText(context, "신고가 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     Bundle bundle = new Bundle();
-                    bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_phone_number_fragment );
+                    bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_phone_number_history_fragment);
                     GoNativeScreen((BaseBindingFragment)new BlockPhoneNumberFragment(), bundle);
                 }
             }

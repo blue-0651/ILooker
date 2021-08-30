@@ -87,7 +87,6 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
         mTvOrg = findViewById(R.id.tv_org_name);
         mTvWhitelist = findViewById(R.id.tv_whitelist);
 
-        mTvCallDeny = findViewById(R.id.tv_call_deny);
 
         mllCallDeny = findViewById(R.id.ll_call_deny);
         mllCallDeny.setOnClickListener(new View.OnClickListener() {
@@ -149,15 +148,19 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
             }
         });
 
-
-        getBinding().llReportBlock.setOnClickListener(new View.OnClickListener() {
+        mllReportBlock = findViewById(R.id.ll_report_block);
+        mllReportBlock.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.P)
             @Override
             public void onClick(View v) {
-
+                endCall();
                 Intent intent = new Intent(PopUpActivity.this, MainActivity.class);
-                intent.putExtra(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_phone_number_fragment);
+                intent.putExtra(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_main_fragment);
+                intent.putExtra(AppDef.MOVE_TO_FRAGMENT, AppDef.title_block_and_report_phone_number_fragment);
                 intent.putExtra(AppDef.MOVE_TO_BLOCK_PHONE_NUMBER, incomingCallNumber);
+
                 startActivity(intent);
+                finish();
             }
         });
 
