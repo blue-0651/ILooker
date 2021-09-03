@@ -4,22 +4,18 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.banet.ilooker.R;
 import com.banet.ilooker.common.AppDef;
-import com.banet.ilooker.common.Global;
 import com.banet.ilooker.databinding.ActivityMainBinding;
 import com.banet.ilooker.fragment.BaseBindingFragment;
 import com.banet.ilooker.fragment.MainWorkFragment;
 import com.banet.ilooker.fragment.Report_RegFragment_005;
-import com.banet.ilooker.model.IncommingCallSpam002;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.service.CallingService;
@@ -148,11 +144,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     }
 
     private void init(){
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this
                     , new String[]{Manifest.permission.READ_CALL_LOG, Manifest.permission.INTERNET, Manifest.permission.ANSWER_PHONE_CALLS
-                            , Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_PHONE_NUMBERS, Manifest.permission.FOREGROUND_SERVICE}
+                            , Manifest.permission.READ_PHONE_STATE, Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_PHONE_NUMBERS, Manifest.permission.FOREGROUND_SERVICE}
                     , 1);
         }
 

@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
@@ -26,9 +25,7 @@ import com.banet.ilooker.R;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.common.Global;
 import com.banet.ilooker.databinding.CallPopupTopBinding;
-import com.banet.ilooker.fragment.BaseBindingFragment;
-import com.banet.ilooker.fragment.BlockPhoneNumberFragment;
-import com.banet.ilooker.model.IncommingCallSpam002;
+import com.banet.ilooker.model.IncommingCall;
 import com.banet.ilooker.service.CallingService;
 import com.banet.ilooker.util.Util;
 
@@ -40,7 +37,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
     LinearLayout mllFavorite, mllWhiteList, mllCallDeny, mllReturnCall, mllSendSms, mllReportBlock;
     String incomingCallNumber = "";
     TextView mTvTime, mTvLeft, mTvLeftNum, mTvRight, mTvRightNum, mTvWhitelist, mTvOrg, mTvType, mTvTypeNum, mTvCallDeny;
-    IncommingCallSpam002 mIncommingCallSpam002;
+    IncommingCall mIncommingCall;
     TelecomManager tcm;
 
     @Override
@@ -51,7 +48,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             incomingCallNumber = bundle.getString(Global.EXTRA_INCOMING_CALL_NUMBER);
-            mIncommingCallSpam002 = (IncommingCallSpam002) bundle.getSerializable(Global.EXTRA_INCOMING_CALL_DATA);
+            mIncommingCall = (IncommingCall) bundle.getSerializable(Global.EXTRA_INCOMING_CALL_DATA);
 
         }
         tcm = (TelecomManager) PopUpActivity.this.getSystemService(Context.TELECOM_SERVICE);
@@ -171,7 +168,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
                 finish();
             }
         });
-        setPhoneNumberColor(mIncommingCallSpam002.WhtListYN);
+        setPhoneNumberColor(mIncommingCall.WhtListYN);
         setPhoneNumberColor("Y");
         showFavoritePart();
         showOrgWhiteList();
@@ -257,38 +254,38 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
 
     void showFavoritePart() {
 
-        if (Integer.valueOf(mIncommingCallSpam002.GoodTotCnt) == 0 && Integer.valueOf(mIncommingCallSpam002.GoodTotCnt) == 0) {
+        if (Integer.valueOf(mIncommingCall.GoodTotCnt) == 0 && Integer.valueOf(mIncommingCall.GoodTotCnt) == 0) {
             mllFavorite.setVisibility(View.INVISIBLE);
             return;
         } else
             mllFavorite.setVisibility(View.VISIBLE);
 
-        if (Integer.valueOf(mIncommingCallSpam002.GoodTotCnt) >= Integer.valueOf(mIncommingCallSpam002.BadTotCnt)) {
+        if (Integer.valueOf(mIncommingCall.GoodTotCnt) >= Integer.valueOf(mIncommingCall.BadTotCnt)) {
             mIvLeft.setImageDrawable(Util.getDrawable(this, R.drawable.ic_like_hand));
             mTvLeft.setText(getResources().getString(R.string.like));
             mTvLeft.setTextColor(Util.getColor(this, R.color.good_number_color));
-            mTvLeftNum.setText(mIncommingCallSpam002.GoodTotCnt);
+            mTvLeftNum.setText(mIncommingCall.GoodTotCnt);
 
             mIvRight.setImageDrawable(Util.getDrawable(this, R.drawable.ic_dislike_hand));
             mTvRight.setText(getResources().getString(R.string.dislike));
             mTvRight.setTextColor(Util.getColor(this, R.color.bad_number_color));
-            mTvRightNum.setText(mIncommingCallSpam002.GoodTotCnt);
+            mTvRightNum.setText(mIncommingCall.GoodTotCnt);
 
-            mTvType.setText(" (" + mIncommingCallSpam002.TopTpClsNm + " " + mIncommingCallSpam002.TopTpGoodCnt + ")");
+            mTvType.setText(" (" + mIncommingCall.TopTpClsNm + " " + mIncommingCall.TopTpGoodCnt + ")");
 
 
         } else { //싫어요 수가 더클때
             mIvLeft.setImageDrawable(Util.getDrawable(this, R.drawable.ic_dislike_hand));
             mTvLeft.setText(getResources().getString(R.string.dislike));
             mTvLeft.setTextColor(Util.getColor(this, R.color.bad_number_color));
-            mTvLeftNum.setText(mIncommingCallSpam002.BadTotCnt);
+            mTvLeftNum.setText(mIncommingCall.BadTotCnt);
 
             mIvRight.setImageDrawable(Util.getDrawable(this, R.drawable.ic_like_hand));
             mTvRight.setText(getResources().getString(R.string.like));
             mTvRight.setTextColor(Util.getColor(this, R.color.good_number_color));
-            mTvRightNum.setText(mIncommingCallSpam002.GoodTotCnt);
+            mTvRightNum.setText(mIncommingCall.GoodTotCnt);
 
-            mTvType.setText(" (" + mIncommingCallSpam002.TopTpClsNm + " " + mIncommingCallSpam002.TopTpBadCnt + ")");
+            mTvType.setText(" (" + mIncommingCall.TopTpClsNm + " " + mIncommingCall.TopTpBadCnt + ")");
 
         }
 
@@ -296,15 +293,17 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
     }
 
     void showOrgWhiteList() {
-        if (mIncommingCallSpam002.OrgNm.equals(""))
+        if (mIncommingCall.OrgNm.equals(""))
             return;
-        if (mIncommingCallSpam002.WhtListYN.equals("Y")) {
+        if (mIncommingCall.WhtListYN.equals("Y")) {
             mllWhiteList.setVisibility(View.VISIBLE);
             mTvOrg.setVisibility(View.VISIBLE);
-            mTvOrg.setText(mIncommingCallSpam002.OrgNm + "는(은) ");
+            mTvOrg.setText(mIncommingCall.OrgNm + "는(은) ");
             mTvWhitelist.setText("화이트리스트 기관입니다.");
             mTvWhitelist.setTextColor(Util.getColor(this, R.color.good_number_color));
         }
     }
+
+
 }
 

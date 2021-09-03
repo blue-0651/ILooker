@@ -2,9 +2,10 @@ package com.banet.ilooker.net;
 
 import android.content.Context;
 
-import com.banet.ilooker.model.IncommingCallSpam002;
+import com.banet.ilooker.model.IncommingCall;
 import com.banet.ilooker.model.MainUserInfo101;
 import com.banet.ilooker.model.Noti104;
+import com.banet.ilooker.model.TxtMsg003;
 
 import java.util.HashMap;
 
@@ -96,11 +97,11 @@ protected String TAG = getClass().getSimpleName();
 
 	public void get002IncommingCallSmissing(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
-			Call<ResponseData<IncommingCallSpam002>> call = service.api200requestIncommingCallSpam(params);
+			Call<ResponseData<IncommingCall>> call = service.api200requestIncommingCallSpam(params);
 
-			call.enqueue(new Callback<ResponseData<IncommingCallSpam002>>() {
+			call.enqueue(new Callback<ResponseData<IncommingCall>>() {
 				@Override
-				public void onResponse(Call<ResponseData<IncommingCallSpam002>> call, Response<ResponseData<IncommingCallSpam002>> response) {
+				public void onResponse(Call<ResponseData<IncommingCall>> call, Response<ResponseData<IncommingCall>> response) {
 					processCommonError(context, callback, response);
 //					if (callback == null) return;
 //
@@ -113,7 +114,40 @@ protected String TAG = getClass().getSimpleName();
 				}
 
 				@Override
-				public void onFailure(Call<ResponseData<IncommingCallSpam002>> call, Throwable t) {
+				public void onFailure(Call<ResponseData<IncommingCall>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void get003IncommingSMS(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<TxtMsg003>> call = service.api300requestIncommingSMS(params);
+
+			call.enqueue(new Callback<ResponseData<TxtMsg003>>() {
+				@Override
+				public void onResponse(Call<ResponseData<TxtMsg003>> call, Response<ResponseData<TxtMsg003>> response) {
+					processCommonError(context, callback, response);
+//					if (callback == null) return;
+//
+//					if (response.isSuccessful()) {
+//						callback.onSuccess(response.body());
+//					} else {
+//						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+//						callback.onError( response);
+//					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<TxtMsg003>> call, Throwable t) {
 					if (callback == null) return;
 
 					t.printStackTrace();
