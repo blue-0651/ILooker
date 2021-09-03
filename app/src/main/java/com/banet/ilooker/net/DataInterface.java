@@ -2,10 +2,10 @@ package com.banet.ilooker.net;
 
 import android.content.Context;
 
+import com.banet.ilooker.model.Advertise100;
 import com.banet.ilooker.model.IncommingCall;
 import com.banet.ilooker.model.MainUserInfo101;
 import com.banet.ilooker.model.Noti104;
-import com.banet.ilooker.model.TxtMsg003;
 
 import java.util.HashMap;
 
@@ -130,11 +130,11 @@ protected String TAG = getClass().getSimpleName();
 
 	public void get003IncommingSMS(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
-			Call<ResponseData<TxtMsg003>> call = service.api300requestIncommingSMS(params);
+			Call<ResponseData<IncommingCall>> call = service.api003requestIncommingSMS(params);
 
-			call.enqueue(new Callback<ResponseData<TxtMsg003>>() {
+			call.enqueue(new Callback<ResponseData<IncommingCall>>() {
 				@Override
-				public void onResponse(Call<ResponseData<TxtMsg003>> call, Response<ResponseData<TxtMsg003>> response) {
+				public void onResponse(Call<ResponseData<IncommingCall>> call, Response<ResponseData<IncommingCall>> response) {
 					processCommonError(context, callback, response);
 //					if (callback == null) return;
 //
@@ -147,7 +147,7 @@ protected String TAG = getClass().getSimpleName();
 				}
 
 				@Override
-				public void onFailure(Call<ResponseData<TxtMsg003>> call, Throwable t) {
+				public void onFailure(Call<ResponseData<IncommingCall>> call, Throwable t) {
 					if (callback == null) return;
 
 					t.printStackTrace();
@@ -196,7 +196,7 @@ protected String TAG = getClass().getSimpleName();
 
 	public void getapi005requestReportPhonNo(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
-			Call<ResponseData<Object>> call = service.api005requestRegPhonNo(params);
+			Call<ResponseData<Object>> call = service.api005requestReportPhoneNo(params);
 
 			call.enqueue(new Callback<ResponseData<Object>>() {
 				@Override
@@ -230,7 +230,7 @@ protected String TAG = getClass().getSimpleName();
 
 	public void get001Install(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
-			Call<ResponseData<Object>> call = service.api100requestInstall(params);
+			Call<ResponseData<Object>> call = service.api001requestInstall(params);
 
 			call.enqueue(new Callback<ResponseData<Object>>() {
 				@Override
@@ -279,6 +279,38 @@ protected String TAG = getClass().getSimpleName();
 
 				@Override
 				public void onFailure(Call<ResponseData<MainUserInfo101>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void get100Advertise(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Advertise100>> call = service.api100_ApiAdvertInq(params);
+
+			call.enqueue(new Callback<ResponseData<Advertise100>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Advertise100>> call, Response<ResponseData<Advertise100>> response) {
+					if (callback == null) return;
+
+					if (response.isSuccessful()) {
+						callback.onSuccess(response.body());
+					} else {
+						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+						callback.onError( response);
+					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Advertise100>> call, Throwable t) {
 					if (callback == null) return;
 
 					t.printStackTrace();

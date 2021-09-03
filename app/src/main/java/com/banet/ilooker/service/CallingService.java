@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.provider.Telephony;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsMessage;
@@ -43,7 +44,7 @@ public class CallingService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "onReceive()");
-            if (intent.getAction().equals("android.intent.action.RECEIVE_SMS")) {
+            if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
 
                 SmsMessage[] messages = Telephony.Sms.Intents.getMessagesFromIntent(intent);
                 if (messages != null) {
@@ -127,18 +128,19 @@ public class CallingService extends Service {
         filter.addAction("android.intent.action.RECEIVE_SMS");
         filter.addAction("android.intent.action.PHONE_STATE");
         filter.addAction("android.intent.action.NEW_OUTGOING_CALL");
+        filter.addAction("android.provider.Telephony.WAP_PUSH_RECEIVED");
 
         registerReceiver(receiver, filter);
     }
 
-    private void showIncomingPhoneSMSUI(Context context, Intent intent, String  incomingPhoneNumber, IncommingCall incommingCall) {
+    private void showIncomingPhoneSMSUI(Context context, Intent intent, String  incomingPhoneNumber, IncommingCall incommingMsg) {
 
-        if (intent.getAction().equals("android.intent.action.RECEIVE_SMS")) {
+        if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
             String incomingNumber = incomingPhoneNumber;
 
             Intent intent_popup = new Intent(context, PopUpActivity.class);
             intent_popup.putExtra(Global.EXTRA_INCOMING_CALL_NUMBER, incomingNumber);
-            intent_popup.putExtra(Global.EXTRA_INCOMING_CALL_DATA, incommingCall);
+            intent_popup.putExtra(Global.EXTRA_INCOMING_CALL_DATA, incommingMsg);
             intent_popup.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent_popup, PendingIntent.FLAG_UPDATE_CURRENT);
             try {
@@ -258,8 +260,15 @@ public class CallingService extends Service {
             public void onSuccess(ResponseData<IncommingCall> response) {
 
                 if (response.getProcRsltCd().equals("003-000")) {
-                    IncommingCall txtMsg003 = (IncommingCall) response.getData();
-                    showIncomingPhoneSMSUI(context, intent, incomingCallNumber, txtMsg003);
+                    IncommingCall incommingSms = (IncommingCall) response.getData();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
+                        if (!Settings.canDrawOverlays(CallingService.this)) {              // 체크
+//                            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+//                                    Uri.parse("package:" + getPackageName()));
+
+                            showIncomingPhoneSMSUI(context, intent, incomingCallNumber, incommingSms);
+                        }
+                    }
                 }
 
             }

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 /*
- * 수신전화 스팸여부 응답
+ * 수신전화/문자 스팸여부 응답
  */
 public class IncommingCall implements Serializable {
 

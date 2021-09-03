@@ -1,7 +1,9 @@
 package com.banet.ilooker.model;
 
+import java.io.Serializable;
+
 //005
-public class AILookerPhoneNumber {
+public class AILookerPhoneNumber implements Serializable {
 
     public AILookerPhoneNumber(String PhnNo,  String BlockCategory, String BlockYN , String  BlockDateTime){
         this.PhnNo = PhnNo;

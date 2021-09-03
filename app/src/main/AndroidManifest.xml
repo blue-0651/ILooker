@@ -18,6 +18,7 @@
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_MMS"/>
 
     <application
         android:name=".ILookerApp"
@@ -51,13 +52,16 @@
             android:exported="true" />
 
         <receiver
-            android:name=".common.SmsReceiver"
-            android:exported="true">
-                <intent-filter android:priority="1">
+            android:name=".common.SMSReceiver"
+            android:exported="true"  android:permission="android.permission.BROADCAST_SMS">
+                <intent-filter android:priority="2147483647">
+                    <action android:name="android.provider.Telephony.SMS_DELIVER" />
                     <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                    <action android:name="android.provider.Telephony.WAP_PUSH_RECEIVED" />
+                    <data android:mimeType="application/vnd.wap.mms-message" />
                 </intent-filter>
-
         </receiver>
+
 
 
     </application>

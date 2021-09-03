@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
@@ -25,11 +26,16 @@ import com.banet.ilooker.R;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.common.Global;
 import com.banet.ilooker.databinding.CallPopupTopBinding;
+import com.banet.ilooker.model.Advertise100;
 import com.banet.ilooker.model.IncommingCall;
+import com.banet.ilooker.net.DataInterface;
+import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.service.CallingService;
 import com.banet.ilooker.util.Util;
+import com.bumptech.glide.Glide;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 
 public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
     TextView tvPhoneNumber;
@@ -172,6 +178,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
         setPhoneNumberColor("Y");
         showFavoritePart();
         showOrgWhiteList();
+        request100Advertisement(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.P)
@@ -302,6 +309,37 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
             mTvWhitelist.setText("화이트리스트 기관입니다.");
             mTvWhitelist.setTextColor(Util.getColor(this, R.color.good_number_color));
         }
+    }
+
+    void request100Advertisement(Context context){
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("UseLangCd", "KOR");
+        params.put("UserPhnNo", Util.getLineNumber(this));
+        DataInterface.getInstance().get100Advertise(context, params, new DataInterface.ResponseCallback<ResponseData<Advertise100>>() {
+
+
+            @Override
+            public void onSuccess(ResponseData<Advertise100> response) {
+
+                if (response.getProcRsltCd().equals("100-000")) {
+                    Advertise100 advertise100 = (Advertise100) response.getData();
+                    Glide.with(PopUpActivity.this)
+                            .load(advertise100.AdvtDescPath)
+                            .into(getBinding().ivAdvertise);
+                }
+
+            }
+
+            @Override
+            public void onError(ResponseData<Advertise100> response) {
+                Toast.makeText(getApplicationContext(), response.getError(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(getApplicationContext(), "failure", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
