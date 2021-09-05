@@ -325,6 +325,69 @@ protected String TAG = getClass().getSimpleName();
 	}
 
 
+	public void getApi008_ApiUnblock(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Object>> call = service.api008_ApiUnblock(params);
+
+			call.enqueue(new Callback<ResponseData<Object>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Object>> call, Response<ResponseData<Object>> response) {
+					if (callback == null) return;
+
+					if (response.isSuccessful()) {
+						callback.onSuccess(response.body());
+					} else {
+						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+						callback.onError( response);
+					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Object>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void getApi009SafeNumberReg(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Object>> call = service.api009SafeNumberReg(params);
+
+			call.enqueue(new Callback<ResponseData<Object>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Object>> call, Response<ResponseData<Object>> response) {
+					if (callback == null) return;
+
+					if (response.isSuccessful()) {
+						callback.onSuccess(response.body());
+					} else {
+						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+						callback.onError( response);
+					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Object>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
 
 //
 //	public void getAppVersion(Context context,  HashMap<String, Object> params,final ResponseCallback callback ){

@@ -81,160 +81,160 @@
                 android:orientation="horizontal"
                 android:weightSum="10">
 
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/piechart"
-                    android:layout_width="0dp"
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/barchart"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="5" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    android:orientation="vertical"
-                    android:paddingLeft="20dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="5"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:paddingLeft="20dp">-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            android:id="@+id/l"
-                            style="@style/ItemName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="신고등록 : " />
+<!--                        <TextView-->
+<!--                            android:id="@+id/l"-->
+<!--                            style="@style/ItemName"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="신고등록 : " />-->
 
-                        <TextView
-                            android:id="@+id/tvReportAndReg"
-                            style="@style/ItemPointNumber"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="240" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvReportAndReg"-->
+<!--                            style="@style/ItemPointNumber"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="240" />-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            style="@style/ItemName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="광고확인 : " />
+<!--                        <TextView-->
+<!--                            style="@style/ItemName"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="광고확인 : " />-->
 
-                        <TextView
-                            android:id="@+id/tvAdConfirm"
-                            style="@style/ItemPointNumber"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="240" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvAdConfirm"-->
+<!--                            style="@style/ItemPointNumber"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="240" />-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            style="@style/ItemName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="공지확인: " />
+<!--                        <TextView-->
+<!--                            style="@style/ItemName"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="공지확인: " />-->
 
-                        <TextView
-                            android:id="@+id/tvNotiConfirm"
-                            style="@style/ItemPointNumber"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="240" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvNotiConfirm"-->
+<!--                            style="@style/ItemPointNumber"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="240" />-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            style="@style/ItemName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="이벤트확인 : " />
+<!--                        <TextView-->
+<!--                            style="@style/ItemName"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="이벤트확인 : " />-->
 
-                        <TextView
-                            android:id="@+id/tvEventConfirm"
-                            style="@style/ItemPointNumber"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="240" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvEventConfirm"-->
+<!--                            style="@style/ItemPointNumber"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="240" />-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            style="@style/ItemName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="뉴스확인 : " />
+<!--                        <TextView-->
+<!--                            style="@style/ItemName"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="뉴스확인 : " />-->
 
-                        <TextView
-                            android:id="@+id/tvNewsConfirm"
-                            style="@style/ItemPointNumber"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="240" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvNewsConfirm"-->
+<!--                            style="@style/ItemPointNumber"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="240" />-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            style="@style/ItemName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="문의요청: " />
+<!--                        <TextView-->
+<!--                            style="@style/ItemName"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="문의요청: " />-->
 
-                        <TextView
-                            android:id="@+id/tvFAQ"
-                            style="@style/ItemPointNumber"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="240" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvFAQ"-->
+<!--                            style="@style/ItemPointNumber"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="240" />-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <TextView
-                            style="@style/ItemName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="이벤트참여 : " />
+<!--                        <TextView-->
+<!--                            style="@style/ItemName"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="이벤트참여 : " />-->
 
-                        <TextView
-                            android:id="@+id/tvEventJoin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="240" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvEventJoin"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="240" />-->
 
-                    </LinearLayout>
-                </LinearLayout>
+<!--                    </LinearLayout>-->
+<!--                </LinearLayout>-->
             </LinearLayout> <!--   end of llChartNpoints -->
             <LinearLayout
                 android:id="@+id/llMenu"

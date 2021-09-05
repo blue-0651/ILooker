@@ -123,12 +123,15 @@ public class CallingService extends Service {
 
         IntentFilter filter = new IntentFilter();
 
-        // filter.setPriority(2147483647);
+        filter.setPriority(2147483647);
         filter.addAction("android.provider.Telephony.SMS_RECEIVED");
         filter.addAction("android.intent.action.RECEIVE_SMS");
         filter.addAction("android.intent.action.PHONE_STATE");
+        filter.addAction("android.intent.action.RECEIVE_MMS");
         filter.addAction("android.intent.action.NEW_OUTGOING_CALL");
         filter.addAction("android.provider.Telephony.WAP_PUSH_RECEIVED");
+        filter.addAction("android.provider.Telephony.WAP_PUSH_R");
+
 
         registerReceiver(receiver, filter);
     }
@@ -262,10 +265,7 @@ public class CallingService extends Service {
                 if (response.getProcRsltCd().equals("003-000")) {
                     IncommingCall incommingSms = (IncommingCall) response.getData();
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
-                        if (!Settings.canDrawOverlays(CallingService.this)) {              // 체크
-//                            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-//                                    Uri.parse("package:" + getPackageName()));
-
+                        if (Settings.canDrawOverlays(CallingService.this)) {              // 체크
                             showIncomingPhoneSMSUI(context, intent, incomingCallNumber, incommingSms);
                         }
                     }

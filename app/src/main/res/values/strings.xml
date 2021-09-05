@@ -14,6 +14,8 @@
     <string name="Stock">주식/투자</string>
     <string name="Delivery">택배/물류</string>
     <string name="Advertisement">(상품)광고</string>
+    <string name="Login">로그인 유도</string>
+    <string name="notFound">Not Found</string>
     <string name="Goverment">공공기관</string>
     <string name="Bank">금융기관</string>
     <string name="Telemarketing">텔레마케팅</string>
@@ -23,6 +25,7 @@
     <string name="UsedProductFake">중고사기</string>
     <string name="Smissing">스미싱</string>
     <string name="Micellaneous">기타</string>
+    <string name="PoliceBlock">경찰청차단</string>
 
 
 </resources>

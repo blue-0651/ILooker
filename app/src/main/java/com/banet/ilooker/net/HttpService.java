@@ -27,11 +27,11 @@ public interface HttpService {
     @POST("app/003_ApiReceiveTxtMsg/")
     Call<ResponseData<IncommingCall>> api003requestIncommingSMS(@Body Map<String, Object> params);
 
-    @POST("app/ApiReceiveUrlMsg/")
+    @POST("app/004_ApiReceiveUrlMsg/")
     Call<ResponseData<Object>> api400requestUrlSMS(@Body Map<String, Object> params);
 
     //신고등록(전화)
-    @POST("app/ApiReportRegPhn/")
+    @POST("app/005_ApiReportRegPhn/")
     Call<ResponseData<Object>> api005requestReportPhoneNo(@Body Map<String, Object> params);
 
     //신고등록(일반문자)
@@ -48,12 +48,11 @@ public interface HttpService {
     @POST("app/100_ApiAdvertInq/")
     Call<ResponseData<Advertise100>> api100_ApiAdvertInq(@Body Map<String, Object> params);
 
+    @POST("app/008_ApiUnblock/")
+    Call<ResponseData<Object>>  api008_ApiUnblock(@Body Map<String, Object> params);
 
-
-
-
-//    @POST("app/006_ApiReportRegTxtMsg/")
-//    Call<ResponseData<Object>> api005sendTxtMsg(@Body Map<String, Object> params);
+    @POST("app/009_ApiSafeNumberReg/")
+    Call<ResponseData<Object>> api009SafeNumberReg(@Body Map<String, Object> params);
 
 
 
