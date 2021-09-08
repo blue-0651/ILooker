@@ -11,15 +11,16 @@
     <style name="TitleH1Bold"  parent="fontStyleWithoutPadding">
         <item name="android:fontFamily">@font/noto_sans_cj_kkr</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">22sp</item>
         <item name="android:lineSpacingExtra">3dp</item>
         <item name="android:textColor">@color/color11</item>
     </style>
     <style name="TitleH2"  parent="fontStyleWithoutPadding">
         <item name="android:fontFamily">@font/noto_sans_cj_kkr</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:lineSpacingExtra">6dp</item>
+        <item name="android:textColor">@color/color11</item>
 
     </style>
     <style name="NormalDescText"  parent="fontStyleWithoutPadding">
@@ -69,6 +70,21 @@
         <item name="android:textColor">@color/text_black</item>
     </style>
 
+    <style name="MainTitleText" parent="fontStyleWithoutPadding">
+        <item name="android:fontFamily">@font/noto_sans_cj_kkr</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text_black</item>
+    </style>
+
+    <style name="ContentDetailText" parent="fontStyleWithoutPadding">
+        <item name="android:fontFamily">@font/noto_sans_cj_kkr</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_black</item>
+    </style>
+
+
     <style name="fontStyleWithoutPadding">
         <item name="android:includeFontPadding">false</item>
     </style>
@@ -79,5 +95,14 @@
         <item name="android:textColor">@color/text_black</item>
         <item name="android:layout_marginLeft">5dp</item>
     </style>
+    <style name="likeDislikeMiniText"  parent="fontStyleWithoutPadding">
+        <item name="android:fontFamily">@font/noto_sans_cj_kkr</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
 
 </resources>

@@ -24,9 +24,9 @@ import com.banet.ilooker.fragment.Report_RegFragment_005;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.service.CallingService;
+import com.banet.ilooker.util.DateUtils;
 import com.banet.ilooker.util.Util;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
@@ -77,7 +77,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             if (MOVE_TO_FRAGMENT_NAME.equals(AppDef.title_block_and_report_phone_number_fragment)) {
                 Bundle bundle_move_to_005_block_report = new Bundle();
                 bundle_move_to_005_block_report.putString(AppDef.incoming_number_extra, MOVE_TO_BLOCK_PHONE_NUMBER);
-                bundle_move_to_005_block_report.putString(AppDef.incoming_date_time, getDateTime());
+                bundle_move_to_005_block_report.putString(AppDef.incoming_date_time, DateUtils.getDateTime());
                 bundle_move_to_005_block_report.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_and_report_phone_number_fragment);
                 GoNativeScreen((BaseBindingFragment) new Report_RegFragment_005(), bundle_move_to_005_block_report);
             }
@@ -90,12 +90,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     }
 
-    private String getDateTime() {
 
-        SimpleDateFormat format2 = new SimpleDateFormat("MM/dd HH:mm:ss");
-        String format_time2 = format2.format(System.currentTimeMillis());
-        return format_time2;
-    }
 
 
     @Override
@@ -111,7 +106,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private void request001Install(String UseLangCd, String UserPhnNo, String UserNm, String RecPhnNo) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("UseLangCd", UseLangCd);  //사용자 국가코드 "KOR"
-        params.put("UserPhnNo", UserPhnNo);   //사용자 전화번호
+        params.put("UserPhnNo", Util.getLineNumber(this));   //사용자 전화번호
         params.put("UserNm", UserNm);        //사용자 이름
         params.put("RecPhnNo", RecPhnNo);   //추천인 전화번호
 
@@ -119,7 +114,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             @Override
             public void onSuccess(ResponseData<Object> response) {
                 if (response.getProcRsltCd().equals("001-000")) {
-                    Toast.makeText(MainActivity.this, "사용자등록이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(MainActivity.this, "사용자등록이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 

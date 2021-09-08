@@ -1,5 +1,6 @@
 package com.banet.ilooker.service;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -9,16 +10,20 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.provider.Telephony;
+import android.telecom.TelecomManager;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -27,6 +32,7 @@ import com.banet.ilooker.activity.MainActivity;
 import com.banet.ilooker.activity.PopUpActivity;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.common.Global;
+import com.banet.ilooker.model.BlockedPhoneNumber;
 import com.banet.ilooker.model.IncommingCall;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
@@ -34,13 +40,19 @@ import com.banet.ilooker.util.Util;
 
 import java.util.HashMap;
 
+import io.realm.Realm;
+
 public class CallingService extends Service {
     public static final String CHANNEL_ID = "ILOOKER_00";
     public static final String EXTRA_CALL_NUMBER = "call_number";
     public static final String TAG = "CallingService";
     public static String mLastState;
+    Realm realm = Realm.getDefaultInstance();
+    TelecomManager tcm;
+    String phoneNumber;
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
+        @RequiresApi(api = Build.VERSION_CODES.P)
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "onReceive()");
@@ -69,14 +81,20 @@ public class CallingService extends Service {
                  * 2번 호출되는 문제 해결
                  */
                 String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
-                String phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+                phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
 
-                if (state.equals(mLastState) && phoneNumber == null) {
+                if (state.equals(mLastState) && phoneNumber == null ) {
                     return;
 
                 } else {
                     mLastState = state;
 
+                }
+
+                if(isThePhoneNumberBlocked(phoneNumber)){
+                    Toast.makeText(getApplicationContext(), "차단된 번호입니다.", Toast.LENGTH_SHORT).show();
+                    endCall();
+                    return;
                 }
 
                 if (phoneNumber == null) {
@@ -88,7 +106,7 @@ public class CallingService extends Service {
 
                     } else if (TelephonyManager.EXTRA_STATE_IDLE.equals(state)) {
                         Log.i(TAG, " :" + state);
-                        sendCallStatus(state);
+                        sendCallStatus(AppDef.PhoneCallStatus.IDLE);
 
                     } else if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
                         Toast.makeText(context, "Ringing State", Toast.LENGTH_SHORT).show();
@@ -102,10 +120,10 @@ public class CallingService extends Service {
         }
     };
 
-    private void sendCallStatus(String state) {
+    private void sendCallStatus(AppDef.PhoneCallStatus status) {
         Log.d(TAG, "Broadcasting call state");
         Intent intent = new Intent(AppDef.action_phone_state_changed);
-        intent.putExtra(AppDef.phone_state, state);
+        intent.putExtra(AppDef.phone_state, status.name());
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
@@ -120,9 +138,9 @@ public class CallingService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        tcm = (TelecomManager) getSystemService(Context.TELECOM_SERVICE);
 
         IntentFilter filter = new IntentFilter();
-
         filter.setPriority(2147483647);
         filter.addAction("android.provider.Telephony.SMS_RECEIVED");
         filter.addAction("android.intent.action.RECEIVE_SMS");
@@ -131,8 +149,6 @@ public class CallingService extends Service {
         filter.addAction("android.intent.action.NEW_OUTGOING_CALL");
         filter.addAction("android.provider.Telephony.WAP_PUSH_RECEIVED");
         filter.addAction("android.provider.Telephony.WAP_PUSH_R");
-
-
         registerReceiver(receiver, filter);
     }
 
@@ -152,11 +168,13 @@ public class CallingService extends Service {
                 e.printStackTrace();
             }
         }
+        sendCallStatus(AppDef.PhoneCallStatus.valueOf("SMS"));
     }
 
     private void showIncomingPhoneUI(Context context, Intent intent, String state, IncommingCall result) {
 
-        if (TelephonyManager.EXTRA_STATE_RINGING.equals(state) || TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
+        if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)        ){
+ //               || TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
             String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
             String phone_number = PhoneNumberUtils.formatNumber(incomingNumber);
 
@@ -170,7 +188,7 @@ public class CallingService extends Service {
             } catch (PendingIntent.CanceledException e) {
                 e.printStackTrace();
             }
-            sendCallStatus(state);
+            sendCallStatus(AppDef.PhoneCallStatus.valueOf(state));
         }
     }
 
@@ -228,7 +246,7 @@ public class CallingService extends Service {
 
             @Override
             public void onSuccess(ResponseData<IncommingCall> response) {
-
+                //002-000으로 바꿈
                 if (response.getProcRsltCd().equals("002-000")) {
                     IncommingCall incommingCall = (IncommingCall) response.getData();
                     showIncomingPhoneUI(context, intent, state, incommingCall);
@@ -284,6 +302,35 @@ public class CallingService extends Service {
             }
         });
     }
+
+    boolean isThePhoneNumberBlocked(String phoneNumber) {
+        BlockedPhoneNumber blockedPhoneNumberRealmResults = realm.where(BlockedPhoneNumber.class)
+                .equalTo("PhnNo", phoneNumber)
+                .findFirst();
+
+        if (blockedPhoneNumberRealmResults == null) { //번호가 차단리스트에 없으면
+            return false;
+        } else {
+            return  true;
+        }
+    }
+
+    private void endCall() {
+        if (tcm != null) {
+            try {
+                if ( phoneNumber != null) {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ANSWER_PHONE_CALLS) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    tcm.endCall();
+                    Log.d(TAG, "Incoming Call Blocked " + phoneNumber);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 
 }

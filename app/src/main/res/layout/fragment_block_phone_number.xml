@@ -40,7 +40,7 @@
 
 
                     <EditText
-                        android:id="@+id/rp_fund_item_nm_textfield"
+                        android:id="@+id/etSearchCond"
                         android:layout_width="240dp"
                         android:layout_height="36dp"
                         android:layout_weight="1"

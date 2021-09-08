@@ -15,27 +15,27 @@ import com.banet.ilooker.activity.MainActivity;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.fragment.BaseBindingFragment;
 import com.banet.ilooker.fragment.Report_RegFragment_005;
-import com.banet.ilooker.model.AILookerPhoneNumber;
+import com.banet.ilooker.model.BlockedPhoneNumber;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
-public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<BlockPhoneNumberListAdapter.BlockPhoneNumberListViewHolder> {
+public class BlockedPhoneNumberListAdapter extends RecyclerView.Adapter<BlockedPhoneNumberListAdapter.BlockPhoneNumberListViewHolder> {
 
 
     private Context context;
-    private ArrayList<AILookerPhoneNumber> mItemList;
+    private List<BlockedPhoneNumber> mItemList;
 
-    public BlockPhoneNumberListAdapter(Context context, ArrayList<AILookerPhoneNumber> mItemList) {
+    public BlockedPhoneNumberListAdapter(Context context, List<BlockedPhoneNumber> mItemList) {
 
         this.mItemList = mItemList;
         this.context = context;
     }
 
-    public void setDataList(ArrayList<AILookerPhoneNumber> mItemList) {
-        this.mItemList = new ArrayList<AILookerPhoneNumber>(mItemList);
+    public void setDataList(List<BlockedPhoneNumber> mItemList) {
+        this.mItemList = mItemList;
         this.notifyDataSetChanged();
     }
 
@@ -47,7 +47,7 @@ public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<BlockPhone
 
     @NonNull
     @Override
-    public BlockPhoneNumberListAdapter.BlockPhoneNumberListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BlockPhoneNumberListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.layout_block_number_item, parent, false);
         BlockPhoneNumberListViewHolder holder = new BlockPhoneNumberListViewHolder(v);
@@ -60,11 +60,11 @@ public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<BlockPhone
     @Override
     public void onBindViewHolder(@NonNull BlockPhoneNumberListViewHolder viewHolder, int position) {
 
-        AILookerPhoneNumber item = mItemList.get(position);
+        BlockedPhoneNumber item = mItemList.get(position);
         if(item.BlockYN.equals("Y")) {
             viewHolder.tvBlockPhoneNumber.setText(item.PhnNo);
-            viewHolder.tvBlockCategory.setText(item.BlockCategory);
-            viewHolder.tvIncommingDateTime.setText(item.BlockDateTime);
+            viewHolder.tvBlockCategory.setText(item.RptTpClsNm);
+            viewHolder.tvIncommingDateTime.setText(item.RcvDate + " " + item.RcvTime);
         }
 
     }
@@ -107,3 +107,4 @@ public class BlockPhoneNumberListAdapter extends RecyclerView.Adapter<BlockPhone
     }
 
 }
+

@@ -21,4 +21,5 @@ public class Advertise100 implements Serializable {
     public String AdvtDescPath = "";
 
 
+
 }

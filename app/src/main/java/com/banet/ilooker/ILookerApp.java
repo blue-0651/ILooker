@@ -2,9 +2,10 @@ package com.banet.ilooker;
 
 import android.app.Application;
 
-import androidx.annotation.UiThread;
-
 import com.banet.ilooker.common.UIThread;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class ILookerApp extends Application {
     @Override
@@ -12,5 +13,11 @@ public class ILookerApp extends Application {
 
         super.onCreate();
         UIThread.initializeHandler();
+
+        Realm.init(getApplicationContext());
+        RealmConfiguration config = new RealmConfiguration.Builder().name("ai-looker.realm").build();
+        Realm.setDefaultConfiguration(config);
+
+
     }
 }

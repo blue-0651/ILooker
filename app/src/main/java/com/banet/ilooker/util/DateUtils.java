@@ -447,5 +447,12 @@ public class DateUtils {
 
     }
 
+    public static String getDateTime() {
+
+        SimpleDateFormat format2 = new SimpleDateFormat("MM/dd HH:mm:ss");
+        String format_time2 = format2.format(System.currentTimeMillis());
+        return format_time2;
+    }
+
 
 }

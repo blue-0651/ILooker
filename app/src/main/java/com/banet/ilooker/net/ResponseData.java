@@ -48,6 +48,13 @@ public class ResponseData<T> {
 		return rsltMsgPopupYN;
 	}
 
+	public String getResultMsg() {
+		return rsltMsgPopupYN;
+	}
+
+
+
+
 	public void setMsgPopupYN(String message) {
 		this.rsltMsgPopupYN = message;
 	}

@@ -43,7 +43,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
     LinearLayout mllFavorite, mllWhiteList, mllCallDeny, mllReturnCall, mllSendSms, mllReportBlock;
     String incomingCallNumber = "";
     TextView mTvTime, mTvLeft, mTvLeftNum, mTvRight, mTvRightNum, mTvWhitelist, mTvOrg, mTvType, mTvTypeNum, mTvCallDeny;
-    IncommingCall mIncommingCall;
+    IncommingCall mIncomingCall;
     TelecomManager tcm;
 
     @Override
@@ -54,7 +54,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             incomingCallNumber = bundle.getString(Global.EXTRA_INCOMING_CALL_NUMBER);
-            mIncommingCall = (IncommingCall) bundle.getSerializable(Global.EXTRA_INCOMING_CALL_DATA);
+            mIncomingCall = (IncommingCall) bundle.getSerializable(Global.EXTRA_INCOMING_CALL_DATA);
 
         }
         tcm = (TelecomManager) PopUpActivity.this.getSystemService(Context.TELECOM_SERVICE);
@@ -174,7 +174,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
                 finish();
             }
         });
-        setPhoneNumberColor(mIncommingCall.WhtListYN);
+        setPhoneNumberColor(mIncomingCall.WhtListYN);
         setPhoneNumberColor("Y");
         showFavoritePart();
         showOrgWhiteList();
@@ -229,6 +229,8 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
             } else if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
 
 
+            }else if("SMS".equals(state)){
+                mIvCallStatus.setImageDrawable(Util.getDrawable(PopUpActivity.this, R.drawable.ic_receive_sms));
             }
         }
     };
@@ -261,38 +263,38 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
 
     void showFavoritePart() {
 
-        if (Integer.valueOf(mIncommingCall.GoodTotCnt) == 0 && Integer.valueOf(mIncommingCall.GoodTotCnt) == 0) {
+        if (Integer.valueOf(mIncomingCall.GoodTotCnt) == 0 && Integer.valueOf(mIncomingCall.GoodTotCnt) == 0) {
             mllFavorite.setVisibility(View.INVISIBLE);
             return;
         } else
             mllFavorite.setVisibility(View.VISIBLE);
 
-        if (Integer.valueOf(mIncommingCall.GoodTotCnt) >= Integer.valueOf(mIncommingCall.BadTotCnt)) {
+        if (Integer.valueOf(mIncomingCall.GoodTotCnt) >= Integer.valueOf(mIncomingCall.BadTotCnt)) {
             mIvLeft.setImageDrawable(Util.getDrawable(this, R.drawable.ic_like_hand));
             mTvLeft.setText(getResources().getString(R.string.like));
             mTvLeft.setTextColor(Util.getColor(this, R.color.good_number_color));
-            mTvLeftNum.setText(mIncommingCall.GoodTotCnt);
+            mTvLeftNum.setText(mIncomingCall.GoodTotCnt);
 
             mIvRight.setImageDrawable(Util.getDrawable(this, R.drawable.ic_dislike_hand));
             mTvRight.setText(getResources().getString(R.string.dislike));
             mTvRight.setTextColor(Util.getColor(this, R.color.bad_number_color));
-            mTvRightNum.setText(mIncommingCall.GoodTotCnt);
+            mTvRightNum.setText(mIncomingCall.GoodTotCnt);
 
-            mTvType.setText(" (" + mIncommingCall.TopTpClsNm + " " + mIncommingCall.TopTpGoodCnt + ")");
+            mTvType.setText(" (" + mIncomingCall.TopTpClsNm + " " + mIncomingCall.TopTpGoodCnt + ")");
 
 
         } else { //싫어요 수가 더클때
             mIvLeft.setImageDrawable(Util.getDrawable(this, R.drawable.ic_dislike_hand));
             mTvLeft.setText(getResources().getString(R.string.dislike));
             mTvLeft.setTextColor(Util.getColor(this, R.color.bad_number_color));
-            mTvLeftNum.setText(mIncommingCall.BadTotCnt);
+            mTvLeftNum.setText(mIncomingCall.BadTotCnt);
 
             mIvRight.setImageDrawable(Util.getDrawable(this, R.drawable.ic_like_hand));
             mTvRight.setText(getResources().getString(R.string.like));
             mTvRight.setTextColor(Util.getColor(this, R.color.good_number_color));
-            mTvRightNum.setText(mIncommingCall.GoodTotCnt);
+            mTvRightNum.setText(mIncomingCall.GoodTotCnt);
 
-            mTvType.setText(" (" + mIncommingCall.TopTpClsNm + " " + mIncommingCall.TopTpBadCnt + ")");
+            mTvType.setText(" (" + mIncomingCall.TopTpClsNm + " " + mIncomingCall.TopTpBadCnt + ")");
 
         }
 
@@ -300,12 +302,12 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
     }
 
     void showOrgWhiteList() {
-        if (mIncommingCall.OrgNm.equals(""))
+        if (mIncomingCall.OrgNm == null || "".equals(mIncomingCall.OrgNm))
             return;
-        if (mIncommingCall.WhtListYN.equals("Y")) {
+        if (mIncomingCall.WhtListYN.equals("Y")) {
             mllWhiteList.setVisibility(View.VISIBLE);
             mTvOrg.setVisibility(View.VISIBLE);
-            mTvOrg.setText(mIncommingCall.OrgNm + "는(은) ");
+            mTvOrg.setText(mIncomingCall.OrgNm + "는(은) ");
             mTvWhitelist.setText("화이트리스트 기관입니다.");
             mTvWhitelist.setTextColor(Util.getColor(this, R.color.good_number_color));
         }

@@ -4,6 +4,7 @@ import com.banet.ilooker.model.Advertise100;
 import com.banet.ilooker.model.IncommingCall;
 import com.banet.ilooker.model.MainUserInfo101;
 import com.banet.ilooker.model.Noti104;
+import com.banet.ilooker.model.ReportHistory102;
 
 import java.util.Map;
 
@@ -48,11 +49,30 @@ public interface HttpService {
     @POST("app/100_ApiAdvertInq/")
     Call<ResponseData<Advertise100>> api100_ApiAdvertInq(@Body Map<String, Object> params);
 
+    @POST("app/102_ApiReportHistoryInq/")
+    Call<ResponseData<ReportHistory102>> api102_ApiReportHistoryInq(@Body Map<String, Object> params);
+
+
     @POST("app/008_ApiUnblock/")
     Call<ResponseData<Object>>  api008_ApiUnblock(@Body Map<String, Object> params);
 
     @POST("app/009_ApiSafeNumberReg/")
     Call<ResponseData<Object>> api009SafeNumberReg(@Body Map<String, Object> params);
+
+    //일반공지 상세 내역
+    @POST("app/110_ApiGeneralNoticeDtl/")
+    Call<ResponseData<Object>> api110_ApiGeneralNoticeDtl(@Body Map<String, Object> params);
+
+    //개인공지 상세 내역
+    @POST("app/111_ApiIndividualNoticeDtl/")
+    Call<ResponseData<Object>> api111_ApiIndividualNoticeDtl(@Body Map<String, Object> params);
+
+    //이벤트내역확인
+    @POST("app/112_ApiEventDtl")
+    Call<ResponseData<Object>> api112_ApiEventDtl(@Body Map<String, Object> params);
+
+    @POST("app/113_ApiNewsDtl/")
+    Call<ResponseData<Object>> api113_ApiNewsDtl(@Body Map<String, Object> params);
 
 
 

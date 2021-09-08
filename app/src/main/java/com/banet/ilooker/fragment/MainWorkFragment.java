@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.banet.ilooker.R;
+import com.banet.ilooker.activity.MainActivity;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.databinding.MainFragmentBinding;
 import com.banet.ilooker.model.MainUserInfo101;
@@ -34,8 +35,6 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
         if (bundle != null) {
 
         }
-
-
     }
 
 
@@ -60,6 +59,8 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
     @Override
     protected void init(Bundle savedInstanceState) {
         request101MainUserInfo(Util.getLineNumber(getActivity()));
+        ( (MainActivity)getActivity()).setBottomTabBarVisible(true);
+
 
 
     }
@@ -152,7 +153,7 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_phone_number_history_fragment);
-                GoNativeScreen((BaseBindingFragment) new BlockPhoneNumberFragment(), bundle);
+                GoNativeScreen((BaseBindingFragment) new BlockedPhoneNumberListFragment(), bundle);
             }
         });
 
@@ -163,6 +164,15 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
                 bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_noti_fragment);
 
                 GoNativeScreen((BaseBindingFragment) new NotiFragment_104(), bundle);
+            }
+        });
+
+        getBinding().llReportPhoneNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_phone_number_history_fragment);
+                GoNativeScreen((BaseBindingFragment) new ReportPhoneNumberHistoryFragment(), bundle);
             }
         });
     }

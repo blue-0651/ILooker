@@ -11,6 +11,10 @@ public class AppDef {
     public static final String phone_state = "phone_state";
     public static final String MOVE_TO_FRAGMENT = "move_to_fragment";
     public static final String MOVE_TO_BLOCK_PHONE_NUMBER = "move_to_block_phone_number";
+    public static final String USER_LANGUAGE_CODE = "KOR";
+    public static final String NOTICE_104 = "notice_104";
+
+
 
 
     //각 프래그먼트화면 이를을 정의한다. 번들에서 사용
@@ -28,7 +32,9 @@ public class AppDef {
 
 
     public enum PhoneCallStatus{
-        Ringing, Idle, OffHook
+        RINGING , IDLE, OFFHOOK, SMS
     }
+
+
 
 }

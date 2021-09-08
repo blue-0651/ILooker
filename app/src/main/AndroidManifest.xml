@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.banet.ilooker">
-    <uses-feature android:name="android.hardware.telephony" />
-    <!-- 전화걸려올경우 상대방 정보 확인 -->
+
+    <uses-feature android:name="android.hardware.telephony" /> <!-- 전화걸려올경우 상대방 정보 확인 -->
     <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,13 +13,12 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
-
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.NEW_OUTGOING_CALL" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.RECEIVE_MMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_MMS" />
 
     <application
         android:name=".ILookerApp"
@@ -31,12 +30,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="Instantiatable">
+        <activity android:name=".activity.DetailInfoActivity"
+            android:theme="@style/Transparent"
+            ></activity>
         <activity
             android:name=".activity.PopUpActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Transparent">
-
-        </activity>
+            android:theme="@style/Transparent"></activity>
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait">
@@ -51,22 +51,7 @@
             android:name=".service.CallingService"
             android:enabled="true"
             android:exported="true"
-            android:permission="android.permission.BROADCAST_SMS"
-            />
-
-<!--        <receiver-->
-<!--            android:name=".common.SMSReceiver"-->
-<!--            android:exported="true"  android:permission="android.permission.BROADCAST_SMS">-->
-<!--                <intent-filter android:priority="2147483647">-->
-<!--                    <action android:name="android.provider.Telephony.SMS_DELIVER" />-->
-<!--                    <action android:name="android.provider.Telephony.SMS_RECEIVED" />-->
-<!--                    <action android:name="android.provider.Telephony.WAP_PUSH_RECEIVED" />-->
-<!--                    <data android:mimeType="application/vnd.wap.mms-message" />-->
-<!--                </intent-filter>-->
-<!--        </receiver>-->
-
-
-
+            android:permission="android.permission.BROADCAST_SMS" />
     </application>
 
 </manifest>

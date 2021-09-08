@@ -1,6 +1,7 @@
 package com.banet.ilooker.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.banet.ilooker.R;
+import com.banet.ilooker.activity.DetailInfoActivity;
+import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.model.Noti104;
 
 import org.jetbrains.annotations.NotNull;
@@ -89,8 +92,9 @@ public class NotiAdapter extends RecyclerView.Adapter<NotiAdapter.NotiViewHolder
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION) {
                         //                       상세화면 띄우기
-//                        Intent intent = new Intent(context, detail.class);
-//                        context.startActivity(intent);
+                        Intent intent = new Intent(context, DetailInfoActivity.class);
+                        intent.putExtra(AppDef.NOTICE_104,  mItemList.get(pos));
+                        context.startActivity(intent);
                     }
                 }
             });

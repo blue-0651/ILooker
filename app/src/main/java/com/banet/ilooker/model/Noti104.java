@@ -8,6 +8,10 @@ import java.io.Serializable;
 public class Noti104 implements Serializable {
     @SerializedName("Seq")
     @Expose
+    public String Seq ="";
+
+    @SerializedName("NtcNo")
+    @Expose
     public String NtcNo ="";
 
     @SerializedName("NtcStaDate")

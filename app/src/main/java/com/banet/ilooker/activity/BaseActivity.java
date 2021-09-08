@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.banet.ilooker.R;
+import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.fragment.BaseBindingFragment;
 import com.banet.ilooker.fragment.MainWorkFragment;
 import com.banet.ilooker.util.BackPressCloseHandler;
@@ -197,7 +198,9 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
      * Native 메인화면으로 이동
      */
     public void GoHomeScreen() {
-        GoHomeScreen(null);
+        Bundle bundle = new Bundle();
+        bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_main_fragment);
+        GoHomeScreen(bundle);
     }
 
     /**
@@ -206,8 +209,8 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
      * @param bundle Parameter
      */
     public void GoHomeScreen(Bundle bundle) {
+        bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_main_fragment);
         GoRootScreen(bundle);
-
     }
 
     /**
@@ -228,17 +231,26 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         }
     }
 
+
     public void showProgress(String msg) {
         if (pd == null) {
             // 객체를 1회만 생성한다.
             pd = new ProgressDialog(this); // 생성한다.
-            pd.setCancelable(false);
+            pd.setCancelable(true);
             // 백키로 닫는 기능을 제거한다.
         }
         pd.setMessage(msg);
         // 원하는 메시지를 세팅한다.
         pd.show();
         // 화면에 띠워라
+    }
+
+    // 프로그레스 다이얼로그 숨기기
+    public void hideProgress() {
+        if (pd != null && pd.isShowing()) {
+            // 닫는다 : 객체가 존재하고, 보일때만
+            pd.dismiss();
+        }
     }
 
 
