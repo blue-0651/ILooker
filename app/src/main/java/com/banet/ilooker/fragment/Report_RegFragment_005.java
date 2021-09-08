@@ -346,6 +346,12 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                 requestApi009SafeNumberReg(getActivity());
             }
         });
+        getBinding().llUnblock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                unblockRequest008(getActivity());
+            }
+        });
 
     }
 
@@ -415,7 +421,7 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                         Toast.makeText(context, "신고가 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     }
                     Bundle bundle = new Bundle();
-                    bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_phone_number_history_fragment);
+                    bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_fragment);
                     GoNativeScreen((BaseBindingFragment) new BlockedPhoneNumberListFragment(), bundle);
                 }
             }
@@ -449,7 +455,7 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                     Toast.makeText(context, "안심등록이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
                     Bundle bundle = new Bundle();
-                    bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_phone_number_history_fragment);
+                    bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_fragment);
                     GoNativeScreen((BaseBindingFragment) new BlockedPhoneNumberListFragment(), bundle);
                 }
             }
@@ -464,6 +470,41 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                 Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    void unblockRequest008(Context context){
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("UseLangCd", "KOR");
+        params.put("UserPhnNo", Util.getLineNumber(getActivity()));
+        params.put("PhnNo", mIncomingPhoneNumber);
+
+        DataInterface.getInstance().getApi008_ApiUnblock(context, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
+
+            @Override
+            public void onSuccess(ResponseData<Object> response) {
+
+                if (response.getProcRsltCd().equals("008-000")) {
+                   // unblockPhoneNumber(mIncomingPhoneNumber);
+                    deleteBlockedData(mIncomingPhoneNumber);
+                    Toast.makeText(context, "차단해제가 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_fragment);
+                    GoNativeScreen((BaseBindingFragment) new BlockedPhoneNumberListFragment(), bundle);
+                }
+            }
+
+            @Override
+            public void onError(ResponseData<Object> response) {
+                Toast.makeText(getContext(), response.getError(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
 
@@ -492,10 +533,13 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
     /**
      * 전화번호 정보 삭제
      */
-    private void deleteuserData() {
+    private void deleteBlockedData(String phoneNumber) {
 
         realm.beginTransaction();
-        RealmResults<BlockedPhoneNumber> List = realm.where(BlockedPhoneNumber.class).findAll();
+        RealmResults<BlockedPhoneNumber> List = realm.where(BlockedPhoneNumber.class)
+                .equalTo("PhnNo", phoneNumber.replace("-", ""))
+                .findAll();
+
         List.remove(0);
         realm.commitTransaction();
     }
@@ -503,13 +547,16 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
 
     private void unblockPhoneNumber(String phoneNumber) {
         BlockedPhoneNumber result2 = realm.where(BlockedPhoneNumber.class)
-                .equalTo("PhnNo", phoneNumber)
+                .equalTo("PhnNo", phoneNumber.replace("-", ""))
 //                .or()
 //                .equalTo("name", "Peter")
                 .findFirst();
         result2.setBlockYN("N");
 
+
     }
+
+
 
 
     String getReportTypeClassName(String code) {

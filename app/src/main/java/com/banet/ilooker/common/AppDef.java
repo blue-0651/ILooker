@@ -22,6 +22,7 @@ public class AppDef {
     public static final String title_block_phone_number_history_fragment = "신고내역" ;
     public static final String title_block_and_report_phone_number_fragment = "신고/차단" ;
     public static final String title_block_noti_fragment = "공지사항" ;
+    public static final String title_block_fragment = "차단관리" ;
 
 
     public enum ReportBlockCategory {
