@@ -24,6 +24,8 @@ public class AppDef {
     public static final String title_block_noti_fragment = "공지사항" ;
     public static final String title_block_fragment = "차단관리" ;
 
+    public static final String titl_latest_call_log_fragment = "최근기록" ;
+
 
     public enum ReportBlockCategory {
         Loan, Gamble, Adult, PhoneSales, Insurance, Alter_Driving, InternetSales, Stock

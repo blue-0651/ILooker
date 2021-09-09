@@ -3,6 +3,7 @@ package com.banet.ilooker.util;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -21,6 +22,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Debug;
 import android.os.Vibrator;
+import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -1608,6 +1610,39 @@ public class Util {
 
     public static int getColor(Context context, int id){
         return ContextCompat.getColor(context, id);
+    }
+
+    public static boolean isThePhoneNumberExist(Context context, String number) {
+        /// number is the phone number
+        //uri 테이블 장소
+//        Uri lookupUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
+//        String[] mPhoneNumberProjection = { ContactsContract.PhoneLookup._ID, ContactsContract.PhoneLookup.NUMBER, ContactsContract.PhoneLookup.DISPLAY_NAME };
+//        Cursor cur = context.getContentResolver().query(lookupUri,mPhoneNumberProjection, null, null, null);
+//        try {
+//            if (cur.moveToFirst()) {
+//                return true;
+//            }else
+//               return false;
+//        }
+//        finally {
+//            if (cur != null){
+//                cur.close();
+//            }
+//        }
+        if (number != null) {
+            ContentResolver cr = context.getContentResolver();
+            Cursor curContacts = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
+
+            while (curContacts.moveToNext()) {
+                String contactNumber = curContacts.getString(curContacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                if (number.equals(contactNumber.replace("-",""))) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            return false;
+        }
     }
 
 

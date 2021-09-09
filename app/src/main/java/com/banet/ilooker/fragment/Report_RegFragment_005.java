@@ -320,7 +320,7 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
             @Override
             public void onClick(View v) {
                 BlockedPhoneNumber blocked = new BlockedPhoneNumber();
-                blocked.BlockYN = "Y";
+                blocked.setBlockYN("Y");
                 //추후 선택적으로 입력함
                 blocked.MedPartCd = "001";
                 blocked.GoodYN = String.valueOf(mRadioLikeCheckedId);
@@ -332,8 +332,8 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                     blocked.EtcTpInpDesc = getBinding().etMicellaneous.getText().toString().trim();
                 else
                     blocked.EtcTpInpDesc = "";
-                blocked.PhnNo = mIncomingPhoneNumber.replace("-", "");
-                blocked.RptTpClsNm = getReportTypeClassName(mRadioCategoryCheckedCode);
+                blocked.setPhnNo(mIncomingPhoneNumber.replace("-", ""));
+                blocked.setRptTpClsNm(getReportTypeClassName(mRadioCategoryCheckedCode));
                 insertPhoneNumberToBeBlocked(blocked);
                 Toast.makeText(getActivity(), "차단이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
             }
@@ -349,6 +349,7 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
         getBinding().llUnblock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 unblockRequest008(getActivity());
             }
         });
@@ -399,9 +400,9 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
             public void onSuccess(ResponseData<Object> response) {
 
                 if (response.getProcRsltCd().equals("005-000")) {
-                    if (isblocked.equals("Y")) {
+
                         BlockedPhoneNumber blocked = new BlockedPhoneNumber();
-                        blocked.BlockYN = "Y";
+                        blocked.setBlockYN("Y");
                         //추후 선택적으로 입력함
                         blocked.MedPartCd = "001";
                         blocked.GoodYN = String.valueOf(mRadioLikeCheckedId);
@@ -413,8 +414,8 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                             blocked.EtcTpInpDesc = getBinding().etMicellaneous.getText().toString().trim();
                         else
                             blocked.EtcTpInpDesc = "";
-                        blocked.RptTpClsNm = getReportTypeClassName(mRadioCategoryCheckedCode);
-                        blocked.PhnNo = mIncomingPhoneNumber.replace("-", "");
+                        blocked.setRptTpClsNm(getReportTypeClassName(mRadioCategoryCheckedCode));
+                        blocked.setPhnNo(mIncomingPhoneNumber.replace("-", ""));
                         insertPhoneNumberToBeBlocked(blocked);
                         Toast.makeText(context, "신고/차단이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     } else {
@@ -423,7 +424,6 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                     Bundle bundle = new Bundle();
                     bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_fragment);
                     GoNativeScreen((BaseBindingFragment) new BlockedPhoneNumberListFragment(), bundle);
-                }
             }
 
             @Override
@@ -484,8 +484,8 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
             public void onSuccess(ResponseData<Object> response) {
 
                 if (response.getProcRsltCd().equals("008-000")) {
-                   // unblockPhoneNumber(mIncomingPhoneNumber);
-                    deleteBlockedData(mIncomingPhoneNumber);
+                    unblockPhoneNumber(mIncomingPhoneNumber);
+                  //  deleteBlockedData(mIncomingPhoneNumber);
                     Toast.makeText(context, "차단해제가 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
                     Bundle bundle = new Bundle();
@@ -540,7 +540,7 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                 .equalTo("PhnNo", phoneNumber.replace("-", ""))
                 .findAll();
 
-        List.remove(0);
+        List.deleteAllFromRealm();
         realm.commitTransaction();
     }
 

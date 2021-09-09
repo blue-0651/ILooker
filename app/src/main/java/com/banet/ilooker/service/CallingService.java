@@ -14,10 +14,8 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
-import android.provider.Telephony;
 import android.telecom.TelecomManager;
 import android.telephony.PhoneNumberUtils;
-import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -56,25 +54,26 @@ public class CallingService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "onReceive()");
-            if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
+//            if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
+//
+//                SmsMessage[] messages = Telephony.Sms.Intents.getMessagesFromIntent(intent);
+//                if (messages != null) {
+//                    if (messages.length == 0)
+//                        return;
+//                    StringBuilder sb = new StringBuilder();
+//                    for (SmsMessage smsMessage : messages) {
+//                        sb.append(smsMessage.getMessageBody());
+//                    }
+//                    String senderPhoneNo = messages[0].getOriginatingAddress();
+//                    String message = sb.toString();
+//
+//                    send003TxtMsg(context, intent, senderPhoneNo, message);
+//                }else{
+//                    Log.d(TAG, "Massage not found");
+//                }
 
-                SmsMessage[] messages = Telephony.Sms.Intents.getMessagesFromIntent(intent);
-                if (messages != null) {
-                    if (messages.length == 0)
-                        return;
-                    StringBuilder sb = new StringBuilder();
-                    for (SmsMessage smsMessage : messages) {
-                        sb.append(smsMessage.getMessageBody());
-                    }
-                    String senderPhoneNo = messages[0].getOriginatingAddress();
-                    String message = sb.toString();
-
-                    send003TxtMsg(context, intent, senderPhoneNo, message);
-                }else{
-                    Log.d(TAG, "Massage not found");
-                }
-
-            } else if (intent.getAction().equals("android.intent.action.PHONE_STATE") || intent.getAction().equals("android.intent.action.OUTGOING_CALL")) {
+//            } else
+                if (intent.getAction().equals("android.intent.action.PHONE_STATE") || intent.getAction().equals("android.intent.action.OUTGOING_CALL")) {
 
                 /**
                  * http://mmarvick.github.io/blog/blog/lollipop-multiple-broadcastreceiver-call-state/
@@ -83,12 +82,17 @@ public class CallingService extends Service {
                 String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
                 phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
 
-                if (state.equals(mLastState) && phoneNumber == null ) {
+                if (phoneNumber == null && state.equals(mLastState)  ) {
                     return;
 
                 } else {
                     mLastState = state;
 
+                }
+
+                if(Util.isThePhoneNumberExist(CallingService.this, phoneNumber)){
+                    Log.d(TAG, phoneNumber + " : Already Exist.");
+                    return;
                 }
 
                 if(isThePhoneNumberBlocked(phoneNumber)){
@@ -97,9 +101,7 @@ public class CallingService extends Service {
                     return;
                 }
 
-                if (phoneNumber == null) {
-                    Log.i(TAG, " : NULL");
-                } else {
+
                     if (TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
                         Log.i(TAG, " :" + state);
                         requestIncommingCallSmissing(context, intent, state, phoneNumber);
@@ -116,7 +118,6 @@ public class CallingService extends Service {
 
                     }
                 }
-            }
         }
     };
 
@@ -196,7 +197,6 @@ public class CallingService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        String input = intent.getStringExtra("inputExtra");
         createNotificationChannel();
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
@@ -306,6 +306,8 @@ public class CallingService extends Service {
     boolean isThePhoneNumberBlocked(String phoneNumber) {
         BlockedPhoneNumber blockedPhoneNumberRealmResults = realm.where(BlockedPhoneNumber.class)
                 .equalTo("PhnNo", phoneNumber)
+                .and()
+                .equalTo("BlockYN", "Y")
                 .findFirst();
 
         if (blockedPhoneNumberRealmResults == null) { //번호가 차단리스트에 없으면
@@ -330,7 +332,5 @@ public class CallingService extends Service {
             }
         }
     }
-
-
 
 }

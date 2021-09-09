@@ -19,6 +19,7 @@ import com.banet.ilooker.R;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.databinding.ActivityMainBinding;
 import com.banet.ilooker.fragment.BaseBindingFragment;
+import com.banet.ilooker.fragment.LastCallLogFragment;
 import com.banet.ilooker.fragment.MainWorkFragment;
 import com.banet.ilooker.fragment.Report_RegFragment_005;
 import com.banet.ilooker.net.DataInterface;
@@ -60,6 +61,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 Bundle bundle = new Bundle();
                 bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_main_fragment);
                 GoHomeScreen();
+            }
+        });
+
+        getBinding().bottomTabBar.recentCallLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.titl_latest_call_log_fragment);
+                GoNativeScreen((BaseBindingFragment) new LastCallLogFragment(), bundle);
             }
         });
 
@@ -155,7 +165,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             ActivityCompat.requestPermissions(MainActivity.this
                     , new String[]{Manifest.permission.READ_CALL_LOG, Manifest.permission.INTERNET, Manifest.permission.ANSWER_PHONE_CALLS
                             , Manifest.permission.READ_PHONE_STATE, Manifest.permission.RECEIVE_MMS, Manifest.permission.RECEIVE_WAP_PUSH,
-                            Manifest.permission.RECEIVE_SMS, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.READ_PHONE_NUMBERS, Manifest.permission.FOREGROUND_SERVICE}
+                            Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_CONTACTS,  Manifest.permission.READ_SMS, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.READ_PHONE_NUMBERS, Manifest.permission.FOREGROUND_SERVICE}
                     , 1);
         }
 

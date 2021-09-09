@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,7 +60,12 @@ public class BlockedPhoneNumberListAdapter extends RecyclerView.Adapter<BlockedP
 
     @Override
     public void onBindViewHolder(@NonNull BlockPhoneNumberListViewHolder viewHolder, int position) {
-
+       if(mItemList.size() <=0){
+           if(mItemList == null || mItemList.size() <= 0) {
+               Toast.makeText(context, "차단내역이 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+               return;
+           }
+       }
         BlockedPhoneNumber item = mItemList.get(position);
         if(item.BlockYN.equals("Y")) {
             viewHolder.tvBlockPhoneNumber.setText(item.PhnNo);

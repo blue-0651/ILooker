@@ -171,10 +171,12 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_phone_number_history_fragment);
+                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.titl_latest_call_log_fragment);
                 GoNativeScreen((BaseBindingFragment) new ReportPhoneNumberHistoryFragment(), bundle);
             }
         });
+
+
     }
 
     private void request101MainUserInfo(String userPhoneNo) {
