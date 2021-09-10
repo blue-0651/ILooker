@@ -19,7 +19,6 @@ import com.banet.ilooker.util.Util;
 import java.util.HashMap;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 /*
  * 005 전화번호 신고 차단
@@ -28,7 +27,8 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
     String mIncomingPhoneNumber;
     String mImcommingDateTime;
     String mRadioCategoryCheckedCode = "";
-    int mRadioLikeCheckedId = 1;
+    int mRadioLikeCheckedId = -1; //버튼 뷰아이디
+    String mRadioLikeCheckedCode = "N";
     Realm realm = Realm.getDefaultInstance();
 
     public Report_RegFragment_005() {
@@ -76,6 +76,14 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 mRadioLikeCheckedId = checkedId;
+                switch (checkedId){
+                    case R.id.rdLike:
+                        mRadioLikeCheckedCode = "Y";
+                        break;
+                    case R.id.rdDisLike:
+                        mRadioLikeCheckedCode = "N";
+                        break;
+                }
             }
         });
 
@@ -339,20 +347,6 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
             }
         });
 
-        getBinding().llReportSafe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                requestApi009SafeNumberReg(getActivity());
-            }
-        });
-        getBinding().llUnblock.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                unblockRequest008(getActivity());
-            }
-        });
 
     }
 
@@ -438,74 +432,8 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
         });
     }
 
-    //안심등록 번호 등록
-    private void requestApi009SafeNumberReg(Context context) {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("UseLangCd", "KOR");
-        params.put("UserPhnNo", Util.getLineNumber(getActivity()));
-        params.put("PhnNo", mIncomingPhoneNumber);
 
-        DataInterface.getInstance().getApi009SafeNumberReg(context, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
 
-            @Override
-            public void onSuccess(ResponseData<Object> response) {
-
-                if (response.getProcRsltCd().equals("009-000")) {
-                    unblockPhoneNumber(mIncomingPhoneNumber);
-                    Toast.makeText(context, "안심등록이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_fragment);
-                    GoNativeScreen((BaseBindingFragment) new BlockedPhoneNumberListFragment(), bundle);
-                }
-            }
-
-            @Override
-            public void onError(ResponseData<Object> response) {
-                Toast.makeText(getContext(), response.getError(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    void unblockRequest008(Context context){
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("UseLangCd", "KOR");
-        params.put("UserPhnNo", Util.getLineNumber(getActivity()));
-        params.put("PhnNo", mIncomingPhoneNumber);
-
-        DataInterface.getInstance().getApi008_ApiUnblock(context, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
-
-            @Override
-            public void onSuccess(ResponseData<Object> response) {
-
-                if (response.getProcRsltCd().equals("008-000")) {
-                    unblockPhoneNumber(mIncomingPhoneNumber);
-                  //  deleteBlockedData(mIncomingPhoneNumber);
-                    Toast.makeText(context, "차단해제가 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_fragment);
-                    GoNativeScreen((BaseBindingFragment) new BlockedPhoneNumberListFragment(), bundle);
-                }
-            }
-
-            @Override
-            public void onError(ResponseData<Object> response) {
-                Toast.makeText(getContext(), response.getError(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
 
 
     private void insertPhoneNumberToBeBlocked(BlockedPhoneNumber blocked) {
@@ -529,34 +457,6 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
         }
 
     }
-
-    /**
-     * 전화번호 정보 삭제
-     */
-    private void deleteBlockedData(String phoneNumber) {
-
-        realm.beginTransaction();
-        RealmResults<BlockedPhoneNumber> List = realm.where(BlockedPhoneNumber.class)
-                .equalTo("PhnNo", phoneNumber.replace("-", ""))
-                .findAll();
-
-        List.deleteAllFromRealm();
-        realm.commitTransaction();
-    }
-
-
-    private void unblockPhoneNumber(String phoneNumber) {
-        BlockedPhoneNumber result2 = realm.where(BlockedPhoneNumber.class)
-                .equalTo("PhnNo", phoneNumber.replace("-", ""))
-//                .or()
-//                .equalTo("name", "Peter")
-                .findFirst();
-        result2.setBlockYN("N");
-
-
-    }
-
-
 
 
     String getReportTypeClassName(String code) {

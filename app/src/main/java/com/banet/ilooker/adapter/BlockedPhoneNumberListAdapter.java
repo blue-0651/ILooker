@@ -1,7 +1,8 @@
 package com.banet.ilooker.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.banet.ilooker.R;
-import com.banet.ilooker.activity.MainActivity;
+import com.banet.ilooker.activity.BlockPhoneNumberDetailActivity;
 import com.banet.ilooker.common.AppDef;
-import com.banet.ilooker.fragment.BaseBindingFragment;
-import com.banet.ilooker.fragment.Report_RegFragment_005;
 import com.banet.ilooker.model.BlockedPhoneNumber;
 
 import org.jetbrains.annotations.NotNull;
@@ -99,11 +98,15 @@ public class BlockedPhoneNumberListAdapter extends RecyclerView.Adapter<BlockedP
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     if(pos != RecyclerView.NO_POSITION) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString(AppDef.incoming_number_extra,  tvBlockPhoneNumber.getText().toString() );
-                        bundle.putString(AppDef.incoming_date_time,  tvIncommingDateTime.getText().toString() );
-                        bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_and_report_phone_number_fragment );
-                        ( (MainActivity)context).GoNativeScreen((BaseBindingFragment)new Report_RegFragment_005(), bundle);
+//                        Bundle bundle = new Bundle();
+//                        bundle.putString(AppDef.incoming_number_extra,  tvBlockPhoneNumber.getText().toString() );
+//                        bundle.putString(AppDef.incoming_date_time,  tvIncommingDateTime.getText().toString() );
+//                        bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_and_report_phone_number_fragment );
+//                        ( (MainActivity)context).GoNativeScreen((BaseBindingFragment)new Report_RegFragment_005(), bundle);
+                        Intent intent = new Intent(context, BlockPhoneNumberDetailActivity.class);
+                     //   intent.putExtra(AppDef.BlockedPhoneNumber_Extra, mItemList.get(pos));
+                        intent.putExtra(AppDef.BlockedPhoneNumber_Extra, (Parcelable) mItemList.get(pos));
+                        context.startActivity(intent);
                     }
                 }
             });

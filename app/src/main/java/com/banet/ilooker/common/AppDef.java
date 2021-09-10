@@ -4,6 +4,10 @@ public class AppDef {
 
     public final static int ACTIVITY_CLOSE = 9000;
 
+    public static String[] AILookerMediaType = new String[]{
+            "001", "002"
+    };
+
     public static final String FRAGMENT_TITLE_NAME = "fragment_title";
     public static final String incoming_number_extra = "incoming_number_extra";
     public static final String incoming_date_time = "called_date_time";
@@ -14,6 +18,8 @@ public class AppDef {
     public static final String USER_LANGUAGE_CODE = "KOR";
     public static final String NOTICE_104 = "notice_104";
 
+    public static final String RecentCallLog_Extra = "recent_call_log_extra";
+    public static final String BlockedPhoneNumber_Extra = "blocked_phone_number_extra";
 
 
 
@@ -25,6 +31,8 @@ public class AppDef {
     public static final String title_block_fragment = "차단관리" ;
 
     public static final String titl_latest_call_log_fragment = "최근기록" ;
+    public static final String title_latest_call_log_detail = "최근기록상세" ;
+    public static final String title_blocked_phone_number_detail = "차단내역상세" ;
 
 
     public enum ReportBlockCategory {
@@ -35,7 +43,11 @@ public class AppDef {
 
 
     public enum PhoneCallStatus{
-        RINGING , IDLE, OFFHOOK, SMS
+        RINGING  , IDLE, OFFHOOK, SMS
+    }
+
+    public static enum MediaTypeEnum {
+        PhoneCall, SMS
     }
 
 

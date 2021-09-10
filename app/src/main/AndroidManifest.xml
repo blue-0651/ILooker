@@ -32,13 +32,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="Instantiatable">
+        <activity android:name=".activity.BlockPhoneNumberDetailActivity"></activity>
+        <activity
+            android:name=".activity.RecentLogDetailActivity"
+            android:theme="@style/Transparent" />
         <activity
             android:name=".activity.DetailInfoActivity"
-            android:theme="@style/Transparent"></activity>
+            android:theme="@style/Transparent" />
         <activity
             android:name=".activity.PopUpActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Transparent"></activity>
+            android:theme="@style/Transparent" />
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait">
@@ -56,7 +60,6 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
-
 
         <service
             android:name=".service.CallingService"

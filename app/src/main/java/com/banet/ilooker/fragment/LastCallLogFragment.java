@@ -6,20 +6,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CallLog;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.banet.ilooker.R;
+import com.banet.ilooker.activity.MainActivity;
+import com.banet.ilooker.adapter.LastCallLogAdapter;
 import com.banet.ilooker.databinding.FragmentLastCallLogBinding;
+import com.banet.ilooker.model.RecentCallLog;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
-public class LastCallLogFragment extends BaseBindingFragment<FragmentLastCallLogBinding> {
+public class LastCallLogFragment extends BaseBindingFragment<FragmentLastCallLogBinding>  {
     protected String TAG = getClass().getSimpleName();
-
+    List<RecentCallLog> recentCallLogList = new ArrayList<>();
+    LastCallLogAdapter lastCallLogAdapter ;
     public LastCallLogFragment() {
         // Required empty public constructor
     }
@@ -34,12 +38,12 @@ public class LastCallLogFragment extends BaseBindingFragment<FragmentLastCallLog
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_last_call_log, container, false);
-    }
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        // Inflate the layout for this fragment
+//        return inflater.inflate(R.layout.fragment_last_call_log, container, false);
+//    }
 
     @Override
     protected int getLayoutId() {
@@ -48,13 +52,43 @@ public class LastCallLogFragment extends BaseBindingFragment<FragmentLastCallLog
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        getCallLog();
+        showProgress("잠시 기다리세요");
+        lastCallLogAdapter = new LastCallLogAdapter(getActivity(), getCallLog()) ;
+        getBinding().rvRecentLogNumber.setAdapter(lastCallLogAdapter);
+
+        getBinding().searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<RecentCallLog> tempSearchList = new   ArrayList<RecentCallLog>();
+                if(getBinding().etSearchCond.getText().toString().trim().equals("")){
+                    lastCallLogAdapter = new LastCallLogAdapter(getActivity(), recentCallLogList);
+                    getBinding().rvRecentLogNumber.setAdapter(lastCallLogAdapter);
+                    lastCallLogAdapter.notifyDataSetChanged();
+                }else {
+                    for (int i = 0; recentCallLogList.size() > i; i++) {
+                        if (recentCallLogList.get(i).phoneNumber.contains(getBinding().etSearchCond.getText().toString().trim())) {
+                            tempSearchList.add(recentCallLogList.get(i));
+                        }
+                    }
+
+                    lastCallLogAdapter = new LastCallLogAdapter(getActivity(), tempSearchList);
+                    getBinding().rvRecentLogNumber.setAdapter(lastCallLogAdapter);
+                    lastCallLogAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        ( (MainActivity)getActivity()).setBottomTabBarVisible(true);
+        hideProgress();
+
        // readSMSMessage();
     }
  //   Uri allCalls = Uri.parse("content://call_log/calls");
  //   String strOrder = android.provider.CallLog.Calls.DATE + " DESC";
 // Cursor managedCursor = getContentResolver().query(CallLog.Calls.CONTENT_URI, null, android.provider.CallLog.Calls.DATE + " BETWEEN ? AND ?", whereValue, strOrder);
-    private String getCallLog() {
+    private List<RecentCallLog>  getCallLog() {
+        recentCallLogList = new ArrayList<>();
+
         StringBuffer sb = new StringBuffer();
         Cursor managedCursor = getActivity().managedQuery(CallLog.Calls.CONTENT_URI, null,
                 null, null, null);
@@ -66,11 +100,7 @@ public class LastCallLogFragment extends BaseBindingFragment<FragmentLastCallLog
 
         sb.append("Call Details :");
         while (managedCursor.moveToNext()) {
-            String phNumber;
-            if(managedCursor.getString(cachedName) != null)
-                phNumber = managedCursor.getString(cachedName);
-            else
-               phNumber = managedCursor.getString(number);
+            String  phNumber = managedCursor.getString(number);
             String callType = managedCursor.getString(type);
             String callDate = managedCursor.getString(date);
             SimpleDateFormat formatter = new SimpleDateFormat(
@@ -79,6 +109,7 @@ public class LastCallLogFragment extends BaseBindingFragment<FragmentLastCallLog
                     .parseLong(callDate)));
             Date callDayTime = new Date(Long.valueOf(callDate));
             String callDuration = managedCursor.getString(duration);
+            String cachedNameString = managedCursor.getString(cachedName);
             String dir = null;
             int dircode = Integer.parseInt(callType);
             switch (dircode) {
@@ -95,15 +126,16 @@ public class LastCallLogFragment extends BaseBindingFragment<FragmentLastCallLog
                     break;
 
             }
+
             sb.append("\nPhone Number:--- " + phNumber + " \nCall Type:--- "
                     + dir + " \nCall Date:--- " + callDayTime
                     + " \nCall duration in sec :--- " + callDuration);
             sb.append("\n----------------------------------");
+            recentCallLogList.add(new RecentCallLog(phNumber,"001", callType, cachedNameString, "", dateString, ""));
         }
         managedCursor.close();
         Log.d(TAG,  sb.toString() );
-
-        return sb.toString();
+        return recentCallLogList;
     }
 
     public int readSMSMessage() {

@@ -45,7 +45,7 @@ public class CallingService extends Service {
     public static final String EXTRA_CALL_NUMBER = "call_number";
     public static final String TAG = "CallingService";
     public static String mLastState;
-    Realm realm = Realm.getDefaultInstance();
+    static Realm realm = Realm.getDefaultInstance();
     TelecomManager tcm;
     String phoneNumber;
 
@@ -73,16 +73,16 @@ public class CallingService extends Service {
 //                }
 
 //            } else
-                if (intent.getAction().equals("android.intent.action.PHONE_STATE") || intent.getAction().equals("android.intent.action.OUTGOING_CALL")) {
+            if (intent.getAction().equals("android.intent.action.PHONE_STATE") || intent.getAction().equals("android.intent.action.OUTGOING_CALL")) {
 
+
+                String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
+                phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
                 /**
                  * http://mmarvick.github.io/blog/blog/lollipop-multiple-broadcastreceiver-call-state/
                  * 2번 호출되는 문제 해결
                  */
-                String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
-                phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
-
-                if (phoneNumber == null && state.equals(mLastState)  ) {
+                if (phoneNumber == null && state.equals(mLastState)) {
                     return;
 
                 } else {
@@ -90,18 +90,20 @@ public class CallingService extends Service {
 
                 }
 
-                if(Util.isThePhoneNumberExist(CallingService.this, phoneNumber)){
+                if (Util.isThePhoneNumberExist(CallingService.this, phoneNumber)) {
                     Log.d(TAG, phoneNumber + " : Already Exist.");
                     return;
                 }
 
-                if(isThePhoneNumberBlocked(phoneNumber)){
+                if (isThePhoneNumberBlocked(phoneNumber)) {
                     Toast.makeText(getApplicationContext(), "차단된 번호입니다.", Toast.LENGTH_SHORT).show();
                     endCall();
                     return;
                 }
 
-
+                if (phoneNumber == null)
+                    return;
+                else {
                     if (TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
                         Log.i(TAG, " :" + state);
                         requestIncommingCallSmissing(context, intent, state, phoneNumber);
@@ -111,6 +113,7 @@ public class CallingService extends Service {
                         sendCallStatus(AppDef.PhoneCallStatus.IDLE);
 
                     } else if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
+
                         Toast.makeText(context, "Ringing State", Toast.LENGTH_SHORT).show();
                         Toast.makeText(context, phoneNumber, Toast.LENGTH_SHORT).show();
                         Log.i(TAG, " :" + state);
@@ -118,6 +121,7 @@ public class CallingService extends Service {
 
                     }
                 }
+            }
         }
     };
 
@@ -153,7 +157,7 @@ public class CallingService extends Service {
         registerReceiver(receiver, filter);
     }
 
-    private void showIncomingPhoneSMSUI(Context context, Intent intent, String  incomingPhoneNumber, IncommingCall incommingMsg) {
+    private void showIncomingPhoneSMSUI(Context context, Intent intent, String incomingPhoneNumber, IncommingCall incommingMsg) {
 
         if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
             String incomingNumber = incomingPhoneNumber;
@@ -174,8 +178,8 @@ public class CallingService extends Service {
 
     private void showIncomingPhoneUI(Context context, Intent intent, String state, IncommingCall result) {
 
-        if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)        ){
- //               || TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
+        if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
+            //               || TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
             String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
             String phone_number = PhoneNumberUtils.formatNumber(incomingNumber);
 
@@ -192,7 +196,6 @@ public class CallingService extends Service {
             sendCallStatus(AppDef.PhoneCallStatus.valueOf(state));
         }
     }
-
 
 
     @Override
@@ -239,7 +242,7 @@ public class CallingService extends Service {
         HashMap<String, Object> params = new HashMap<>();
         params.put("UseLangCd", "KOR");
         params.put("UserPhnNo", Util.getLineNumber(this));
-        params.put("PhnNo", incomingCallNumber);
+        params.put("PhnNo", incomingCallNumber.replace("-", ""));
         params.put("MedPartCd", "001");
         DataInterface.getInstance().get002IncommingCallSmissing(this, params, new DataInterface.ResponseCallback<ResponseData<IncommingCall>>() {
 
@@ -266,7 +269,7 @@ public class CallingService extends Service {
         });
     }
 
-    private void send003TxtMsg(Context context, Intent intent,  String incomingCallNumber, String msg) {
+    private void send003TxtMsg(Context context, Intent intent, String incomingCallNumber, String msg) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("UseLangCd", "KOR");
         params.put("UserPhnNo", Util.getLineNumber(this));
@@ -303,24 +306,23 @@ public class CallingService extends Service {
         });
     }
 
-    boolean isThePhoneNumberBlocked(String phoneNumber) {
+    public static boolean isThePhoneNumberBlocked(String phoneNumber) {
         BlockedPhoneNumber blockedPhoneNumberRealmResults = realm.where(BlockedPhoneNumber.class)
                 .equalTo("PhnNo", phoneNumber)
                 .and()
                 .equalTo("BlockYN", "Y")
                 .findFirst();
-
         if (blockedPhoneNumberRealmResults == null) { //번호가 차단리스트에 없으면
             return false;
         } else {
-            return  true;
+            return true;
         }
     }
 
     private void endCall() {
         if (tcm != null) {
             try {
-                if ( phoneNumber != null) {
+                if (phoneNumber != null) {
                     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ANSWER_PHONE_CALLS) != PackageManager.PERMISSION_GRANTED) {
                         return;
                     }

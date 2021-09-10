@@ -1,13 +1,15 @@
 package com.banet.ilooker.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-public class BlockedPhoneNumber extends RealmObject implements Serializable {
+public class BlockedPhoneNumber extends RealmObject implements Parcelable {
 
 
     public BlockedPhoneNumber() {
@@ -23,6 +25,31 @@ public class BlockedPhoneNumber extends RealmObject implements Serializable {
         MedPartCd = "";
 
     }
+
+    protected BlockedPhoneNumber(Parcel in) {
+        Seq = in.readString();
+        RcvDate = in.readString();
+        RcvTime = in.readString();
+        PhnNo = in.readString();
+        GoodYN = in.readString();
+        BlockYN = in.readString();
+        RptTpClsCd = in.readString();
+        RptTpClsNm = in.readString();
+        EtcTpInpDesc = in.readString();
+        MedPartCd = in.readString();
+    }
+
+    public static final Creator<BlockedPhoneNumber> CREATOR = new Creator<BlockedPhoneNumber>() {
+        @Override
+        public BlockedPhoneNumber createFromParcel(Parcel in) {
+            return new BlockedPhoneNumber(in);
+        }
+
+        @Override
+        public BlockedPhoneNumber[] newArray(int size) {
+            return new BlockedPhoneNumber[size];
+        }
+    };
 
     public String getBlockYN(){
         return this.BlockYN;
@@ -78,6 +105,7 @@ public class BlockedPhoneNumber extends RealmObject implements Serializable {
     @Expose
     public String RcvTime = "";
 
+    @PrimaryKey
     @SerializedName("PhnNo")
     @Expose
     public String PhnNo = "";
@@ -106,4 +134,23 @@ public class BlockedPhoneNumber extends RealmObject implements Serializable {
     @Expose
     public String MedPartCd = "";
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(Seq);
+        dest.writeString(RcvDate);
+        dest.writeString(RcvTime);
+        dest.writeString(PhnNo);
+        dest.writeString(GoodYN);
+        dest.writeString(BlockYN);
+        dest.writeString(RptTpClsCd);
+        dest.writeString(RptTpClsNm);
+        dest.writeString(EtcTpInpDesc);
+        dest.writeString(MedPartCd);
+    }
 }

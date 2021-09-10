@@ -37,11 +37,13 @@ public class BlockedPhoneNumberListFragment extends BaseBindingFragment<Fragment
 
     @Override
     protected void init(Bundle savedInstanceState) {
-//        Person person = realm.createObject(Person.class);
-//        person.setId(1);
-//        person.setName("Young Person");
-//        person.setAge(14);
-      //  RealmQuery<User> query = realm.where(User.class);
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         RealmResults<BlockedPhoneNumber> blockedPhoneNumberRealmResults = realm.where(BlockedPhoneNumber.class)
 //                .equalTo("name", "John")
 //                .or()
@@ -50,10 +52,9 @@ public class BlockedPhoneNumberListFragment extends BaseBindingFragment<Fragment
 
         mBlockList = blockedPhoneNumberRealmResults;
         mBlockListAdapter = new BlockedPhoneNumberListAdapter(getActivity(), (List<BlockedPhoneNumber>) blockedPhoneNumberRealmResults) ;
-        getBinding().rvSearchBlockNumber.setAdapter(mBlockListAdapter);
+        getBinding().rvReport.setAdapter(mBlockListAdapter);
         ( (MainActivity)getActivity()).setBottomTabBarVisible(false);
         getBinding().tvTotalNo.setText("차단번호 총: " + mBlockList.size());
 
     }
-
 }

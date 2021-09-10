@@ -68,7 +68,7 @@ public class ReportPhoneNumberHistoryFragment extends BaseBindingFragment<Fragme
                 if( response.getProcRsltCd().equals("102-000")){
                     mReportHistoryList =  (List<ReportHistory102>) response.getList();
                     mReportHistoryAdapter = new ReportPhoneNumberListAdapter(getActivity(), mReportHistoryList);
-                    getBinding().rvSearchBlockNumber.setAdapter(mReportHistoryAdapter);
+                    getBinding().rvReport.setAdapter(mReportHistoryAdapter);
                     getBinding().tvTotalNo.setText(" 총 신고내역  :" + mReportHistoryList.size());
 
                 }

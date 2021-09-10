@@ -63,7 +63,7 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_search_block_number"
+                android:id="@+id/rv_report"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:layout_width="match_parent"
