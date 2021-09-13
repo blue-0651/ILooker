@@ -6,13 +6,16 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#0020">
+        android:paddingTop="20dp"
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp"
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bgColorWhite"
-            android:padding="40dp"
+            android:padding="10dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -21,7 +24,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:padding="10dp"
+                android:padding="5dp"
                 app:layout_constraintBottom_toTopOf="@id/ll_bottom_button"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -45,13 +48,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:background="@color/bgColorWhite"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:src="@drawable/ic_call_not_present" />
+                    <!--                    필요없음-->
+<!--                    <ImageView-->
+<!--                        android:id="@+id/iv_call_status"-->
+<!--                        android:layout_width="35dp"-->
+<!--                        android:layout_height="35dp"-->
+<!--                        android:src="@drawable/ic_call_not_present" />-->
 
                     <TextView
                         android:id="@+id/block_phone_no"
@@ -59,9 +64,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
-                        android:text="010-8769-1212"
+                        android:text=""
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        />
                 </LinearLayout>
 
                 <RadioGroup
@@ -71,6 +77,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:orientation="horizontal"
+                    android:background="@color/bgColorWhite"
                     android:weightSum="10">
 
                     <RadioButton
@@ -79,7 +86,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:text="@string/like"
-                        android:textSize="20sp" />
+                        style="@style/btxs"
+                        />
 
                     <RadioButton
                         android:id="@+id/rdDisLike"
@@ -87,7 +95,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:text="@string/dislike"
-                        android:textSize="20sp" />
+                        style="@style/btxs" />
 
                 </RadioGroup>
                 <ImageView
@@ -100,7 +108,8 @@
                     android:id="@+id/rdCategoryGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@color/bgColorWhite">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -355,6 +364,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="7"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
                             android:enabled="false" />
 
                     </LinearLayout>

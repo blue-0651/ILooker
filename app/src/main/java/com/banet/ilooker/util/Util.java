@@ -72,13 +72,12 @@ import java.util.Vector;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
-
-//import android.support.v4.content.ContextCompat;
-//import android.support.v4.content.res.ResourcesCompat;
+import io.realm.Realm;
 
 
 public class Util {
     private static SecretKey key;
+    static Realm realm = Realm.getDefaultInstance();
 
     public static boolean isHostSelectMode() {
         return false;
@@ -804,7 +803,8 @@ public class Util {
                 //IMLog.d("전화번호 추출 오류");
                 return "";
             } else {
-                String line = tm.getLine1Number().replace("+82", "0");
+                String line = tm.getLine1Number().replace("+82", "0").replace("-", "");
+
                 //IMLog.d("line = " + line);
                 return line;
             }
@@ -1646,6 +1646,22 @@ public class Util {
             return false;
         }
     }
+
+    public static boolean isThePhoneNumberAlreadyBlocked(String phoneNumber) {
+        BlockedPhoneNumber blockedPhoneNumberRealmResults = realm.where(BlockedPhoneNumber.class)
+                .equalTo("PhnNo", phoneNumber.replace("-", ""))
+                .and()
+                .equalTo("BlockYN", "Y")
+                .findFirst();
+        if (blockedPhoneNumberRealmResults == null) { //번호가 차단리스트에 없으면
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+
 
 
 

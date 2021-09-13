@@ -158,8 +158,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             ((BaseActivity) this).fragmentManager.popBackStack();
     }
 
+    private void requirePerms(){
+        String[] permissions = {Manifest.permission.RECEIVE_SMS};
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
+        if(permissionCheck == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(this, permissions, 1);
+        }
+    }
+
     private void init() {
 
+        requirePerms();
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this

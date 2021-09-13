@@ -26,6 +26,7 @@ import io.realm.RealmResults;
 public class BlockPhoneNumberDetailActivity extends BaseActivity<ActivityBlockPhoneNumberDetailBinding> {
     Realm realm;
     BlockedPhoneNumber mBlockedPhoneNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +35,17 @@ public class BlockPhoneNumberDetailActivity extends BaseActivity<ActivityBlockPh
             mBlockedPhoneNumber = (BlockedPhoneNumber) getIntent().getParcelableExtra(AppDef.BlockedPhoneNumber_Extra);
         }
         getBinding().titleBar.tvTitle.setText(AppDef.title_blocked_phone_number_detail);
+        getBinding().titleBar.btnTitleBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        getBinding().blockPhoneNo.setText(mBlockedPhoneNumber.PhnNo);
 
         setLikeChecked(mBlockedPhoneNumber.GoodYN);
         setCategoryChecked(mBlockedPhoneNumber.RptTpClsCd);
+
 
         getBinding().llReportSafe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,11 +84,11 @@ public class BlockPhoneNumberDetailActivity extends BaseActivity<ActivityBlockPh
             }
         });
 
-
     }
-    void setLikeChecked(String likeChecked){
+
+    void setLikeChecked(String likeChecked) {
         setLikeRdAllFalse();
-        switch (likeChecked){
+        switch (likeChecked) {
             case "Y":
                 getBinding().rdLike.setChecked(true);
             case "N":
@@ -87,9 +96,11 @@ public class BlockPhoneNumberDetailActivity extends BaseActivity<ActivityBlockPh
             default:
 
         }
+        getBinding().rdLike.setEnabled(false);
+        getBinding().rdDisLike.setEnabled(false);
     }
 
-    void setLikeRdAllFalse(){
+    void setLikeRdAllFalse() {
         getBinding().rdLike.setChecked(false);
         getBinding().rdDisLike.setChecked(false);
     }
@@ -99,7 +110,7 @@ public class BlockPhoneNumberDetailActivity extends BaseActivity<ActivityBlockPh
         HashMap<String, Object> params = new HashMap<>();
         params.put("UseLangCd", "KOR");
         params.put("UserPhnNo", Util.getLineNumber(this).replace("-", ""));
-        params.put("PhnNo",mBlockedPhoneNumber.PhnNo.replace("-", ""));
+        params.put("PhnNo", mBlockedPhoneNumber.PhnNo.replace("-", ""));
 
         DataInterface.getInstance().getApi009SafeNumberReg(context, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
 
@@ -180,84 +191,85 @@ public class BlockPhoneNumberDetailActivity extends BaseActivity<ActivityBlockPh
         return R.layout.activity_block_phone_number_detail;
     }
 
-    void setCategoryChecked(String ReportTypeClassCode){
+    void setCategoryChecked(String ReportTypeClassCode) {
         allCategoryRadioButtonsMakeFalse();
-            switch (ReportTypeClassCode) {
-                case "001":
-                    getBinding().rd001Loan.setChecked(true);
-                    break;
-                case "002":
-                    getBinding().rd002Gamble.setChecked(true);
-                    break;
-                case "003":
-                    getBinding().rd003Adult.setChecked(true);
-                    break;
+        switch (ReportTypeClassCode) {
+            case "001":
+                getBinding().rd001Loan.setChecked(true);
+                break;
+            case "002":
+                getBinding().rd002Gamble.setChecked(true);
+                break;
+            case "003":
+                getBinding().rd003Adult.setChecked(true);
+                break;
 
-                case "004":
-                    getBinding().rd004PhoneSales.setChecked(true);
-                    break;
+            case "004":
+                getBinding().rd004PhoneSales.setChecked(true);
+                break;
 
-                case "005":
-                    getBinding().rd005Insurance.setChecked(true);
-                    break;
+            case "005":
+                getBinding().rd005Insurance.setChecked(true);
+                break;
 
-                case "006":
-                    getBinding().rd006AltDriving.setChecked(true);
-                    break;
+            case "006":
+                getBinding().rd006AltDriving.setChecked(true);
+                break;
 
-                case "007":
-                    getBinding().rd007InternetSales.setChecked(true);
-                    break;
+            case "007":
+                getBinding().rd007InternetSales.setChecked(true);
+                break;
 
-                case "008":
-                    getBinding().rd008Stock.setChecked(true);
-                    break;
+            case "008":
+                getBinding().rd008Stock.setChecked(true);
+                break;
 
-                case "009":
-                    getBinding().rd009Delivery.setChecked(true);
-                    break;
+            case "009":
+                getBinding().rd009Delivery.setChecked(true);
+                break;
 
-                case "010":
-                    getBinding().rd010Ad.setChecked(true);
-                    break;
+            case "010":
+                getBinding().rd010Ad.setChecked(true);
+                break;
 
-                case "011":
-                    getBinding().rd011Login.setChecked(true);
-                    break;
-                case "012":
-                    getBinding().rd012NotFound.setChecked(true);
-                    break;
-                case "013":
-                    getBinding().rd013PoliceBlock.setChecked(true);
-                    break;
+            case "011":
+                getBinding().rd011Login.setChecked(true);
+                break;
+            case "012":
+                getBinding().rd012NotFound.setChecked(true);
+                break;
+            case "013":
+                getBinding().rd013PoliceBlock.setChecked(true);
+                break;
 
-                case "101":
-                    getBinding().rd101Telemarketing.setChecked(true);
-                    break;
+            case "101":
+                getBinding().rd101Telemarketing.setChecked(true);
+                break;
 
-                case "102":
-                    getBinding().rd102VoicePissing.setChecked(true);
-                    break;
-                case "103":
-                    getBinding().rd103Call.setChecked(true);
-                    break;
-                case "104":
-                    getBinding().rd104Census.setChecked(true);
-                    break;
-                case "105":
-                    getBinding().rd105UsedProductFake.setChecked(true);
-                    break;
-                case "106":
-                    getBinding().rd106Smissing.setChecked(true);
-                    break;
+            case "102":
+                getBinding().rd102VoicePissing.setChecked(true);
+                break;
+            case "103":
+                getBinding().rd103Call.setChecked(true);
+                break;
+            case "104":
+                getBinding().rd104Census.setChecked(true);
+                break;
+            case "105":
+                getBinding().rd105UsedProductFake.setChecked(true);
+                break;
+            case "106":
+                getBinding().rd106Smissing.setChecked(true);
+                break;
 
-                case "999":
-                    getBinding().rd999Micell.setChecked(true);
-                    break;
+            case "999":
+                getBinding().rd999Micell.setChecked(true);
+                break;
 
-                default:
+            default:
 
-            }
+        }
+        allCategoryRadioButtonsMakeEnabledFalse();
 
     }
 
@@ -282,6 +294,30 @@ public class BlockPhoneNumberDetailActivity extends BaseActivity<ActivityBlockPh
         getBinding().rd105UsedProductFake.setChecked(false);
         getBinding().rd106Smissing.setChecked(false);
         getBinding().rd999Micell.setChecked(false);
+
+    }
+
+    void allCategoryRadioButtonsMakeEnabledFalse() {
+        getBinding().rd001Loan.setEnabled(false);
+        getBinding().rd002Gamble.setEnabled(false);
+        getBinding().rd003Adult.setEnabled(false);
+        getBinding().rd004PhoneSales.setEnabled(false);
+        getBinding().rd005Insurance.setEnabled(false);
+        getBinding().rd006AltDriving.setEnabled(false);
+        getBinding().rd007InternetSales.setEnabled(false);
+        getBinding().rd008Stock.setEnabled(false);
+        getBinding().rd009Delivery.setEnabled(false);
+        getBinding().rd010Ad.setEnabled(false);
+        getBinding().rd011Login.setEnabled(false);
+        getBinding().rd012NotFound.setEnabled(false);
+        getBinding().rd013PoliceBlock.setEnabled(false);
+        getBinding().rd101Telemarketing.setEnabled(false);
+        getBinding().rd102VoicePissing.setEnabled(false);
+        getBinding().rd103Call.setEnabled(false);
+        getBinding().rd104Census.setEnabled(false);
+        getBinding().rd105UsedProductFake.setEnabled(false);
+        getBinding().rd106Smissing.setEnabled(false);
+        getBinding().rd999Micell.setEnabled(false);
 
     }
 }

@@ -313,14 +313,14 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
         getBinding().llReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                request005RequestReportPhoneNo(getActivity(), "N");
+                request005RequestReportBlockPhoneNo(getActivity(), "N");
             }
         });
 
         getBinding().llReportBlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                request005RequestReportPhoneNo(getActivity(), "Y");
+                request005RequestReportBlockPhoneNo(getActivity(), "Y");
             }
         });
 
@@ -331,7 +331,7 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                 blocked.setBlockYN("Y");
                 //추후 선택적으로 입력함
                 blocked.MedPartCd = "001";
-                blocked.GoodYN = String.valueOf(mRadioLikeCheckedId);
+                blocked.GoodYN = String.valueOf(mRadioLikeCheckedCode);
                 blocked.RptTpClsCd = String.valueOf(mRadioCategoryCheckedCode);
                 blocked.RcvDate = DateUtils.getDate("YYYYMMDD");
                 blocked.RcvTime = DateUtils.getDate("HH:MM:SS");
@@ -343,7 +343,6 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                 blocked.setPhnNo(mIncomingPhoneNumber.replace("-", ""));
                 blocked.setRptTpClsNm(getReportTypeClassName(mRadioCategoryCheckedCode));
                 insertPhoneNumberToBeBlocked(blocked);
-                Toast.makeText(getActivity(), "차단이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -374,12 +373,12 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
 
     }
 
-    private void request005RequestReportPhoneNo(Context context, String isblocked) {
+    private void request005RequestReportBlockPhoneNo(Context context, String isblocked) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("UseLangCd", "KOR");
         params.put("UserPhnNo", Util.getLineNumber(getActivity()));
         params.put("MedPartCd", "001");
-        params.put("GoodYN", String.valueOf(mRadioLikeCheckedId));
+        params.put("GoodYN", String.valueOf(mRadioLikeCheckedCode));
         params.put("BlockYN", isblocked);
         params.put("RptTpClsCd", String.valueOf(mRadioCategoryCheckedCode));
         if ("999".equals(mRadioCategoryCheckedCode))
@@ -399,7 +398,7 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                         blocked.setBlockYN("Y");
                         //추후 선택적으로 입력함
                         blocked.MedPartCd = "001";
-                        blocked.GoodYN = String.valueOf(mRadioLikeCheckedId);
+                        blocked.GoodYN = String.valueOf(mRadioLikeCheckedCode);
                         blocked.RptTpClsCd = String.valueOf(mRadioCategoryCheckedCode);
                         blocked.RcvDate = DateUtils.getDate("YYYYMMDD");
                         blocked.RcvTime = DateUtils.getDate("HH:MM:SS");
@@ -411,9 +410,8 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                         blocked.setRptTpClsNm(getReportTypeClassName(mRadioCategoryCheckedCode));
                         blocked.setPhnNo(mIncomingPhoneNumber.replace("-", ""));
                         insertPhoneNumberToBeBlocked(blocked);
-                        Toast.makeText(context, "신고/차단이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(context, "신고가 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, response.getProcRsltCd() + ": 신고/차단 실패 ", Toast.LENGTH_SHORT).show();
                     }
                     Bundle bundle = new Bundle();
                     bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_fragment);
@@ -437,10 +435,10 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
 
 
     private void insertPhoneNumberToBeBlocked(BlockedPhoneNumber blocked) {
-        BlockedPhoneNumber blockedPhoneNumberRealmResults = realm.where(BlockedPhoneNumber.class)
-                .equalTo("PhnNo", blocked.PhnNo)
-                .findFirst();
-        if (blockedPhoneNumberRealmResults == null) { //번호가 차단리스트에 없으면 추가한다.
+//        BlockedPhoneNumber blockedPhoneNumberRealmResults = realm.where(BlockedPhoneNumber.class)
+//                .equalTo("PhnNo", blocked.PhnNo)
+//                .findFirst();
+        if (! Util.isThePhoneNumberAlreadyBlocked( blocked.PhnNo.replace("-", ""))) { //번호가 차단리스트에 없으면 추가한다.
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
@@ -448,10 +446,11 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                     if (realm.copyToRealm(blocked) != null) {
                         Toast.makeText(getContext(), "insert successfull", Toast.LENGTH_SHORT).show();
                     }
-                    // 저장한 다이어리를 다이어리 리스트에 담아주는코드
 
                 }
             });
+
+            Toast.makeText(getContext(), "신고 또는 신고(차단)이 성공했습니다..", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), "차단번호가 이미 존재합니다.", Toast.LENGTH_SHORT).show();
         }

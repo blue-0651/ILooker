@@ -1,6 +1,7 @@
 package com.banet.ilooker.net;
 
 import com.banet.ilooker.model.Advertise100;
+import com.banet.ilooker.model.Event106;
 import com.banet.ilooker.model.IncommingCall;
 import com.banet.ilooker.model.MainUserInfo101;
 import com.banet.ilooker.model.Noti104;
@@ -45,6 +46,10 @@ public interface HttpService {
 
     @POST("app/104_ApiGeneralNoticeInq/")
     Call<ResponseData<Noti104>> api104requestNormalNoti(@Body Map<String, Object> params);
+
+    @POST("app/106_ApiEventInq/")
+    Call<ResponseData<Event106>> api106requestEvent(@Body Map<String, Object> params);
+
     //광고
     @POST("app/100_ApiAdvertInq/")
     Call<ResponseData<Advertise100>> api100_ApiAdvertInq(@Body Map<String, Object> params);
@@ -68,7 +73,7 @@ public interface HttpService {
     Call<ResponseData<Object>> api111_ApiIndividualNoticeDtl(@Body Map<String, Object> params);
 
     //이벤트내역확인
-    @POST("app/112_ApiEventDtl")
+    @POST("app/112_ApiEventDtl/")
     Call<ResponseData<Object>> api112_ApiEventDtl(@Body Map<String, Object> params);
 
     @POST("app/113_ApiNewsDtl/")

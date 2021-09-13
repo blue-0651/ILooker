@@ -161,9 +161,19 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_noti_fragment);
+                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_noti_fragment);
 
                 GoNativeScreen((BaseBindingFragment) new NotiFragment_104(), bundle);
+            }
+        });
+
+        getBinding().llEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_event_fragment);
+
+                GoNativeScreen((BaseBindingFragment) new EventFragment_106(), bundle);
             }
         });
 

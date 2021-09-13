@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bgColorWhite"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_total_event"
+                style="@style/NormalDescText"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_event"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="left|top"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:cacheColorHint="#00000000"
+                android:divider="@color/color05"
+                android:dividerHeight="1dp"
+                android:fadeScrollbars="true"
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

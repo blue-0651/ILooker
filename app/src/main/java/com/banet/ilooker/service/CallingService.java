@@ -146,8 +146,8 @@ public class CallingService extends Service {
         tcm = (TelecomManager) getSystemService(Context.TELECOM_SERVICE);
 
         IntentFilter filter = new IntentFilter();
-        filter.setPriority(2147483647);
-        filter.addAction("android.provider.Telephony.SMS_RECEIVED");
+        //filter.setPriority(2147483647);
+     //   filter.addAction("android.provider.Telephony.SMS_RECEIVED");
         filter.addAction("android.intent.action.RECEIVE_SMS");
         filter.addAction("android.intent.action.PHONE_STATE");
         filter.addAction("android.intent.action.RECEIVE_MMS");
