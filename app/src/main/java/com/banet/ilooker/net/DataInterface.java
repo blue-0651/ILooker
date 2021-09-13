@@ -6,7 +6,9 @@ import com.banet.ilooker.model.Advertise100;
 import com.banet.ilooker.model.Event106;
 import com.banet.ilooker.model.IncommingCall;
 import com.banet.ilooker.model.MainUserInfo101;
+import com.banet.ilooker.model.News107;
 import com.banet.ilooker.model.Noti104;
+import com.banet.ilooker.model.Point103;
 import com.banet.ilooker.model.ReportHistory102;
 
 import java.util.HashMap;
@@ -196,6 +198,39 @@ protected String TAG = getClass().getSimpleName();
 		}
 	}
 
+	public void getapi105_ApiIndividualNoticeInq(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Noti104>> call = service.api105_ApiIndividualNoticeInq(params);
+
+			call.enqueue(new Callback<ResponseData<Noti104>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Noti104>> call, Response<ResponseData<Noti104>> response) {
+					processCommonError(context, callback, response);
+//					if (callback == null) return;
+//
+//					if (response.isSuccessful()) {
+//						callback.onSuccess(response.body());
+//					} else {
+//						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+//						callback.onError( response);
+//					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Noti104>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
 	public void getapi106requestEvent(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
 			Call<ResponseData<Event106>> call = service.api106requestEvent(params);
@@ -216,6 +251,39 @@ protected String TAG = getClass().getSimpleName();
 
 				@Override
 				public void onFailure(Call<ResponseData<Event106>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void getapi107requestNews(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<News107>> call = service.api107_ApiNewsInq(params);
+
+			call.enqueue(new Callback<ResponseData<News107>>() {
+				@Override
+				public void onResponse(Call<ResponseData<News107>> call, Response<ResponseData<News107>> response) {
+					processCommonError(context, callback, response);
+//					if (callback == null) return;
+//
+//					if (response.isSuccessful()) {
+//						callback.onSuccess(response.body());
+//					} else {
+//						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+//						callback.onError( response);
+//					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<News107>> call, Throwable t) {
 					if (callback == null) return;
 
 					t.printStackTrace();
@@ -261,6 +329,40 @@ protected String TAG = getClass().getSimpleName();
 			ex.printStackTrace();
 		}
 	}
+
+	public void get103_ApiPointInq(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Point103>> call = service.api103_ApiPointInq(params);
+
+			call.enqueue(new Callback<ResponseData<Point103>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Point103>> call, Response<ResponseData<Point103>> response) {
+					processCommonError(context, callback, response);
+//					if (callback == null) return;
+//
+//					if (response.isSuccessful()) {
+//						callback.onSuccess(response.body());
+//					} else {
+//						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+//						callback.onError( response);
+//					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Point103>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
 
 	public void getapi005requestReportPhonNo(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
@@ -492,6 +594,38 @@ protected String TAG = getClass().getSimpleName();
 	public void getApi112_EventDtail(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
 			Call<ResponseData<Object>> call = service.api112_ApiEventDtl(params);
+
+			call.enqueue(new Callback<ResponseData<Object>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Object>> call, Response<ResponseData<Object>> response) {
+					if (callback == null) return;
+
+					if (response.isSuccessful()) {
+						callback.onSuccess(response.body());
+					} else {
+						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+						callback.onError( response);
+					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Object>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void getApi113_NewsDetail(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Object>> call = service.api113_ApiNewsDtl(params);
 
 			call.enqueue(new Callback<ResponseData<Object>>() {
 				@Override

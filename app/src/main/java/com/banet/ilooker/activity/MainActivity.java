@@ -168,7 +168,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private void init() {
 
-        requirePerms();
+      //  requirePerms();
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this

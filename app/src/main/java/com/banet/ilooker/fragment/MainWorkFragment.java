@@ -68,38 +68,38 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
     private void setBarChart(MainUserInfo101 mainUserInfo101) {
         HorizontalBarChart barChart = getBinding().barchart;
         ArrayList activityPointsList = new ArrayList();
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.RptCnt), 0));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.AdvtChkCnt), 1));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.NtcChkCnt), 2));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.EvtChkCnt), 1));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.NewsChkCnt), 1));//
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.InqChkCnt), 1));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.EvtJoinCnt), 1));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopCurrPnt), 1));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopAdvtChkCnt), 1));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopRptCnt), 1));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopAdvtChkCnt), 1));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopNtcChkCnt), 1));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopEvtChkCnt), 1));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopInqChkCnt), 1));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopEvtJoinCnt), 1));
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.RptCnt), 0));
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.AdvtChkCnt), 1));
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.NtcChkCnt), 2));
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.EvtChkCnt), 3));
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.NewsChkCnt), 4));//
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.InqChkCnt), 5));
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.EvtJoinCnt), 6));
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopCurrPnt), 7));
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopAdvtChkCnt), 8));
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopRptCnt), 9));
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopAdvtChkCnt), 10));
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopNtcChkCnt), 11));
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopEvtChkCnt), 12));
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopInqChkCnt), 13));
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopEvtJoinCnt), 14));
 
-
-        activityPointsList.add(new BarEntry(Float.valueOf("1133"), 0));
-        activityPointsList.add(new BarEntry(Float.valueOf("100"), 1));
-        activityPointsList.add(new BarEntry(1133f, 2));
-        activityPointsList.add(new BarEntry(1240f, 3));
-        activityPointsList.add(new BarEntry(1369f, 4));
-        activityPointsList.add(new BarEntry(1487f, 5));
-        activityPointsList.add(new BarEntry(1501f, 6));
-        activityPointsList.add(new BarEntry(1645f, 7));
-        activityPointsList.add(new BarEntry(1578f, 8));
-        activityPointsList.add(new BarEntry(1695f, 9));
-        activityPointsList.add(new BarEntry(1487f, 10));
-        activityPointsList.add(new BarEntry(1501f, 11));
-        activityPointsList.add(new BarEntry(1645f, 12));
-        activityPointsList.add(new BarEntry(1578f, 13));
-        activityPointsList.add(new BarEntry(1695f, 14));
+//
+//        activityPointsList.add(new BarEntry(Float.valueOf("1133"), 0));
+//        activityPointsList.add(new BarEntry(Float.valueOf("100"), 1));
+//        activityPointsList.add(new BarEntry(1133f, 2));
+//        activityPointsList.add(new BarEntry(1240f, 3));
+//        activityPointsList.add(new BarEntry(1369f, 4));
+//        activityPointsList.add(new BarEntry(1487f, 5));
+//        activityPointsList.add(new BarEntry(1501f, 6));
+//        activityPointsList.add(new BarEntry(1645f, 7));
+//        activityPointsList.add(new BarEntry(1578f, 8));
+//        activityPointsList.add(new BarEntry(1695f, 9));
+//        activityPointsList.add(new BarEntry(1487f, 10));
+//        activityPointsList.add(new BarEntry(1501f, 11));
+//        activityPointsList.add(new BarEntry(1645f, 12));
+//        activityPointsList.add(new BarEntry(1578f, 13));
+//        activityPointsList.add(new BarEntry(1695f, 14));
 
         BarDataSet dataSet = new BarDataSet(activityPointsList, "활동분야");
         ArrayList activityLabelList = new ArrayList();
@@ -174,6 +174,15 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
                 bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_event_fragment);
 
                 GoNativeScreen((BaseBindingFragment) new EventFragment_106(), bundle);
+            }
+        });
+
+        getBinding().llNews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_news_fragment);
+                GoNativeScreen((BaseBindingFragment) new MenuListFragment(), bundle);
             }
         });
 

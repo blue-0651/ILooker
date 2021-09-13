@@ -73,7 +73,7 @@ public class SmsReceiver extends BroadcastReceiver {
 
                         + smsMessages[i].getTimestampMillis());
 
-                Toast.makeText(context, smsMessages[i].getMessageBody(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context.getApplicationContext(), smsMessages[i].getMessageBody(), Toast.LENGTH_SHORT).show();
 
 
             }

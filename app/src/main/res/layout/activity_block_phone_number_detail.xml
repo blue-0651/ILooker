@@ -24,7 +24,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:padding="5dp"
                 app:layout_constraintBottom_toTopOf="@id/ll_bottom_button"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -47,7 +46,7 @@
                     android:id="@+id/ll_block_phone_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/bgColorWhite"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -124,7 +123,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/Loan"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                         <RadioButton
                             android:id="@+id/rd002Gamble"
@@ -132,7 +133,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/Gamble"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                     </LinearLayout>
 
@@ -148,7 +151,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/Adult"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                         <RadioButton
                             android:id="@+id/rd004PhoneSales"
@@ -156,7 +161,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/PhoneSales"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                     </LinearLayout>
 
@@ -172,7 +179,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/Insurance"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                         <RadioButton
                             android:id="@+id/rd006AltDriving"
@@ -180,7 +189,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/Alter_Driving"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                     </LinearLayout>
 
@@ -196,7 +207,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/InternetSales"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                         <RadioButton
                             android:id="@+id/rd008Stock"
@@ -204,7 +217,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/Stock"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                     </LinearLayout>
 
@@ -220,7 +235,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/Delivery"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                         <RadioButton
                             android:id="@+id/rd010Ad"
@@ -228,7 +245,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/Advertisement"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                     </LinearLayout>
 
@@ -244,7 +263,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/Login"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                         <RadioButton
                             android:id="@+id/rd012NotFound"
@@ -252,7 +273,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/notFound"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                     </LinearLayout>
 
@@ -269,7 +292,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/Telemarketing"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                         <RadioButton
                             android:id="@+id/rd102VoicePissing"
@@ -277,7 +302,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/VoicePissing"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                     </LinearLayout>
 
@@ -293,7 +320,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/Call"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                         <RadioButton
                             android:id="@+id/rd104Census"
@@ -301,7 +330,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/Census"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                     </LinearLayout>
 
@@ -317,7 +348,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/UsedProductFake"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                         <RadioButton
                             android:id="@+id/rd106Smissing"
@@ -325,7 +358,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/Smissing"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                     </LinearLayout>
 
@@ -341,7 +376,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:text="@string/PoliceBlock"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                     </LinearLayout>
 
@@ -357,14 +394,15 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             android:text="@string/Micellaneous"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            style="@style/btxs"
+                            />
 
                         <EditText
                             android:id="@+id/et_micellaneous"
                             android:layout_width="0dp"
                             android:layout_weight="7"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
                             android:enabled="false" />
 
                     </LinearLayout>
@@ -377,7 +415,6 @@
                 android:id="@+id/ll_bottom_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:orientation="vertical"
                 android:weightSum="12"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -389,7 +426,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:orientation="horizontal"
                     android:weightSum="12">

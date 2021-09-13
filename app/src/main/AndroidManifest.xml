@@ -32,10 +32,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="Instantiatable">
-        <activity android:name=".activity.BlockPhoneNumberDetailActivity"
+        <activity android:name=".activity.NotiDetailInfoActivity"></activity>
+        <activity
+            android:name=".activity.BlockPhoneNumberDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Transparent"
-            ></activity>
+            android:theme="@style/Transparent" />
         <activity
             android:name=".activity.RecentLogDetailActivity"
             android:screenOrientation="portrait"
@@ -44,7 +45,6 @@
             android:name=".activity.DetailInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Transparent" />
-
         <activity
             android:name=".activity.EventDetailInfoActivity"
             android:screenOrientation="portrait"
@@ -66,10 +66,10 @@
         <receiver
             android:name=".receiver.SmsReceiver"
             android:enabled="true"
-            android:exported="true"
-            >
+            android:exported="true">
             <intent-filter android:priority="2147483647">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name="Telephony.Sms.Intents.SMS_RECEIVED_ACTION" />
             </intent-filter>
         </receiver>
 

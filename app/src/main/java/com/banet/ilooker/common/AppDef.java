@@ -18,6 +18,7 @@ public class AppDef {
     public static final String USER_LANGUAGE_CODE = "KOR";
     public static final String NOTICE_104 = "notice_104";
     public static final String EVENT_106 = "event_106";
+    public static final String MENU_LIST_ITEM = "menu_list_item";
 
     public static final String RecentCallLog_Extra = "recent_call_log_extra";
     public static final String BlockedPhoneNumber_Extra = "blocked_phone_number_extra";
@@ -31,6 +32,7 @@ public class AppDef {
     public static final String title_noti_fragment = "공지사항" ;
     public static final String title_block_fragment = "차단관리" ;
     public static final String title_event_fragment = "이벤트" ;
+    public static final String title_news_fragment = "뉴스" ;
 
     public static final String titl_latest_call_log_fragment = "최근기록" ;
     public static final String title_latest_call_log_detail = "최근기록상세" ;

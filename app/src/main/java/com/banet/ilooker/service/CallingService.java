@@ -20,7 +20,6 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -50,7 +49,6 @@ public class CallingService extends Service {
     String phoneNumber;
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
-        @RequiresApi(api = Build.VERSION_CODES.P)
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "onReceive()");
@@ -146,9 +144,10 @@ public class CallingService extends Service {
         tcm = (TelecomManager) getSystemService(Context.TELECOM_SERVICE);
 
         IntentFilter filter = new IntentFilter();
-        //filter.setPriority(2147483647);
-     //   filter.addAction("android.provider.Telephony.SMS_RECEIVED");
-        filter.addAction("android.intent.action.RECEIVE_SMS");
+        filter.setPriority(2147483647);
+        filter.addAction("android.provider.Telephony.SMS_RECEIVED");
+        filter.addAction("Telephony.Sms.Intents.SMS_RECEIVED_ACTION");
+      //  filter.addAction("android.intent.action.RECEIVE_SMS");
         filter.addAction("android.intent.action.PHONE_STATE");
         filter.addAction("android.intent.action.RECEIVE_MMS");
         filter.addAction("android.intent.action.NEW_OUTGOING_CALL");

@@ -359,6 +359,7 @@
                     android:weightSum="10">
 
                     <LinearLayout
+                        android:id="@+id/llPoints"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
@@ -379,6 +380,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/llQuestions"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
@@ -408,6 +410,7 @@
                     android:weightSum="10">
 
                     <LinearLayout
+                        android:id="@+id/llFaq"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
@@ -428,6 +431,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/llNews"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
