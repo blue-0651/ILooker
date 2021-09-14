@@ -1,6 +1,7 @@
 package com.banet.ilooker.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -136,17 +137,11 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
 
         mllReturnCall = findViewById(R.id.ll_call_return);
         mllReturnCall.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("MissingPermission")
             @RequiresApi(api = Build.VERSION_CODES.P)
             @Override
             public void onClick(View v) {
-                if (CallingService.mLastState.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
-                    endCall();
-                }
-
-                Uri uri = Uri.parse("tel:" + incomingCallNumber);
-                Intent i = new Intent(Intent.ACTION_DIAL, uri);
-
-                startActivity(i);//액티비티 실행
+                tcm.acceptRingingCall();
                 finish();
             }
         });

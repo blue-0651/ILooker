@@ -385,7 +385,7 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
             params.put("EtcTpInpDesc", getBinding().etMicellaneous.getText().toString().trim());
         else
             params.put("EtcTpInpDesc", "");
-        params.put("PhnNo", mIncomingPhoneNumber);
+        params.put("PhnNo", mIncomingPhoneNumber.replace("-", ""));
 
         DataInterface.getInstance().getapi005requestReportPhonNo(context, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
 
@@ -393,23 +393,26 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
             public void onSuccess(ResponseData<Object> response) {
 
                 if (response.getProcRsltCd().equals("005-000")) {
+                        if(isblocked.equals("Y")) {
+                            BlockedPhoneNumber blocked = new BlockedPhoneNumber();
+                            blocked.setBlockYN("Y");
+                            //추후 선택적으로 입력함
+                            blocked.MedPartCd = "001";
+                            blocked.GoodYN = String.valueOf(mRadioLikeCheckedCode);
+                            blocked.RptTpClsCd = String.valueOf(mRadioCategoryCheckedCode);
+                            blocked.RcvDate = DateUtils.getDate("YYYYMMDD");
+                            blocked.RcvTime = DateUtils.getDate("HH:MM:SS");
 
-                        BlockedPhoneNumber blocked = new BlockedPhoneNumber();
-                        blocked.setBlockYN("Y");
-                        //추후 선택적으로 입력함
-                        blocked.MedPartCd = "001";
-                        blocked.GoodYN = String.valueOf(mRadioLikeCheckedCode);
-                        blocked.RptTpClsCd = String.valueOf(mRadioCategoryCheckedCode);
-                        blocked.RcvDate = DateUtils.getDate("YYYYMMDD");
-                        blocked.RcvTime = DateUtils.getDate("HH:MM:SS");
-
-                        if ("999".equals(mRadioCategoryCheckedCode))
-                            blocked.EtcTpInpDesc = getBinding().etMicellaneous.getText().toString().trim();
-                        else
-                            blocked.EtcTpInpDesc = "";
-                        blocked.setRptTpClsNm(getReportTypeClassName(mRadioCategoryCheckedCode));
-                        blocked.setPhnNo(mIncomingPhoneNumber.replace("-", ""));
-                        insertPhoneNumberToBeBlocked(blocked);
+                            if ("999".equals(mRadioCategoryCheckedCode))
+                                blocked.EtcTpInpDesc = getBinding().etMicellaneous.getText().toString().trim();
+                            else
+                                blocked.EtcTpInpDesc = "";
+                            blocked.setRptTpClsNm(getReportTypeClassName(mRadioCategoryCheckedCode));
+                            blocked.setPhnNo(mIncomingPhoneNumber.replace("-", ""));
+                            insertPhoneNumberToBeBlocked(blocked);
+                        }else{ //if(isblocked.equals("N"))
+                            Toast.makeText(context, "신고가 성공적으로 완료되었습니다." , Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(context, response.getProcRsltCd() + ": 신고/차단 실패 ", Toast.LENGTH_SHORT).show();
                     }
@@ -450,7 +453,7 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                 }
             });
 
-            Toast.makeText(getContext(), "신고 또는 신고(차단)이 성공했습니다..", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "신고(차단)이 성공했습니다..", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), "차단번호가 이미 존재합니다.", Toast.LENGTH_SHORT).show();
         }

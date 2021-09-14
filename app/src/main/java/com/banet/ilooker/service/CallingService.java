@@ -14,8 +14,10 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.provider.Telephony;
 import android.telecom.TelecomManager;
 import android.telephony.PhoneNumberUtils;
+import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -52,26 +54,25 @@ public class CallingService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "onReceive()");
-//            if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
-//
-//                SmsMessage[] messages = Telephony.Sms.Intents.getMessagesFromIntent(intent);
-//                if (messages != null) {
-//                    if (messages.length == 0)
-//                        return;
-//                    StringBuilder sb = new StringBuilder();
-//                    for (SmsMessage smsMessage : messages) {
-//                        sb.append(smsMessage.getMessageBody());
-//                    }
-//                    String senderPhoneNo = messages[0].getOriginatingAddress();
-//                    String message = sb.toString();
-//
-//                    send003TxtMsg(context, intent, senderPhoneNo, message);
-//                }else{
-//                    Log.d(TAG, "Massage not found");
-//                }
+            if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
 
-//            } else
-            if (intent.getAction().equals("android.intent.action.PHONE_STATE") || intent.getAction().equals("android.intent.action.OUTGOING_CALL")) {
+                SmsMessage[] messages = Telephony.Sms.Intents.getMessagesFromIntent(intent);
+                if (messages != null) {
+                    if (messages.length == 0)
+                        return;
+                    StringBuilder sb = new StringBuilder();
+                    for (SmsMessage smsMessage : messages) {
+                        sb.append(smsMessage.getMessageBody());
+                    }
+                    String senderPhoneNo = messages[0].getOriginatingAddress();
+                    String message = sb.toString();
+
+                    send003TxtMsg(context, intent, senderPhoneNo, message);
+                }else{
+                    Log.d(TAG, "Massage not found");
+                }
+
+            } else if (intent.getAction().equals("android.intent.action.PHONE_STATE") || intent.getAction().equals("android.intent.action.OUTGOING_CALL")) {
 
 
                 String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
@@ -88,10 +89,10 @@ public class CallingService extends Service {
 
                 }
 
-                if (Util.isThePhoneNumberExist(CallingService.this, phoneNumber)) {
-                    Log.d(TAG, phoneNumber + " : Already Exist.");
-                    return;
-                }
+//                if (Util.isThePhoneNumberExist(CallingService.this, phoneNumber)) {
+//                    Log.d(TAG, phoneNumber + " : Already Exist.");
+//                    return;
+//                }
 
                 if (isThePhoneNumberBlocked(phoneNumber)) {
                     Toast.makeText(getApplicationContext(), "차단된 번호입니다.", Toast.LENGTH_SHORT).show();
@@ -249,7 +250,7 @@ public class CallingService extends Service {
             @Override
             public void onSuccess(ResponseData<IncommingCall> response) {
                 //002-000으로 바꿈
-                if (response.getProcRsltCd().equals("002-000")) {
+                if (response.getProcRsltCd().equals("002-000") || response.getProcRsltCd().equals("002-900")) {
                     IncommingCall incommingCall = (IncommingCall) response.getData();
                     showIncomingPhoneUI(context, intent, state, incommingCall);
                 }

@@ -14,13 +14,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:background="#ffffff"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
             <include
                 android:id="@+id/title_bar"
@@ -34,44 +33,53 @@
                 android:layout_height="30dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/sequence_number"
+                    style="@style/ContentDetailText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/ContentDetailText"
-                    android:layout_weight="1"
-                    />
+                    android:layout_weight="1" />
+
                 <TextView
                     android:id="@+id/date"
+                    style="@style/ContentDetailText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/ContentDetailText"
                     android:layout_weight="1" />
 
             </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_title"
+                style="@style/MainTitleText"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                style="@style/MainTitleText"
-                android:gravity="center"
-                />
+                android:gravity="center" />
 
             <ImageView
                 android:id="@+id/ivDivider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/divider" />
-           <ScrollView
-               android:layout_width="match_parent"
-               android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/ivContent"
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                />
-        </ScrollView>
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/ivContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/tvContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+            </ScrollView>
 
 
         </LinearLayout>

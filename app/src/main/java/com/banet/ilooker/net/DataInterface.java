@@ -9,6 +9,7 @@ import com.banet.ilooker.model.MainUserInfo101;
 import com.banet.ilooker.model.News107;
 import com.banet.ilooker.model.Noti104;
 import com.banet.ilooker.model.Point103;
+import com.banet.ilooker.model.Question108;
 import com.banet.ilooker.model.ReportHistory102;
 
 import java.util.HashMap;
@@ -284,6 +285,39 @@ protected String TAG = getClass().getSimpleName();
 
 				@Override
 				public void onFailure(Call<ResponseData<News107>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void getapi108requestQuestion(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Question108>> call = service.api108_ApiQuestionInq(params);
+
+			call.enqueue(new Callback<ResponseData<Question108>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Question108>> call, Response<ResponseData<Question108>> response) {
+					processCommonError(context, callback, response);
+//					if (callback == null) return;
+//
+//					if (response.isSuccessful()) {
+//						callback.onSuccess(response.body());
+//					} else {
+//						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+//						callback.onError( response);
+//					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Question108>> call, Throwable t) {
 					if (callback == null) return;
 
 					t.printStackTrace();

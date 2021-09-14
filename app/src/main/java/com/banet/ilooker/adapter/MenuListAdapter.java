@@ -33,7 +33,6 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.MenuLi
         if(titleName.equals(AppDef.title_news_fragment)){
             mItemList = (List<Object>) mItemListCollection.get(0);
         }
-     //   this.mItemList = mItemList;
         this.context = context;
         this.mTitleName = titleName;
     }

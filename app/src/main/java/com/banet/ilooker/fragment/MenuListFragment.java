@@ -7,14 +7,16 @@ import androidx.annotation.Nullable;
 
 import com.banet.ilooker.R;
 import com.banet.ilooker.common.AppDef;
+import com.banet.ilooker.databinding.FragmentMenuListBinding;
 import com.banet.ilooker.model.MenuListObject;
-import com.banet.ilooker.databinding.FragmentNoti104Binding;
 import com.banet.ilooker.model.News107;
+import com.banet.ilooker.model.Point103;
+import com.banet.ilooker.model.Question108;
 
 import java.util.List;
 
 
-public class MenuListFragment extends BaseBindingFragment<FragmentNoti104Binding> {
+public class MenuListFragment extends BaseBindingFragment<FragmentMenuListBinding> {
 
     List<MenuListObject> menuList = null;
 
@@ -50,7 +52,7 @@ public class MenuListFragment extends BaseBindingFragment<FragmentNoti104Binding
     @Override
     protected int getLayoutId() {
 
-        return R.layout.fragment_event_106 ;
+        return R.layout.fragment_menu_list;
     }
 
     @Override
@@ -62,7 +64,15 @@ public class MenuListFragment extends BaseBindingFragment<FragmentNoti104Binding
        switch(title){
            case AppDef.title_news_fragment :
                News107 news107 = new News107();
-               news107.request107(getActivity(), getBinding().rvNoti, getBinding().tvTotalNoti);
+               news107.request107(getActivity(), getBinding().rvMenuList, getBinding().tvMenuTotal);
+               break;
+           case AppDef.title_point_fragment:
+               Point103 point103 = new Point103();
+               point103.request103(getActivity(), getBinding().rvMenuList, getBinding().tvMenuTotal);
+               break;
+           case AppDef.title_questions_fragment:
+               Question108 question108 = new Question108();
+               question108.request108(getActivity(), getBinding().rvMenuList, getBinding().tvMenuTotal);
                break;
        }
 

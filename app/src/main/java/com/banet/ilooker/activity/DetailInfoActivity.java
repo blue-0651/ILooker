@@ -9,6 +9,9 @@ import com.banet.ilooker.databinding.ActivityDetailInfoBinding;
 import com.banet.ilooker.model.FAQ109;
 import com.banet.ilooker.model.MenuListObject;
 import com.banet.ilooker.model.News107;
+import com.banet.ilooker.model.Point103;
+import com.banet.ilooker.model.Question108;
+import com.bumptech.glide.Glide;
 
 
 public class DetailInfoActivity extends BaseActivity<ActivityDetailInfoBinding> {
@@ -37,16 +40,24 @@ public class DetailInfoActivity extends BaseActivity<ActivityDetailInfoBinding> 
         return R.layout.activity_detail_info;
     }
 
-    private void switchRequest(MenuListObject menuListObject){
+    private void switchRequest(MenuListObject menuListObject) {
 
-        if(menuListObject instanceof News107){
+        if (menuListObject instanceof News107) {
             ((News107) menuListObject).request113NewsDetail(this, getBinding().date, getBinding().sequenceNumber, getBinding().tvTitle, getBinding().ivContent);
-        }else if(menuListObject instanceof FAQ109){
-        //    ((FAQ109) menuListObject).request110GeneralNoticedetail(this, getBinding().date, getBinding().sequenceNumber, getBinding().tvTitle, getBinding().ivContent);
+        } else if (menuListObject instanceof FAQ109) {
+            //    ((FAQ109) menuListObject).request110GeneralNoticedetail(this, getBinding().date, getBinding().sequenceNumber, getBinding().tvTitle, getBinding().ivContent);
+        } else if (menuListObject instanceof Point103) {
+            getBinding().date.setText(mMenuListObject.ListStartDate + " ~ " + mMenuListObject.ListEndDate);
+            getBinding().sequenceNumber.setText("No. : " + mMenuListObject.ListNo);
+            getBinding().tvTitle.setText(mMenuListObject.ListTitle);
+            Glide.with(this)
+                    .load(mMenuListObject.ListContent)
+                    .into(getBinding().ivContent);
+        } else if (menuListObject instanceof Question108) {
+            ((Question108) menuListObject).request114QuestionDetail(this, getBinding().date, getBinding().sequenceNumber,
+                    getBinding().tvTitle, getBinding().ivContent, getBinding().tvContent);
         }
-
-     }
-
+    }
 
 
 }

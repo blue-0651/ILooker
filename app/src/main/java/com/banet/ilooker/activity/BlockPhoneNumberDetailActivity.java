@@ -10,12 +10,9 @@ import android.widget.Toast;
 import com.banet.ilooker.R;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.databinding.ActivityBlockPhoneNumberDetailBinding;
-import com.banet.ilooker.fragment.BaseBindingFragment;
-import com.banet.ilooker.fragment.BlockedPhoneNumberListFragment;
 import com.banet.ilooker.model.BlockedPhoneNumber;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
-import com.banet.ilooker.service.CallingService;
 import com.banet.ilooker.util.Util;
 
 import java.util.HashMap;
@@ -118,14 +115,21 @@ public class BlockPhoneNumberDetailActivity extends BaseActivity<ActivityBlockPh
             public void onSuccess(ResponseData<Object> response) {
 
                 if (response.getProcRsltCd().equals("009-000")) {
-                    if (CallingService.isThePhoneNumberBlocked(mBlockedPhoneNumber.PhnNo.replace("-", "")))
+                    if (Util.isThePhoneNumberAlreadyBlocked(mBlockedPhoneNumber.PhnNo.replace("-", "")))
                         deleteBlockedData(mBlockedPhoneNumber.PhnNo.replace("-", ""));
 
                     Toast.makeText(context, "안심등록이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_fragment);
-                    GoNativeScreen((BaseBindingFragment) new BlockedPhoneNumberListFragment(), bundle);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_fragment);
+//                    GoNativeScreen((BaseBindingFragment) new BlockedPhoneNumberListFragment(), bundle);
+//                    Intent intent = new Intent(BlockPhoneNumberDetailActivity.this, MainActivity.class);
+//                    intent.putExtra(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_main_fragment);
+//                    intent.putExtra(AppDef.MOVE_TO_FRAGMENT, AppDef.title_block_and_report_phone_number_fragment);
+                //    intent.putExtra(AppDef.MOVE_TO_BLOCK_PHONE_NUMBER, incomingCallNumber);
+
+//                    startActivity(intent);
+                    finish();
                 }
             }
 

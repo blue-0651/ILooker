@@ -33,6 +33,8 @@ public class AppDef {
     public static final String title_block_fragment = "차단관리" ;
     public static final String title_event_fragment = "이벤트" ;
     public static final String title_news_fragment = "뉴스" ;
+    public static final String title_point_fragment = "포인트" ;
+    public static final String title_questions_fragment = "문의" ;
 
     public static final String titl_latest_call_log_fragment = "최근기록" ;
     public static final String title_latest_call_log_detail = "최근기록상세" ;

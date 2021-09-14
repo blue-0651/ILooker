@@ -186,6 +186,26 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
             }
         });
 
+        getBinding().llPoints.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_point_fragment);
+                GoNativeScreen((BaseBindingFragment) new MenuListFragment(), bundle);
+            }
+        });
+
+        getBinding().llQuestions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_questions_fragment);
+                GoNativeScreen((BaseBindingFragment) new MenuListFragment(), bundle);
+            }
+        });
+
+
+
         getBinding().llReportPhoneNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,7 +226,7 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
         DataInterface.getInstance().get101UserInfo(params, new DataInterface.ResponseCallback<ResponseData<MainUserInfo101>>() {
             @Override
             public void onSuccess(ResponseData<MainUserInfo101> response) {
-                if (response.getProcRsltCd().equals("101-900")) {
+                if (response.getProcRsltCd().equals("101-000")) {
                     MainUserInfo101 mainUserInfo101 = (MainUserInfo101) response.getData();
                     getBinding().tvCustName.setText(mainUserInfo101.UserNm);
                     getBinding().tvcurrPoint.setText(mainUserInfo101.CurrPnt);
