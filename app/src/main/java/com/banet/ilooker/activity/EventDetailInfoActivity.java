@@ -1,6 +1,7 @@
 package com.banet.ilooker.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.banet.ilooker.R;
@@ -22,6 +23,12 @@ public class EventDetailInfoActivity extends BaseActivity<ActivityEventDetailInf
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getBinding().titleBar.tvTitle.setText(AppDef.title_event_fragment);
+        getBinding().titleBar.btnTitleBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         if (getIntent().getSerializableExtra(AppDef.EVENT_106) != null) {
 
@@ -33,6 +40,7 @@ public class EventDetailInfoActivity extends BaseActivity<ActivityEventDetailInf
             Toast.makeText(EventDetailInfoActivity.this, "이벤트가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
             finish();
         }
+
 
 
     }

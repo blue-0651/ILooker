@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.banet.ilooker.model.Advertise100;
 import com.banet.ilooker.model.Event106;
+import com.banet.ilooker.model.FAQ109;
 import com.banet.ilooker.model.IncommingCall;
 import com.banet.ilooker.model.MainUserInfo101;
 import com.banet.ilooker.model.News107;
@@ -318,6 +319,39 @@ protected String TAG = getClass().getSimpleName();
 
 				@Override
 				public void onFailure(Call<ResponseData<Question108>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void getapi109requestFAQ(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<FAQ109>> call = service.api109_ApiFAQ109(params);
+
+			call.enqueue(new Callback<ResponseData<FAQ109>>() {
+				@Override
+				public void onResponse(Call<ResponseData<FAQ109>> call, Response<ResponseData<FAQ109>> response) {
+					processCommonError(context, callback, response);
+//					if (callback == null) return;
+//
+//					if (response.isSuccessful()) {
+//						callback.onSuccess(response.body());
+//					} else {
+//						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+//						callback.onError( response);
+//					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<FAQ109>> call, Throwable t) {
 					if (callback == null) return;
 
 					t.printStackTrace();

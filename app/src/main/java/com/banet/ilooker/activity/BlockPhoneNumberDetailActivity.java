@@ -31,18 +31,19 @@ public class BlockPhoneNumberDetailActivity extends BaseActivity<ActivityBlockPh
         if (getIntent().getParcelableExtra(AppDef.BlockedPhoneNumber_Extra) != null) {
             mBlockedPhoneNumber = (BlockedPhoneNumber) getIntent().getParcelableExtra(AppDef.BlockedPhoneNumber_Extra);
         }
-        getBinding().titleBar.tvTitle.setText(AppDef.title_blocked_phone_number_detail);
+
         getBinding().titleBar.btnTitleBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+               finish();
             }
         });
+
+        getBinding().titleBar.tvTitle.setText(AppDef.title_blocked_phone_number_detail);
         getBinding().blockPhoneNo.setText(mBlockedPhoneNumber.PhnNo);
 
         setLikeChecked(mBlockedPhoneNumber.GoodYN);
         setCategoryChecked(mBlockedPhoneNumber.RptTpClsCd);
-
 
         getBinding().llReportSafe.setOnClickListener(new View.OnClickListener() {
             @Override

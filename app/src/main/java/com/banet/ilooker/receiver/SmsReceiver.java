@@ -12,11 +12,9 @@ import android.widget.Toast;
 public class SmsReceiver extends BroadcastReceiver {
 
     static final String logTag = "SmsReceiver";
-
-    static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
+    static final String ACTION = "Telephony.Sms.Intents.SMS_RECEIVED_ACTION";
 
     @Override
-
     public void onReceive(Context context, Intent intent) {
 
         if (intent.getAction().equals(ACTION)) {

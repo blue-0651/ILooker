@@ -34,6 +34,10 @@ public class MainUserInfo101 implements Serializable {
     @Expose
     public String RptCnt ="";
 
+    @SerializedName("CurrRank")
+    @Expose
+    public String CurrRank ="";
+
     @SerializedName("AdvtChkCnt")
     @Expose
     public String AdvtChkCnt ="";

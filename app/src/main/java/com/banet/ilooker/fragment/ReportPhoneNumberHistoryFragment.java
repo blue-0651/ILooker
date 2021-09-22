@@ -34,6 +34,11 @@ public class ReportPhoneNumberHistoryFragment extends BaseBindingFragment<Fragme
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        request102ReportHistory(getActivity());
+    }
 
     @Override
     protected int getLayoutId() {
@@ -51,7 +56,7 @@ public class ReportPhoneNumberHistoryFragment extends BaseBindingFragment<Fragme
             }
         });
 
-        request102ReportHistory(getActivity());
+
     }
 
     private void request102ReportHistory(Context context) {

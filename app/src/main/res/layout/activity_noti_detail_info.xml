@@ -23,7 +23,7 @@
 
         <include
             android:id="@+id/title_bar"
-            layout="@layout/ailooker_title2"
+            layout="@layout/ailooker_detail_titlebar"
             android:layout_width="match_parent"
             android:layout_height="50dp" />
 

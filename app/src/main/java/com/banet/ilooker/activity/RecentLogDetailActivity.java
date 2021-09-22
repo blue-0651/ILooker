@@ -16,7 +16,6 @@ import com.banet.ilooker.model.BlockedPhoneNumber;
 import com.banet.ilooker.model.RecentCallLog;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
-import com.banet.ilooker.service.CallingService;
 import com.banet.ilooker.util.Util;
 
 import java.util.HashMap;
@@ -36,7 +35,12 @@ public class RecentLogDetailActivity extends BaseActivity<ActivityRecentLogDetai
             mRecentCallLog = (RecentCallLog) getIntent().getSerializableExtra(AppDef.RecentCallLog_Extra);
         }
         getBinding().titleBar.tvTitle.setText(AppDef.title_latest_call_log_detail);
-
+        getBinding().titleBar.btnTitleBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         getBinding().tvDate.setText(mRecentCallLog.date + " " + mRecentCallLog.time);
         getBinding().tvRecentLogPhoneNumber.setText(mRecentCallLog.phoneNumber);
@@ -58,12 +62,6 @@ public class RecentLogDetailActivity extends BaseActivity<ActivityRecentLogDetai
             }
         });
 
-        getBinding().titleBar.btnTitleBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         getBinding().llReportSafe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +121,7 @@ public class RecentLogDetailActivity extends BaseActivity<ActivityRecentLogDetai
             public void onSuccess(ResponseData<Object> response) {
 
                 if (response.getProcRsltCd().equals("009-000")) {
-                    if (CallingService.isThePhoneNumberBlocked(mRecentCallLog.phoneNumber.replace("-", "")))
+                    if (Util.isThePhoneNumberAlreadyBlocked(mRecentCallLog.phoneNumber.replace("-", "")))
                         deleteBlockedData(mRecentCallLog.phoneNumber.replace("-", ""));
 
                     Toast.makeText(context, "안심등록이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();

@@ -68,25 +68,25 @@ public class FAQ109 extends MenuListObject {
         params.put("FaqKindCd", "001");
         params.put("UserPhnNo", etSearch.getText().toString().trim());
 
-        DataInterface.getInstance().getapi107requestNews(context, params, new DataInterface.ResponseCallback<ResponseData<News107>>() {
+        DataInterface.getInstance().getapi109requestFAQ(context, params, new DataInterface.ResponseCallback<ResponseData<FAQ109>>() {
 
             @Override
-            public void onSuccess(ResponseData<News107> response) {
+            public void onSuccess(ResponseData<FAQ109> response) {
 
-                if (response.getProcRsltCd().equals("107-000")) {
-                    List<News107> news107List = (List<News107>) response.getList();
-                    for(int i = 0; news107List.size() >i ; i++){
-                        news107List.get(i).setMenuListField();
+                if (response.getProcRsltCd().equals("109-000")) {
+                    List<FAQ109> faq109List = (List<FAQ109>) response.getList();
+                    for(int i = 0; faq109List.size() >i ; i++){
+                        faq109List.get(i).setMenuListField();
                     }
-                    MenuListAdapter menuListAdapter = new MenuListAdapter(context, Collections.singletonList(news107List), AppDef.title_news_fragment);
+                    MenuListAdapter menuListAdapter = new MenuListAdapter(context, Collections.singletonList(faq109List), AppDef.title_news_fragment);
                     rv.setAdapter(menuListAdapter);
-                    tv.setText("뉴스내역 총 :" + news107List.size());
+                    tv.setText("FAQ 총 :" + faq109List.size());
 
                 }
             }
 
             @Override
-            public void onError(ResponseData<News107> response) {
+            public void onError(ResponseData<FAQ109> response) {
                 Toast.makeText(context, response.getError(), Toast.LENGTH_SHORT).show();
             }
 

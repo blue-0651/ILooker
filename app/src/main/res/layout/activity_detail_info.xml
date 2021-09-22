@@ -23,7 +23,7 @@
 
             <include
                 android:id="@+id/title_bar"
-                layout="@layout/ailooker_title2"
+                layout="@layout/ailooker_detail_titlebar"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
 
@@ -66,18 +66,22 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <ImageView
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tvContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        />
+                    <ImageView
                     android:id="@+id/ivContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop" />
 
-                <TextView
-                    android:id="@+id/tvContent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone" />
+            </FrameLayout>
 
             </ScrollView>
 

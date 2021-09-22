@@ -12,7 +12,6 @@ import com.banet.ilooker.R;
 import com.banet.ilooker.activity.MainActivity;
 import com.banet.ilooker.adapter.LastCallLogAdapter;
 import com.banet.ilooker.databinding.FragmentLastCallLogBinding;
-import com.banet.ilooker.model.FAQ109;
 import com.banet.ilooker.model.RecentCallLog;
 
 import java.text.SimpleDateFormat;
@@ -35,7 +34,7 @@ public class LastCallLogFragment extends BaseBindingFragment<FragmentLastCallLog
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            FAQ109 a = new FAQ109();
+          
 
         }
     }

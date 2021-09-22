@@ -15,8 +15,13 @@ public class ILookerApp extends Application {
         UIThread.initializeHandler();
 
         Realm.init(getApplicationContext());
-        RealmConfiguration config = new RealmConfiguration.Builder().name("ai-looker.realm").build();
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .name("ai-looker.realm")
+                .deleteRealmIfMigrationNeeded()
+                .allowWritesOnUiThread(true)
+                .build();
         Realm.setDefaultConfiguration(config);
+
 
 
     }

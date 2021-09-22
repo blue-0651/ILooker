@@ -29,7 +29,7 @@
                     style="@style/TitleH2Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="홍길동" />
+                    android:text="" />
 
                 <TextView
 
@@ -37,7 +37,7 @@
                     style="@style/TitleH2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="(hkd1234)" />
+                    android:text="" />
 
 
                 <TextView
@@ -59,13 +59,13 @@
                     android:id="@+id/tvcurrPoint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" 포인트 : 730점" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/tvRank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="순위 : 상위 12%" />
+                    android:text="순위" />
 
             </LinearLayout> <!--   end of llCustInfo -->
             <ImageView

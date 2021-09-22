@@ -180,7 +180,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         Intent serviceIntent = new Intent(this, CallingService.class);
         ContextCompat.startForegroundService(this, serviceIntent);
-        request001Install("KOR", Util.getLineNumber(MainActivity.this), "홍길동", "추천인");
+       // request001Install("KOR", Util.getLineNumber(MainActivity.this), "", "추천인");
     }
 
     @TargetApi(Build.VERSION_CODES.M)

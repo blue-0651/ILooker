@@ -32,7 +32,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="Instantiatable">
-        <activity android:name=".activity.NotiDetailInfoActivity"></activity>
+        <activity android:name=".activity.NotiDetailInfoActivity"
+            android:theme="@style/Transparent"
+            ></activity>
         <activity
             android:name=".activity.BlockPhoneNumberDetailActivity"
             android:screenOrientation="portrait"
@@ -70,6 +72,8 @@
             <intent-filter android:priority="2147483647">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
                 <action android:name="Telephony.Sms.Intents.SMS_RECEIVED_ACTION" />
+
+
             </intent-filter>
         </receiver>
 

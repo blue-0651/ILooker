@@ -2,6 +2,7 @@
 package com.banet.ilooker.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.banet.ilooker.R;
@@ -22,6 +23,13 @@ public class NotiDetailInfoActivity extends BaseActivity<ActivityNotiDetailInfoB
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getBinding().titleBar.btnTitleBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        getBinding().titleBar.tvTitle.setText(AppDef.title_noti_detail);
 
         if (getIntent().getSerializableExtra(AppDef.NOTICE_104) != null) {
 

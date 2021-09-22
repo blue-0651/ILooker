@@ -37,6 +37,7 @@ public abstract class BaseBindingFragment<T extends ViewBinding> extends Fragmen
             ( (MainActivity)mBaseActivity).setTitleName(bundle.getString(AppDef.FRAGMENT_TITLE_NAME));
         }
 
+
     }
 
     @Nullable

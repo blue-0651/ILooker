@@ -60,7 +60,7 @@ public class NotiAdapter extends RecyclerView.Adapter<NotiAdapter.NotiViewHolder
             viewHolder.tvTitle.setText(item.NtcTitl);
             viewHolder.tvNotiSeq.setText(item.NtcNo);
 
-            viewHolder.tvDate.setText(item.NtcStaDate + " ~ " + item.NtcEndDate ) ;
+            viewHolder.tvDate.setText(item.NtcStaDate  ) ;
 
         }else{
             Toast.makeText(context, "공지사항이 존재하지 않습니다.", Toast.LENGTH_SHORT) .show();

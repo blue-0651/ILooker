@@ -72,7 +72,7 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
         activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.AdvtChkCnt), 1));
         activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.NtcChkCnt), 2));
         activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.EvtChkCnt), 3));
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.NewsChkCnt), 4));//
+        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.NewsChkCnt), 4));
         activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.InqChkCnt), 5));
         activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.EvtJoinCnt), 6));
         activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopCurrPnt), 7));
@@ -204,13 +204,22 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
             }
         });
 
+        getBinding().llFaq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_faq_fragment);
+                GoNativeScreen((BaseBindingFragment) new MenuListFragment(), bundle);
+            }
+        });
+
 
 
         getBinding().llReportPhoneNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.titl_latest_call_log_fragment);
+                bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_phone_number_history_fragment);
                 GoNativeScreen((BaseBindingFragment) new ReportPhoneNumberHistoryFragment(), bundle);
             }
         });
@@ -221,18 +230,19 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
     private void request101MainUserInfo(String userPhoneNo) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("UseLangCd", "KOR");  //사용자 국가코드 "KOR"
-        params.put("UserPhnNo", userPhoneNo);   //사용자 전화번호
+        params.put("UserPhnNo", userPhoneNo.replace("-", ""));   //사용자 전화번호
 
         DataInterface.getInstance().get101UserInfo(params, new DataInterface.ResponseCallback<ResponseData<MainUserInfo101>>() {
             @Override
             public void onSuccess(ResponseData<MainUserInfo101> response) {
-                if (response.getProcRsltCd().equals("101-000")) {
+            //    if (response.getProcRsltCd().equals("101-000") || response.getProcRsltCd().equals("101-900")) {
                     MainUserInfo101 mainUserInfo101 = (MainUserInfo101) response.getData();
                     getBinding().tvCustName.setText(mainUserInfo101.UserNm);
-                    getBinding().tvcurrPoint.setText(mainUserInfo101.CurrPnt);
+                    getBinding().tvRank.setText("순위 " + "상위 " + mainUserInfo101.CurrRank + "%");
+                    getBinding().tvcurrPoint.setText("포인트 " + mainUserInfo101.CurrPnt + "점");
                     setBarChart(mainUserInfo101);
 
-                }
+             //   }
             }
 
             @Override

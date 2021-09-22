@@ -72,12 +72,13 @@ import java.util.Vector;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
+
 import io.realm.Realm;
 
 
 public class Util {
     private static SecretKey key;
-    static Realm realm = Realm.getDefaultInstance();
+
 
     public static boolean isHostSelectMode() {
         return false;
@@ -792,7 +793,7 @@ public class Util {
     }
 
     public static String getLineNumber(Context context) {
-        int permissionCheck = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE );
+        int permissionCheck = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE);
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (tm == null || tm.getLine1Number() == null || tm.getLine1Number().isEmpty()) {
@@ -1412,7 +1413,7 @@ public class Util {
             byte[] encryptedPwd = Base64.encode(clearBytes, Base64.DEFAULT);
             return encryptedPwd;
         } catch (Exception e) {
-         //   kst.macaron.chauffeur.utility.Logger2.e("Failed encryptPassword", e);
+            //   kst.macaron.chauffeur.utility.Logger2.e("Failed encryptPassword", e);
         }
         return null;
     }
@@ -1427,7 +1428,7 @@ public class Util {
             byte[] plainTextPwdBytes = cipher.doFinal(encrypedPwdBytes);
             pw = new String(plainTextPwdBytes, "UTF8");
         } catch (Exception e) {
-          //  kst.macaron.chauffeur.utility.Logger2.e("Failed decryptPassword", e);
+            //  kst.macaron.chauffeur.utility.Logger2.e("Failed decryptPassword", e);
         }
         return pw;
     }
@@ -1538,13 +1539,13 @@ public class Util {
 //        return juso.toString();
 //    }
 
-    public static int getAppVersionCode(Context context){
+    public static int getAppVersionCode(Context context) {
         PackageInfo packageInfo = null;         //패키지에 대한 전반적인 정보
 
         //PackageInfo 초기화
-        try{
+        try {
             packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-        }catch (PackageManager.NameNotFoundException e){
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return -1;
         }
@@ -1552,13 +1553,13 @@ public class Util {
         return packageInfo.versionCode;
     }
 
-    public static String getAppVersionName(Context context){
+    public static String getAppVersionName(Context context) {
         PackageInfo packageInfo = null;         //패키지에 대한 전반적인 정보
 
         //PackageInfo 초기화
-        try{
+        try {
             packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-        }catch (PackageManager.NameNotFoundException e){
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return "";
         }
@@ -1568,11 +1569,11 @@ public class Util {
 
     public static String getManufactuerName() {
         String manufacturer = Build.MANUFACTURER;
- //       String model = Build.MODEL;
+        //       String model = Build.MODEL;
 //        if (model.startsWith(manufacturer)) {
 //            return capitalize(model);
 //        }
-        return capitalize(manufacturer) ;
+        return capitalize(manufacturer);
     }
 
     public static String getModelName() {
@@ -1605,39 +1606,24 @@ public class Util {
 
         return phrase.toString();
     }
+
     //******************************************************************
-    public static Drawable getDrawable(Context context, int drawable){
+    public static Drawable getDrawable(Context context, int drawable) {
         return ContextCompat.getDrawable(context, drawable);
     }
 
-    public static int getColor(Context context, int id){
+    public static int getColor(Context context, int id) {
         return ContextCompat.getColor(context, id);
     }
 
     public static boolean isThePhoneNumberExist(Context context, String number) {
-        /// number is the phone number
-        //uri 테이블 장소
-//        Uri lookupUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
-//        String[] mPhoneNumberProjection = { ContactsContract.PhoneLookup._ID, ContactsContract.PhoneLookup.NUMBER, ContactsContract.PhoneLookup.DISPLAY_NAME };
-//        Cursor cur = context.getContentResolver().query(lookupUri,mPhoneNumberProjection, null, null, null);
-//        try {
-//            if (cur.moveToFirst()) {
-//                return true;
-//            }else
-//               return false;
-//        }
-//        finally {
-//            if (cur != null){
-//                cur.close();
-//            }
-//        }
         if (number != null) {
             ContentResolver cr = context.getContentResolver();
             Cursor curContacts = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
 
             while (curContacts.moveToNext()) {
                 String contactNumber = curContacts.getString(curContacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                if (number.equals(contactNumber.replace("-",""))) {
+                if (number.equals(contactNumber.replace("-", ""))) {
                     return true;
                 }
             }
@@ -1648,6 +1634,9 @@ public class Util {
     }
 
     public static boolean isThePhoneNumberAlreadyBlocked(String phoneNumber) {
+        if(phoneNumber == null || "".equals(phoneNumber))
+            return false; //차단 안된번호로 간주
+        Realm realm = Realm.getDefaultInstance();
         BlockedPhoneNumber blockedPhoneNumberRealmResults = realm.where(BlockedPhoneNumber.class)
                 .equalTo("PhnNo", phoneNumber.replace("-", ""))
                 .and()
@@ -1659,10 +1648,6 @@ public class Util {
             return true;
         }
     }
-
-
-
-
 
 
 }

@@ -1,6 +1,7 @@
 package com.banet.ilooker.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.banet.ilooker.R;
@@ -14,7 +15,7 @@ import com.banet.ilooker.model.Question108;
 import com.bumptech.glide.Glide;
 
 
-public class DetailInfoActivity extends BaseActivity<ActivityDetailInfoBinding> {
+public class DetailInfoActivity extends BaseActivity<ActivityDetailInfoBinding> implements OnTitleListener{
     MenuListObject mMenuListObject;
 
     @Override
@@ -31,6 +32,15 @@ public class DetailInfoActivity extends BaseActivity<ActivityDetailInfoBinding> 
             Toast.makeText(DetailInfoActivity.this, "내역이 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
             finish();
         }
+
+        getBinding().titleBar.btnTitleBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
 
 
     }
@@ -60,4 +70,23 @@ public class DetailInfoActivity extends BaseActivity<ActivityDetailInfoBinding> 
     }
 
 
+    @Override
+    public void onTitleBackPress() {
+
+    }
+
+    @Override
+    public void onTitleClosePress() {
+
+    }
+
+    @Override
+    public void onSidelistClicked() {
+
+    }
+
+    @Override
+    public void doBack() {
+
+    }
 }

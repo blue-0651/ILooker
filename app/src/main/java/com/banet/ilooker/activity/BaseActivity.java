@@ -38,6 +38,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         super.onCreate(savedInstanceState);
         setLayoutId(getLayoutId());
         backPressCloseHandler = new BackPressCloseHandler(this);
+
     }
 
     @Override
@@ -52,6 +53,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         if (mViewBinding == null) {
             mViewBinding = DataBindingUtil.setContentView(this, layId);
         }
+
     }
 
     protected T getBinding() {

@@ -393,32 +393,35 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
             public void onSuccess(ResponseData<Object> response) {
 
                 if (response.getProcRsltCd().equals("005-000")) {
-                        if(isblocked.equals("Y")) {
-                            BlockedPhoneNumber blocked = new BlockedPhoneNumber();
-                            blocked.setBlockYN("Y");
-                            //추후 선택적으로 입력함
-                            blocked.MedPartCd = "001";
-                            blocked.GoodYN = String.valueOf(mRadioLikeCheckedCode);
-                            blocked.RptTpClsCd = String.valueOf(mRadioCategoryCheckedCode);
-                            blocked.RcvDate = DateUtils.getDate("YYYYMMDD");
-                            blocked.RcvTime = DateUtils.getDate("HH:MM:SS");
+                    if (isblocked.equals("Y")) {
+                        BlockedPhoneNumber blocked = new BlockedPhoneNumber();
+                        blocked.setBlockYN("Y");
+                        //추후 선택적으로 입력함
+                        blocked.MedPartCd = "001";
+                        blocked.GoodYN = String.valueOf(mRadioLikeCheckedCode);
+                        blocked.RptTpClsCd = String.valueOf(mRadioCategoryCheckedCode);
+                        blocked.RcvDate = DateUtils.getDate("YYYYMMDD");
+                        blocked.RcvTime = DateUtils.getDate("HH:MM:SS");
 
-                            if ("999".equals(mRadioCategoryCheckedCode))
-                                blocked.EtcTpInpDesc = getBinding().etMicellaneous.getText().toString().trim();
-                            else
-                                blocked.EtcTpInpDesc = "";
-                            blocked.setRptTpClsNm(getReportTypeClassName(mRadioCategoryCheckedCode));
-                            blocked.setPhnNo(mIncomingPhoneNumber.replace("-", ""));
-                            insertPhoneNumberToBeBlocked(blocked);
-                        }else{ //if(isblocked.equals("N"))
-                            Toast.makeText(context, "신고가 성공적으로 완료되었습니다." , Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(context, response.getProcRsltCd() + ": 신고/차단 실패 ", Toast.LENGTH_SHORT).show();
+                        if ("999".equals(mRadioCategoryCheckedCode))
+                            blocked.EtcTpInpDesc = getBinding().etMicellaneous.getText().toString().trim();
+                        else
+                            blocked.EtcTpInpDesc = "";
+                        blocked.setRptTpClsNm(getReportTypeClassName(mRadioCategoryCheckedCode));
+                        blocked.setPhnNo(mIncomingPhoneNumber.replace("-", ""));
+                        insertPhoneNumberToBeBlocked(blocked);
+                        Bundle bundle = new Bundle();
+                        bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_fragment);
+                        GoNativeScreen((BaseBindingFragment) new BlockedPhoneNumberListFragment(), bundle);
+                    } else { //if(isblocked.equals("N"))
+                        Toast.makeText(context, "신고가 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_phone_number_history_fragment);
+                        GoNativeScreen((BaseBindingFragment) new ReportPhoneNumberHistoryFragment(), bundle);
                     }
-                    Bundle bundle = new Bundle();
-                    bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_fragment);
-                    GoNativeScreen((BaseBindingFragment) new BlockedPhoneNumberListFragment(), bundle);
+                } else {
+                    Toast.makeText(context, response.getProcRsltCd() + ": 신고/차단 실패 ", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

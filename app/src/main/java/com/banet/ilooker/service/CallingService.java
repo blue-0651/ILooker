@@ -31,7 +31,6 @@ import com.banet.ilooker.activity.MainActivity;
 import com.banet.ilooker.activity.PopUpActivity;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.common.Global;
-import com.banet.ilooker.model.BlockedPhoneNumber;
 import com.banet.ilooker.model.IncommingCall;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
@@ -39,14 +38,13 @@ import com.banet.ilooker.util.Util;
 
 import java.util.HashMap;
 
-import io.realm.Realm;
-
 public class CallingService extends Service {
     public static final String CHANNEL_ID = "ILOOKER_00";
     public static final String EXTRA_CALL_NUMBER = "call_number";
     public static final String TAG = "CallingService";
+    public static final String ACTION = "Telephony.Sms.Intents.SMS_RECEIVED_ACTION";
     public static String mLastState;
-    static Realm realm = Realm.getDefaultInstance();
+
     TelecomManager tcm;
     String phoneNumber;
 
@@ -54,8 +52,7 @@ public class CallingService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "onReceive()");
-            if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
-
+            if (intent.getAction().equals(ACTION)) {
                 SmsMessage[] messages = Telephony.Sms.Intents.getMessagesFromIntent(intent);
                 if (messages != null) {
                     if (messages.length == 0)
@@ -89,12 +86,12 @@ public class CallingService extends Service {
 
                 }
 
-//                if (Util.isThePhoneNumberExist(CallingService.this, phoneNumber)) {
-//                    Log.d(TAG, phoneNumber + " : Already Exist.");
-//                    return;
-//                }
+                if (Util.isThePhoneNumberExist(CallingService.this, phoneNumber)) {
+                    Log.d(TAG, phoneNumber + " : Already Exist.");
+                    return;
+                }
 
-                if (isThePhoneNumberBlocked(phoneNumber)) {
+                if (Util.isThePhoneNumberAlreadyBlocked(phoneNumber)) {
                     Toast.makeText(getApplicationContext(), "차단된 번호입니다.", Toast.LENGTH_SHORT).show();
                     endCall();
                     return;
@@ -250,10 +247,10 @@ public class CallingService extends Service {
             @Override
             public void onSuccess(ResponseData<IncommingCall> response) {
                 //002-000으로 바꿈
-                if (response.getProcRsltCd().equals("002-000") || response.getProcRsltCd().equals("002-900")) {
+            //    if (response.getProcRsltCd().equals("002-000") || response.getProcRsltCd().equals("002-900")) {
                     IncommingCall incommingCall = (IncommingCall) response.getData();
                     showIncomingPhoneUI(context, intent, state, incommingCall);
-                }
+             //   }
 
             }
 
@@ -306,18 +303,18 @@ public class CallingService extends Service {
         });
     }
 
-    public static boolean isThePhoneNumberBlocked(String phoneNumber) {
-        BlockedPhoneNumber blockedPhoneNumberRealmResults = realm.where(BlockedPhoneNumber.class)
-                .equalTo("PhnNo", phoneNumber)
-                .and()
-                .equalTo("BlockYN", "Y")
-                .findFirst();
-        if (blockedPhoneNumberRealmResults == null) { //번호가 차단리스트에 없으면
-            return false;
-        } else {
-            return true;
-        }
-    }
+//    public static boolean isThePhoneNumberBlocked(String phoneNumber) {
+//        BlockedPhoneNumber blockedPhoneNumberRealmResults = realm.where(BlockedPhoneNumber.class)
+//                .equalTo("PhnNo", phoneNumber)
+//                .and()
+//                .equalTo("BlockYN", "Y")
+//                .findFirst();
+//        if (blockedPhoneNumberRealmResults == null) { //번호가 차단리스트에 없으면
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
     private void endCall() {
         if (tcm != null) {
