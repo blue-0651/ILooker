@@ -247,10 +247,15 @@ public class CallingService extends Service {
             @Override
             public void onSuccess(ResponseData<IncommingCall> response) {
                 //002-000으로 바꿈
-            //    if (response.getProcRsltCd().equals("002-000") || response.getProcRsltCd().equals("002-900")) {
+                if (response.getProcRsltCd().equals("002-000") ) {
                     IncommingCall incommingCall = (IncommingCall) response.getData();
+                    incommingCall.isInSystem = true;
                     showIncomingPhoneUI(context, intent, state, incommingCall);
-             //   }
+                }else {
+                    IncommingCall incommingCall = (IncommingCall) response.getData();
+                    incommingCall.isInSystem = false;
+                    showIncomingPhoneUI(context, intent, state, incommingCall);
+                }
 
             }
 

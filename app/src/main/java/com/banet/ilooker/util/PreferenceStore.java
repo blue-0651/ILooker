@@ -3,7 +3,6 @@ package com.banet.ilooker.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.preference.PreferenceManager;
 
 import java.util.Set;
 
@@ -12,10 +11,10 @@ public class PreferenceStore {
 
 	private final Context c;
 	private final SharedPreferences sp;
-	
+
 	public PreferenceStore(Context c) {
 		this.c = c;
-		this.sp = PreferenceManager.getDefaultSharedPreferences(c);
+		this.sp = c.getSharedPreferences( c.getPackageName() + "_preferences", Context.MODE_PRIVATE);
 	}
 	
 	public void writePrefString(String key, String value) {

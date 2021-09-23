@@ -20,12 +20,12 @@ import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.databinding.ActivityMainBinding;
 import com.banet.ilooker.fragment.BaseBindingFragment;
 import com.banet.ilooker.fragment.LastCallLogFragment;
-import com.banet.ilooker.fragment.MainWorkFragment;
 import com.banet.ilooker.fragment.Report_RegFragment_005;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.service.CallingService;
 import com.banet.ilooker.util.DateUtils;
+import com.banet.ilooker.util.PreferenceStore;
 import com.banet.ilooker.util.Util;
 
 import java.util.HashMap;
@@ -34,14 +34,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     public static final String TAG = "MainActivity";
     public static String MOVE_TO_FRAGMENT_NAME = "";
     public static String MOVE_TO_BLOCK_PHONE_NUMBER = "";
-    boolean firstInit = true; //Preference로 변경
     private final int REQ_CODE_OVERLAY_PERMISSION = 101;
     private final Handler mHandler = new Handler();
-
+    PreferenceStore pStore ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle_main = getIntent().getExtras();
+        pStore = new PreferenceStore(this);
 
 
         if (bundle_main != null) {
@@ -51,7 +51,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         if (bundle_main == null) {
             init();
-            firstInit = false;
         }
 
 
@@ -124,7 +123,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             @Override
             public void onSuccess(ResponseData<Object> response) {
                 if (response.getProcRsltCd().equals("001-000")) {
-                //    Toast.makeText(MainActivity.this, "사용자등록이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "사용자등록이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -150,13 +149,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (getTopFragment() != null && getTopFragment() instanceof MainWorkFragment) {
-            backPressCloseHandler.onBackPressed();
-        } else
-            ((BaseActivity) this).fragmentManager.popBackStack();
-    }
+
 
     private void requirePerms(){
         String[] permissions = {Manifest.permission.RECEIVE_SMS};
@@ -180,7 +173,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         Intent serviceIntent = new Intent(this, CallingService.class);
         ContextCompat.startForegroundService(this, serviceIntent);
-       // request001Install("KOR", Util.getLineNumber(MainActivity.this), "", "추천인");
+
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -203,6 +196,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             case REQ_CODE_OVERLAY_PERMISSION: {
                 if (Settings.canDrawOverlays(this)) {
                     GoHomeScreen();
+                    if(pStore.readPrefBoolean("isInstalled", false) == false) {
+                        request001Install("KOR", Util.getLineNumber(MainActivity.this), "", "추천인");
+                        pStore.writePrefBoolean("isInstalled", true);
+                    }
+
                 } else {
                     Toast.makeText(MainActivity.this, "앱을 정상적으로 이용하려면 overlay 권한동의 설정이 필요합니다.", Toast.LENGTH_SHORT).show();
                     mHandler.postDelayed(new Runnable() {

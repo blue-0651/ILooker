@@ -102,8 +102,8 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         }
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.vw_NativeContent, mBaseFragment).commitAllowingStateLoss();
         transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
+        transaction.replace(R.id.vw_NativeContent, mBaseFragment).commitAllowingStateLoss();
     }
 
 //    public void GoNativeScreenAdd(BaseBindingFragment<T> fragment, Bundle bundle) {
@@ -180,9 +180,8 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
 //        } else {
 //            transaction.setCustomAnimations(R.anim.horizon_slide_in_left, R.anim.horizon_slide_out_right);
 //        }
-
-        transaction.add(R.id.vw_NativeContent, mBaseFragment).commitAllowingStateLoss();
         transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
+        transaction.replace(R.id.vw_NativeContent, mBaseFragment).commitAllowingStateLoss();
 
     }
 
@@ -231,6 +230,17 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
 //            } else {
 //                GoHomeScreen();
 //            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (getTopFragment() != null && getTopFragment() instanceof MainWorkFragment) {
+            backPressCloseHandler.onBackPressed();
+        } else {
+           if(getFragmentManager().getBackStackEntryCount() > 0)
+            ((BaseActivity) this).fragmentManager.popBackStack();
         }
     }
 

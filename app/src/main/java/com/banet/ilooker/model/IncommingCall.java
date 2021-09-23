@@ -50,4 +50,6 @@ public class IncommingCall implements Serializable {
     @Expose
     public String BadTotCnt = "";
 
+    public boolean isInSystem = false;
+
 }

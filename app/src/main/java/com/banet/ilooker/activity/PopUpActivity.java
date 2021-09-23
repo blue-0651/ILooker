@@ -297,8 +297,12 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
     }
 
     void showOrgWhiteList() {
-        if (mIncomingCall.OrgNm == null || "".equals(mIncomingCall.OrgNm))
+        if (! mIncomingCall.isInSystem || mIncomingCall.OrgNm == null || "".equals(mIncomingCall.OrgNm)){
+            mllWhiteList.setVisibility(View.VISIBLE);
+            mTvWhitelist.setText("시스템에 등록되지 않은 전화번호입니다.");
             return;
+        }
+
         if (mIncomingCall.WhtListYN.equals("Y")) {
             mllWhiteList.setVisibility(View.VISIBLE);
             mTvOrg.setVisibility(View.VISIBLE);
