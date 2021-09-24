@@ -103,7 +103,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
-        transaction.replace(R.id.vw_NativeContent, mBaseFragment).commitAllowingStateLoss();
+        transaction.replace(R.id.vw_NativeContent, mBaseFragment).addToBackStack("AILookerFrStack").commitAllowingStateLoss();
     }
 
 //    public void GoNativeScreenAdd(BaseBindingFragment<T> fragment, Bundle bundle) {
@@ -181,7 +181,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
 //            transaction.setCustomAnimations(R.anim.horizon_slide_in_left, R.anim.horizon_slide_out_right);
 //        }
         transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
-        transaction.replace(R.id.vw_NativeContent, mBaseFragment).commitAllowingStateLoss();
+        transaction.replace(R.id.vw_NativeContent, mBaseFragment).addToBackStack("AILookerFrStack").commitAllowingStateLoss();
 
     }
 

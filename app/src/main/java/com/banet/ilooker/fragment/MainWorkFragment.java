@@ -59,71 +59,72 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
     @Override
     protected void init(Bundle savedInstanceState) {
         request101MainUserInfo(Util.getLineNumber(getActivity()));
-        ( (MainActivity)getActivity()).setBottomTabBarVisible(true);
-
+        ((MainActivity) getActivity()).setBottomTabBarVisible(true);
 
 
     }
 
     private void setBarChart(MainUserInfo101 mainUserInfo101) {
         HorizontalBarChart barChart = getBinding().barchart;
-        ArrayList activityPointsList = new ArrayList();
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.RptCnt), 0));
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.AdvtChkCnt), 1));
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.NtcChkCnt), 2));
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.EvtChkCnt), 3));
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.NewsChkCnt), 4));
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.InqChkCnt), 5));
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.EvtJoinCnt), 6));
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopCurrPnt), 7));
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopAdvtChkCnt), 8));
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopRptCnt), 9));
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopAdvtChkCnt), 10));
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopNtcChkCnt), 11));
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopEvtChkCnt), 12));
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopInqChkCnt), 13));
-        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopEvtJoinCnt), 14));
 
-//
-//        activityPointsList.add(new BarEntry(Float.valueOf("1133"), 0));
-//        activityPointsList.add(new BarEntry(Float.valueOf("100"), 1));
-//        activityPointsList.add(new BarEntry(1133f, 2));
-//        activityPointsList.add(new BarEntry(1240f, 3));
-//        activityPointsList.add(new BarEntry(1369f, 4));
-//        activityPointsList.add(new BarEntry(1487f, 5));
-//        activityPointsList.add(new BarEntry(1501f, 6));
-//        activityPointsList.add(new BarEntry(1645f, 7));
-//        activityPointsList.add(new BarEntry(1578f, 8));
-//        activityPointsList.add(new BarEntry(1695f, 9));
-//        activityPointsList.add(new BarEntry(1487f, 10));
-//        activityPointsList.add(new BarEntry(1501f, 11));
-//        activityPointsList.add(new BarEntry(1645f, 12));
-//        activityPointsList.add(new BarEntry(1578f, 13));
-//        activityPointsList.add(new BarEntry(1695f, 14));
+        ArrayList reportList = new ArrayList();
+        reportList.add(new BarEntry(Float.valueOf(mainUserInfo101.RptCnt), 0));
+        reportList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopRptCnt), 1));
 
-        BarDataSet dataSet = new BarDataSet(activityPointsList, "활동분야");
+        ArrayList ntcList = new ArrayList();
+        ntcList.add(new BarEntry(Float.valueOf(mainUserInfo101.NtcChkCnt), 2));
+        ntcList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopNtcChkCnt), 3));
+
+
+//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.AdvtChkCnt), 1));
+//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.NtcChkCnt), 2));
+//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.EvtChkCnt), 3));
+//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.NewsChkCnt), 4));
+//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.InqChkCnt), 5));
+//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.EvtJoinCnt), 6));
+//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopCurrPnt), 7));
+//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopAdvtChkCnt), 8));
+//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopAdvtChkCnt), 10));
+//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopNtcChkCnt), 11));
+//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopEvtChkCnt), 12));
+//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopInqChkCnt), 13));
+//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopEvtJoinCnt), 14));
+
+
+        BarDataSet dataSet = new BarDataSet(reportList, "신고등록");
         ArrayList activityLabelList = new ArrayList();
-        activityLabelList.add("신고등록");
-        activityLabelList.add("광고확인횟수");
-        activityLabelList.add("공지확인횟수");
-        activityLabelList.add("이벤트확인횟수");
-        activityLabelList.add("뉴스확인횟수");
-        activityLabelList.add("문의요청횟수");
-        activityLabelList.add("이벤트참여횟수");
-        activityLabelList.add("최고현재Point");
-        activityLabelList.add("최고신고횟수");
-        activityLabelList.add("최고광고확인횟수");
-        activityLabelList.add("최고공지확인횟수");
-        activityLabelList.add("최고이벤트확인횟수");
-        activityLabelList.add("최고뉴스확인횟수");
-        activityLabelList.add("최고문의요청횟수");
-        activityLabelList.add("최고이벤트참여횟수");
+        activityLabelList.add("최고점수");
+        activityLabelList.add("나의점수");
 
+        BarDataSet dataSet2 = new BarDataSet(ntcList, "공지사항");
+        ArrayList ntclabelList = new ArrayList();
+        activityLabelList.add("최고점수");
+        activityLabelList.add("나의점수");
 
-        BarData data = new BarData(activityLabelList, dataSet); // MPAndroidChart v3.X 오류 발생 pieChart.setData(data); dataSet.setColors(ColorTemplate.COLORFUL_COLORS); pieChart.animateXY(5000, 5000);
-        barChart.setData(data);
+//        activityLabelList.add("광고확인횟수");
+//        activityLabelList.add("공지확인횟수");
+//        activityLabelList.add("이벤트확인횟수");
+//        activityLabelList.add("뉴스확인횟수");
+//        activityLabelList.add("문의요청횟수");
+//        activityLabelList.add("이벤트참여횟수");
+//        activityLabelList.add("최고현재Point");
+//        activityLabelList.add("최고신고횟수");
+//        activityLabelList.add("최고광고확인횟수");
+//        activityLabelList.add("최고공지확인횟수");
+//        activityLabelList.add("최고이벤트확인횟수");
+//        activityLabelList.add("최고뉴스확인횟수");
+//        activityLabelList.add("최고문의요청횟수");
+//        activityLabelList.add("최고이벤트참여횟수");
+
+//BarData 설정***********************************************************************
+
+        BarData bardata = new BarData(dataSet, dataSet2);
+        BarData bardata2 = new BarData(dataSet, dataSet2);
+
+//BarChart설정******************************************************************************
+        barChart.setData(bardata);
+        barChart.setEnabled(false);
         dataSet.setColors(ColorTemplate.LIBERTY_COLORS);
-        barChart.setDescription("활동지수 ");
         barChart.getDrawingCache(false);
 
         barChart.getAxisLeft().setDrawTopYLabelEntry(false);
@@ -138,6 +139,9 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
         barChart.getAxisRight().setDrawAxisLine(false);
         barChart.getAxisRight().setDrawGridLines(false);
         barChart.getAxisRight().setDrawTopYLabelEntry(false);
+        barChart.getXAxis().setDrawGridLines(false);
+
+        barChart.getAxisLeft().setDrawGridLines(false);
         barChart.getXAxis().setDrawGridLines(false);
 
         barChart.animateXY(1000, 1000);
@@ -214,7 +218,6 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
         });
 
 
-
         getBinding().llReportPhoneNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -235,14 +238,14 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
         DataInterface.getInstance().get101UserInfo(params, new DataInterface.ResponseCallback<ResponseData<MainUserInfo101>>() {
             @Override
             public void onSuccess(ResponseData<MainUserInfo101> response) {
-            //    if (response.getProcRsltCd().equals("101-000") || response.getProcRsltCd().equals("101-900")) {
-                    MainUserInfo101 mainUserInfo101 = (MainUserInfo101) response.getData();
-                    getBinding().tvCustName.setText(mainUserInfo101.UserNm);
-                    getBinding().tvRank.setText("순위 " + "상위 " + mainUserInfo101.CurrRank + "%");
-                    getBinding().tvcurrPoint.setText("포인트 " + mainUserInfo101.CurrPnt + "점");
-                    setBarChart(mainUserInfo101);
+                //    if (response.getProcRsltCd().equals("101-000") || response.getProcRsltCd().equals("101-900")) {
+                MainUserInfo101 mainUserInfo101 = (MainUserInfo101) response.getData();
+                getBinding().tvCustName.setText(mainUserInfo101.UserNm);
+                getBinding().tvCurrPoint.setText("포인트: " + mainUserInfo101.CurrPnt + "점");
+                getBinding().tvRank.setText("현재순위: " + "상위 " + mainUserInfo101.CurrRank + "%");
+                setBarChart(mainUserInfo101);
 
-             //   }
+                //   }
             }
 
             @Override
