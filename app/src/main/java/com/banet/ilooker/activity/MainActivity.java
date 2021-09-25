@@ -100,9 +100,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     }
 
-
-
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
@@ -222,8 +219,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         if (getTopFragment() != null && getTopFragment() instanceof MainWorkFragment) {
             backPressCloseHandler.onBackPressed();
         } else {
-            if(getSupportFragmentManager().getBackStackEntryCount() > 0)
+            if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
                 ((BaseActivity) this).fragmentManager.popBackStack();
+                setTitleName(AppDef.title_main_fragment);
+            }
         }
     }
 

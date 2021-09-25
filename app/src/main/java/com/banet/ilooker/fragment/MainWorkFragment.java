@@ -96,10 +96,10 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
         activityLabelList.add("최고점수");
         activityLabelList.add("나의점수");
 
-        BarDataSet dataSet2 = new BarDataSet(ntcList, "공지사항");
-        ArrayList ntclabelList = new ArrayList();
-        activityLabelList.add("최고점수");
-        activityLabelList.add("나의점수");
+//        BarDataSet dataSet2 = new BarDataSet(ntcList, "공지사항");
+//        ArrayList ntclabelList = new ArrayList();
+//        activityLabelList.add("최고점수");
+//        activityLabelList.add("나의점수");
 
 //        activityLabelList.add("광고확인횟수");
 //        activityLabelList.add("공지확인횟수");
@@ -118,38 +118,46 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
 
 //BarData 설정***********************************************************************
 
-        BarData bardata = new BarData(dataSet, dataSet2);
-        BarData bardata2 = new BarData(dataSet, dataSet2);
+        BarData bardata = new BarData(dataSet);
+     //   BarData bardata2 = new BarData(dataSet, dataSet2);
 
 //BarChart설정******************************************************************************
-        barChart.setData(bardata);
+         barChart.setData(bardata);
+  //      barChart.setData(bardata2);
         barChart.setEnabled(false);
         dataSet.setColors(ColorTemplate.LIBERTY_COLORS);
         barChart.getDrawingCache(false);
-
-        barChart.getAxisLeft().setDrawTopYLabelEntry(false);
-        barChart.getAxisLeft().setDrawTopYLabelEntry(false);
-        barChart.getAxisLeft().setDrawLimitLinesBehindData(false);
-        barChart.getAxisLeft().setDrawAxisLine(false);
-        barChart.getAxisLeft().setDrawZeroLine(false);
-        barChart.getAxisLeft().setDrawGridLines(false);
-
-        barChart.getAxisRight().setDrawZeroLine(false);
-        barChart.getAxisRight().setDrawLimitLinesBehindData(false);
-        barChart.getAxisRight().setDrawAxisLine(false);
-        barChart.getAxisRight().setDrawGridLines(false);
-        barChart.getAxisRight().setDrawTopYLabelEntry(false);
-        barChart.getXAxis().setDrawGridLines(false);
-
-        barChart.getAxisLeft().setDrawGridLines(false);
-        barChart.getXAxis().setDrawGridLines(false);
-
-        barChart.animateXY(1000, 1000);
+        setChartGridLines(barChart);
+        //   barChart.animateXY(1000, 1000);
         barChart.invalidate();
 
 
     }
 
+    void setChartGridLines(HorizontalBarChart mChart) {
+        mChart.setTouchEnabled(true);
+        mChart.setClickable(false);
+        mChart.setDoubleTapToZoomEnabled(false);
+        mChart.setDoubleTapToZoomEnabled(false);
+
+        mChart.setDrawBorders(false);
+        mChart.setDrawGridBackground(false);
+
+     //   mChart.getDescription().setEnabled(false);
+     //   mChart.getLegend().setEnabled(false);
+
+        mChart.getAxisLeft().setDrawGridLines(false);
+        mChart.getAxisLeft().setDrawLabels(false);
+        mChart.getAxisLeft().setDrawAxisLine(false);
+
+        mChart.getXAxis().setDrawGridLines(false);
+        mChart.getXAxis().setDrawLabels(false);
+        mChart.getXAxis().setDrawAxisLine(false);
+
+        mChart.getAxisRight().setDrawGridLines(false);
+        mChart.getAxisRight().setDrawLabels(false);
+        mChart.getAxisRight().setDrawAxisLine(false);
+    }
 
     public void setMenuFragmentClick() {
         getBinding().llBlockPhoneNo.setOnClickListener(new View.OnClickListener() {
