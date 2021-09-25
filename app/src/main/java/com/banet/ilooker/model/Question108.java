@@ -71,7 +71,7 @@ public class Question108 extends MenuListObject {
                     for(int i = 0; Question108List.size() >i ; i++){
                         Question108List.get(i).setMenuListField();
                     }
-                    MenuListAdapter menuListAdapter = new MenuListAdapter(context, Collections.singletonList(Question108List), AppDef.title_news_fragment);
+                    MenuListAdapter menuListAdapter = new MenuListAdapter(context, Collections.singletonList(Question108List), AppDef.title_questions_fragment);
                     rv.setAdapter(menuListAdapter);
                     tv.setText("문의 총 :" + Question108List.size());
 

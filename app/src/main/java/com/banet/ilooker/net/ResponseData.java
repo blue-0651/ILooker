@@ -19,6 +19,14 @@ public class ResponseData<T> {
 	@Expose
 	private String rsltMsgPopupYN = "";
 
+	@SerializedName("TotCnt")
+	@Expose
+	private String TotCnt = "";
+
+	@SerializedName("CurrPnt")
+	@Expose
+	private String CurrPnt = "";
+
 
 	@SerializedName("data")
 	@Expose
@@ -52,8 +60,9 @@ public class ResponseData<T> {
 		return rsltMsgPopupYN;
 	}
 
-
-
+	public String getCurrPnt() {
+		return CurrPnt;
+	}
 
 	public void setMsgPopupYN(String message) {
 		this.rsltMsgPopupYN = message;

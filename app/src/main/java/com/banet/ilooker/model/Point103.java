@@ -25,10 +25,6 @@ public class Point103 extends MenuListObject {
     @Expose
     public String Seq ="";
 
-    @SerializedName("CurrPnt")
-    @Expose
-    public String CurrPnt ="";
-
     //포인트가감일자
     @SerializedName("PntAdjDate")
     @Expose
@@ -46,7 +42,8 @@ public class Point103 extends MenuListObject {
     @Expose
     public String PntAdjRsnDescPath  ="";
 
-    public void request103(Context context, RecyclerView rv, TextView tv) {
+
+    public void request103(Context context, RecyclerView rv, TextView tvPointSize , TextView tvCurrPoint) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("UseLangCd", "KOR");
         params.put("UserPhnNo", Util.getLineNumber(context.getApplicationContext()));
@@ -58,12 +55,14 @@ public class Point103 extends MenuListObject {
 
                 if (response.getProcRsltCd().equals("103-000")) {
                     List<Point103> Points103List = (List<Point103>) response.getList();
+
                     for(int i = 0; Points103List.size() >i ; i++){
                         Points103List.get(i).setMenuListField();
                     }
-                    MenuListAdapter menuListAdapter = new MenuListAdapter(context, Collections.singletonList(Points103List), AppDef.title_news_fragment);
+                    MenuListAdapter menuListAdapter = new MenuListAdapter(context, Collections.singletonList(Points103List), AppDef.title_point_fragment);
                     rv.setAdapter(menuListAdapter);
-                    tv.setText("포인트 총 :" + Points103List.size());
+                    tvPointSize.setText("포인트이력 총 : " + Points103List.size() + "건");
+                    tvCurrPoint.setText("현재포인트 " + response.getCurrPnt() + "점");
 
                 }
             }
@@ -79,14 +78,15 @@ public class Point103 extends MenuListObject {
             }
         });
     }
-    //내역 api 없음
+    //상세내역 api 없음
 
     @Override
     public void setMenuListField() {
         ListSeq = Seq;
-        ListNo = CurrPnt;
         ListTitle = PntAdjRsnNm;
         ListStartDate = PntAdjDate;
         ListContent = PntAdjRsnDescPath;
+        ListPoint = Pnt;
     }
+
 }

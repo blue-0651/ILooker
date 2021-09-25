@@ -16,9 +16,9 @@ public abstract class MenuListObject implements Serializable {
 
     public String ListContent = "";
 
+    //포인트일경우
+    public String ListPoint= "";
+
     public abstract void setMenuListField();
-
-
-
 
 }

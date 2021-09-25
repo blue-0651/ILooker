@@ -233,17 +233,6 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         }
     }
 
-    @Override
-    public void onBackPressed() {
-
-        if (getTopFragment() != null && getTopFragment() instanceof MainWorkFragment) {
-            backPressCloseHandler.onBackPressed();
-        } else {
-           if(getFragmentManager().getBackStackEntryCount() > 0)
-            ((BaseActivity) this).fragmentManager.popBackStack();
-        }
-    }
-
 
     protected void showProgress(final String msg) {
         UIThread.executeInUIThread(new Runnable() {

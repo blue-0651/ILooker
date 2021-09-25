@@ -30,9 +30,8 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.MenuLi
     private String mTitleName;
 
     public MenuListAdapter(Context context, List<Object> mItemListCollection, String titleName) {
-        if(titleName.equals(AppDef.title_news_fragment)){
-            mItemList = (List<Object>) mItemListCollection.get(0);
-        }
+
+        this.mItemList = (List<Object>) mItemListCollection.get(0);
         this.context = context;
         this.mTitleName = titleName;
     }
@@ -52,7 +51,9 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.MenuLi
     @Override
     public MenuListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.layout_noti_item, parent, false);
+
+        View v = inflater.inflate(R.layout.layout_menulist_item, parent, false);
+
         MenuListViewHolder holder = new MenuListViewHolder(v);
         return holder;
     }
@@ -61,7 +62,11 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.MenuLi
     public void onBindViewHolder(@NonNull MenuListViewHolder viewHolder, int position) {
 
         MenuListObject item = (MenuListObject) mItemList.get(position);
-        if(mItemList.size()>0) {
+        if(mItemList.size() > 0) {
+            if(mTitleName.equals(AppDef.title_point_fragment)){
+                viewHolder.tvPoint.setVisibility(View.VISIBLE);
+                viewHolder.tvPoint.setText(item.ListPoint);
+            }
             viewHolder.tvTitle.setText(item.ListTitle);
             viewHolder.tvSeq.setText(item.ListSeq);
             viewHolder.tvStartDate.setText(item.ListStartDate  ) ;
@@ -72,6 +77,10 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.MenuLi
 
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return 0;
+    }
 
     @Override
     public int getItemCount() {
@@ -84,12 +93,14 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.MenuLi
         public TextView tvTitle;
         public TextView tvStartDate;
 
+        public TextView tvPoint;
+
         public MenuListViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvNotiTitle);
-            tvStartDate = itemView.findViewById(R.id.tvDate);
-            tvSeq = itemView.findViewById(R.id.tvNotiSeq);
-
+            tvTitle = itemView.findViewById(R.id.tvItemTitle);
+            tvStartDate = itemView.findViewById(R.id.tvItemDate);
+            tvSeq = itemView.findViewById(R.id.tvItemSeq);
+            tvPoint = itemView.findViewById(R.id.tvItemPoint);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

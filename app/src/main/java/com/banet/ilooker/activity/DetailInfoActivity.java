@@ -15,7 +15,7 @@ import com.banet.ilooker.model.Question108;
 import com.bumptech.glide.Glide;
 
 
-public class DetailInfoActivity extends BaseActivity<ActivityDetailInfoBinding> implements OnTitleListener{
+public class DetailInfoActivity extends BaseActivity<ActivityDetailInfoBinding> implements OnTitleListener {
     MenuListObject mMenuListObject;
 
     @Override
@@ -41,8 +41,6 @@ public class DetailInfoActivity extends BaseActivity<ActivityDetailInfoBinding> 
         });
 
 
-
-
     }
 
     @Override
@@ -55,10 +53,10 @@ public class DetailInfoActivity extends BaseActivity<ActivityDetailInfoBinding> 
         if (menuListObject instanceof News107) {
             ((News107) menuListObject).request113NewsDetail(this, getBinding().date, getBinding().sequenceNumber, getBinding().tvTitle, getBinding().ivContent);
         } else if (menuListObject instanceof FAQ109) {
-            //    ((FAQ109) menuListObject).request110GeneralNoticedetail(this, getBinding().date, getBinding().sequenceNumber, getBinding().tvTitle, getBinding().ivContent);
+            ((FAQ109) menuListObject).request115FaqDetail(this, getBinding().date, getBinding().sequenceNumber, getBinding().tvTitle, getBinding().ivContent);
         } else if (menuListObject instanceof Point103) {
-            getBinding().date.setText(mMenuListObject.ListStartDate + " ~ " + mMenuListObject.ListEndDate);
-            getBinding().sequenceNumber.setText("No. : " + mMenuListObject.ListNo);
+            getBinding().date.setText(mMenuListObject.ListStartDate);
+            getBinding().sequenceNumber.setText("No. : " + mMenuListObject.ListSeq);
             getBinding().tvTitle.setText(mMenuListObject.ListTitle);
             Glide.with(this)
                     .load(mMenuListObject.ListContent)

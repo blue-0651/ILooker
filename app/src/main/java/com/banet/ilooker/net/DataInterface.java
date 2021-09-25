@@ -518,7 +518,6 @@ protected String TAG = getClass().getSimpleName();
 				@Override
 				public void onFailure(Call<ResponseData<MainUserInfo101>> call, Throwable t) {
 					if (callback == null) return;
-
 					t.printStackTrace();
 					callback.onFailure(t);
 				}

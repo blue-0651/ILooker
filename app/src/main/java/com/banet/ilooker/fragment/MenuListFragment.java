@@ -2,6 +2,7 @@ package com.banet.ilooker.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 
@@ -20,10 +21,6 @@ import java.util.List;
 public class MenuListFragment extends BaseBindingFragment<FragmentMenuListBinding> {
 
     List<MenuListObject> menuList = null;
-
-//    public NotiFragment_104() {
-//        // Required empty public constructor
-//    }
 
      String title = "";
     public static MenuListFragment newInstance(String param1, String param2) {
@@ -64,18 +61,31 @@ public class MenuListFragment extends BaseBindingFragment<FragmentMenuListBindin
     private void request(Context context) {
        switch(title){
            case AppDef.title_news_fragment :
+               getBinding().llMenuListSearch.setVisibility(View.GONE);
+               getBinding().rlMenuTotal.setVisibility(View.VISIBLE);
+               getBinding().tvCurrentPoint.setVisibility(View.GONE);
                News107 news107 = new News107();
                news107.request107(getActivity(), getBinding().rvMenuList, getBinding().tvMenuTotal);
                break;
            case AppDef.title_point_fragment:
+               getBinding().llMenuListSearch.setVisibility(View.GONE);
+               getBinding().rlMenuTotal.setVisibility(View.VISIBLE);
+               getBinding().tvCurrentPoint.setVisibility(View.VISIBLE);
                Point103 point103 = new Point103();
-               point103.request103(getActivity(), getBinding().rvMenuList, getBinding().tvMenuTotal);
+               point103.request103(getActivity(), getBinding().rvMenuList, getBinding().tvMenuTotal, getBinding().tvCurrentPoint);
                break;
            case AppDef.title_questions_fragment:
+               getBinding().llMenuListSearch.setVisibility(View.GONE);
+               getBinding().rlMenuTotal.setVisibility(View.VISIBLE);
+               getBinding().tvCurrentPoint.setVisibility(View.VISIBLE);
+               //문의등록버튼 추가
                Question108 question108 = new Question108();
                question108.request108(getActivity(), getBinding().rvMenuList, getBinding().tvMenuTotal);
                break;
            case AppDef.title_faq_fragment:
+               getBinding().llMenuListSearch.setVisibility(View.VISIBLE);
+               getBinding().rlMenuTotal.setVisibility(View.VISIBLE);
+               getBinding().tvCurrentPoint.setVisibility(View.GONE);
                FAQ109 faq109 = new FAQ109();
                faq109.request109(getActivity(), getBinding().rvMenuList, getBinding().tvMenuTotal, getBinding().etSearchCond);
                break;

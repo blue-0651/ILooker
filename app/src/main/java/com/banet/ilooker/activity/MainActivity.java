@@ -20,6 +20,7 @@ import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.databinding.ActivityMainBinding;
 import com.banet.ilooker.fragment.BaseBindingFragment;
 import com.banet.ilooker.fragment.LastCallLogFragment;
+import com.banet.ilooker.fragment.MainWorkFragment;
 import com.banet.ilooker.fragment.Report_RegFragment_005;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
@@ -212,6 +213,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 }
                 break;
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (getTopFragment() != null && getTopFragment() instanceof MainWorkFragment) {
+            backPressCloseHandler.onBackPressed();
+        } else {
+            if(getSupportFragmentManager().getBackStackEntryCount() > 0)
+                ((BaseActivity) this).fragmentManager.popBackStack();
         }
     }
 
