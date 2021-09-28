@@ -142,10 +142,10 @@ public class CallingService extends Service {
         tcm = (TelecomManager) getSystemService(Context.TELECOM_SERVICE);
 
         IntentFilter filter = new IntentFilter();
-        filter.setPriority(2147483647);
+      //  filter.setPriority(2147483647);
         filter.addAction("android.provider.Telephony.SMS_RECEIVED");
         filter.addAction("Telephony.Sms.Intents.SMS_RECEIVED_ACTION");
-      //  filter.addAction("android.intent.action.RECEIVE_SMS");
+        filter.addAction("android.intent.action.RECEIVE_SMS");
         filter.addAction("android.intent.action.PHONE_STATE");
         filter.addAction("android.intent.action.RECEIVE_MMS");
         filter.addAction("android.intent.action.NEW_OUTGOING_CALL");
@@ -308,18 +308,6 @@ public class CallingService extends Service {
         });
     }
 
-//    public static boolean isThePhoneNumberBlocked(String phoneNumber) {
-//        BlockedPhoneNumber blockedPhoneNumberRealmResults = realm.where(BlockedPhoneNumber.class)
-//                .equalTo("PhnNo", phoneNumber)
-//                .and()
-//                .equalTo("BlockYN", "Y")
-//                .findFirst();
-//        if (blockedPhoneNumberRealmResults == null) { //번호가 차단리스트에 없으면
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
 
     private void endCall() {
         if (tcm != null) {
@@ -328,7 +316,9 @@ public class CallingService extends Service {
                     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ANSWER_PHONE_CALLS) != PackageManager.PERMISSION_GRANTED) {
                         return;
                     }
-                    tcm.endCall();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        tcm.endCall();
+                    }
                     Log.d(TAG, "Incoming Call Blocked " + phoneNumber);
                 }
             } catch (Exception e) {

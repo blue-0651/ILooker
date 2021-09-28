@@ -105,8 +105,7 @@ public class FAQ109 extends MenuListObject {
         params.put("FaqNo", FaqNo);
 
 
-        DataInterface.getInstance().getApi113_NewsDetail(context, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
-
+        DataInterface.getInstance().getApi115_FAQDetail(context, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
             @Override
             public void onSuccess(ResponseData<Object> response) {
 

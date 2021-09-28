@@ -102,8 +102,8 @@ public interface HttpService {
     @POST("app/114_ApiQuestionDtl/")
     Call<ResponseData<Object>> api114_ApiQuestionDtl(@Body Map<String, Object> params);
 
-    @POST("app/115_ApiQuestionDtl/")
-    Call<ResponseData<Object>> api115_ApiQuestionDtl(@Body Map<String, Object> params);
+    @POST("app/115_ApiFAQDtl/")
+    Call<ResponseData<Object>> api115_ApiFAQDtl(@Body Map<String, Object> params);
 
     @POST("app/116_ApiAdvertCheck/")
     Call<ResponseData<Object>> api116_ApiAdvertCheck(@Body Map<String, Object> params);

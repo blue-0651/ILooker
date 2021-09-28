@@ -1,5 +1,8 @@
 package com.banet.ilooker.fragment;
 
+import android.graphics.Color;
+import android.graphics.DashPathEffect;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -15,13 +18,16 @@ import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.util.Util;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
@@ -61,76 +67,48 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
         request101MainUserInfo(Util.getLineNumber(getActivity()));
         ((MainActivity) getActivity()).setBottomTabBarVisible(true);
 
+    }
+
+    void setAILookerCharts(MainUserInfo101 userInfo101){
+        setBarChart(getBinding().barchartReport, userInfo101.TopRptCnt, userInfo101.RptCnt);
+        setBarChart(getBinding().barchartReport, userInfo101.TopRptCnt, userInfo101.RptCnt);
+        setBarChart(getBinding().barchartAdverCheck, userInfo101.TopAdvtChkCnt, userInfo101.AdvtChkCnt);
+        setBarChart(getBinding().barchartNotiCheck, userInfo101.TopNtcChkCnt, userInfo101.NtcChkCnt);
+        setBarChart(getBinding().barchartEvent, userInfo101.TopEvtChkCnt, userInfo101.EvtChkCnt);
+        setBarChart(getBinding().barchartEventJoin, userInfo101.TopEvtJoinCnt, userInfo101.EvtJoinCnt);
+        setBarChart(getBinding().barchartNews, userInfo101.TopNewsChkCnt, userInfo101.NewsChkCnt);
+        setBarChart(getBinding().barchartQuestion, userInfo101.TopInqChkCnt, userInfo101.InqChkCnt);
 
     }
 
-    private void setBarChart(MainUserInfo101 mainUserInfo101) {
-        HorizontalBarChart barChart = getBinding().barchart;
+    private void setBarChart(HorizontalBarChart barChart, String topPoint, String myPoint) {
+        final String STRING_TOP_COUNT = "최고점수";
+        final String STRING_MY_COUNT = "나의점수";
 
-        ArrayList reportList = new ArrayList();
-        reportList.add(new BarEntry(Float.valueOf(mainUserInfo101.RptCnt), 0));
-        reportList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopRptCnt), 1));
+        //BarEntry 설정***********************************************************************
+        ArrayList entryList = new ArrayList();
+   //     entryList.add(new BarEntry(Float.valueOf(myPoint), 0));
+       entryList.add(new BarEntry(Float.valueOf(topPoint), 1));
+        entryList.add(new BarEntry(300f, 0));
 
-        ArrayList ntcList = new ArrayList();
-        ntcList.add(new BarEntry(Float.valueOf(mainUserInfo101.NtcChkCnt), 2));
-        ntcList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopNtcChkCnt), 3));
-
-
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.AdvtChkCnt), 1));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.NtcChkCnt), 2));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.EvtChkCnt), 3));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.NewsChkCnt), 4));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.InqChkCnt), 5));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.EvtJoinCnt), 6));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopCurrPnt), 7));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopAdvtChkCnt), 8));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopAdvtChkCnt), 10));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopNtcChkCnt), 11));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopEvtChkCnt), 12));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopInqChkCnt), 13));
-//        activityPointsList.add(new BarEntry(Float.valueOf(mainUserInfo101.TopEvtJoinCnt), 14));
-
-
-        BarDataSet dataSet = new BarDataSet(reportList, "신고등록");
-        ArrayList activityLabelList = new ArrayList();
-        activityLabelList.add("최고점수");
-        activityLabelList.add("나의점수");
-
-//        BarDataSet dataSet2 = new BarDataSet(ntcList, "공지사항");
-//        ArrayList ntclabelList = new ArrayList();
-//        activityLabelList.add("최고점수");
-//        activityLabelList.add("나의점수");
-
-//        activityLabelList.add("광고확인횟수");
-//        activityLabelList.add("공지확인횟수");
-//        activityLabelList.add("이벤트확인횟수");
-//        activityLabelList.add("뉴스확인횟수");
-//        activityLabelList.add("문의요청횟수");
-//        activityLabelList.add("이벤트참여횟수");
-//        activityLabelList.add("최고현재Point");
-//        activityLabelList.add("최고신고횟수");
-//        activityLabelList.add("최고광고확인횟수");
-//        activityLabelList.add("최고공지확인횟수");
-//        activityLabelList.add("최고이벤트확인횟수");
-//        activityLabelList.add("최고뉴스확인횟수");
-//        activityLabelList.add("최고문의요청횟수");
-//        activityLabelList.add("최고이벤트참여횟수");
-
+        ArrayList<String> activityLabelList = new ArrayList<>();
+        activityLabelList.add(STRING_MY_COUNT);
+        activityLabelList.add(STRING_TOP_COUNT);
+        //BarDataset 설정 *******************************************************
+        BarDataSet dataSet = new BarDataSet(entryList, null);
+        dataSet.setValueTextSize(12f);
 //BarData 설정***********************************************************************
 
-        BarData bardata = new BarData(dataSet);
-     //   BarData bardata2 = new BarData(dataSet, dataSet2);
-
+        BarData bardata = new BarData(activityLabelList, dataSet);
 //BarChart설정******************************************************************************
-         barChart.setData(bardata);
-  //      barChart.setData(bardata2);
-        barChart.setEnabled(false);
-        dataSet.setColors(ColorTemplate.LIBERTY_COLORS);
-        barChart.getDrawingCache(false);
-        setChartGridLines(barChart);
-        //   barChart.animateXY(1000, 1000);
-        barChart.invalidate();
 
+      //  barChart.setEnabled(false);
+        dataSet.setColors(new int[]{Color.GRAY, Color.BLUE,}, Color.GRAY);
+        barChart.getDrawingCache(false);
+        barChart.setData(bardata);
+        setChartGridLines(barChart);
+        barChart.animateXY(1000, 1000);
+        barChart.invalidate();
 
     }
 
@@ -138,21 +116,19 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
         mChart.setTouchEnabled(true);
         mChart.setClickable(false);
         mChart.setDoubleTapToZoomEnabled(false);
-        mChart.setDoubleTapToZoomEnabled(false);
-
         mChart.setDrawBorders(false);
         mChart.setDrawGridBackground(false);
-
-     //   mChart.getDescription().setEnabled(false);
-     //   mChart.getLegend().setEnabled(false);
+        mChart.setDescription(null);
+        mChart.getLegend().setEnabled(false);
 
         mChart.getAxisLeft().setDrawGridLines(false);
         mChart.getAxisLeft().setDrawLabels(false);
         mChart.getAxisLeft().setDrawAxisLine(false);
 
         mChart.getXAxis().setDrawGridLines(false);
-        mChart.getXAxis().setDrawLabels(false);
+        //   mChart.getXAxis().setDrawLabels(false);
         mChart.getXAxis().setDrawAxisLine(false);
+        mChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
 
         mChart.getAxisRight().setDrawGridLines(false);
         mChart.getAxisRight().setDrawLabels(false);
@@ -251,7 +227,7 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
                 getBinding().tvCustName.setText(mainUserInfo101.UserNm);
                 getBinding().tvCurrPoint.setText("포인트: " + mainUserInfo101.CurrPnt + "점");
                 getBinding().tvRank.setText("현재순위: " + "상위 " + mainUserInfo101.CurrRank + "%");
-                setBarChart(mainUserInfo101);
+                setAILookerCharts(mainUserInfo101);
 
                 //   }
             }

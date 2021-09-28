@@ -5,7 +5,10 @@
     <dimen name="popup_bottom_layout_text_height">30dp</dimen>
 
     <dimen name="main_menu_layout_img_width">35dp</dimen>
-    <dimen name="main_menu_layout_img_height">35dp</dimen>
+    <dimen name="main_menu_layout_img_height">30dp</dimen>
     <dimen name="main_menu_layout_txt_width">50dp</dimen>
     <dimen name="main_menu_layout_txt_height">20dp</dimen>
+
+    <dimen name="chart_height">55dp</dimen>
+    <dimen name="chart_title_height">10dp</dimen>
 </resources>

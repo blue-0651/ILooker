@@ -35,7 +35,7 @@ public class AppDef {
     public static final String title_news_fragment = "뉴스" ;
     public static final String title_point_fragment = "포인트" ;
     public static final String title_questions_fragment = "문의" ;
-    public static final String title_faq_fragment = "faq" ;
+    public static final String title_faq_fragment = "FAQ" ;
 
     public static final String titl_latest_call_log_fragment = "최근기록" ;
     public static final String title_latest_call_log_detail = "최근기록상세" ;

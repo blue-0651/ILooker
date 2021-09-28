@@ -328,6 +328,8 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
                     Glide.with(PopUpActivity.this)
                             .load(advertise100.AdvtDescPath)
                             .into(getBinding().ivAdvertise);
+
+
                 }
 
             }

@@ -14,7 +14,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="5dp"
+
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -78,27 +81,103 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/divider" />
-
+           <ScrollView
+               android:layout_width="match_parent"
+               android:layout_height="278dp">
             <LinearLayout
-                android:id="@+id/llBarChartNpoints"
+                android:id="@+id/llBarCharts"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="horizontal"
-                android:weightSum="10">
-
-                <com.github.mikephil.charting.charts.HorizontalBarChart
-                    android:id="@+id/barchart"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5" />
+                    android:layout_height="wrap_content"
+                    android:text="신고 등록"
+                    style="@style/ChartTitleText"
+                    />
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/barchartReport"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/chart_height" >
+                </com.github.mikephil.charting.charts.HorizontalBarChart>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="광고 확인"
+                    style="@style/ChartTitleText"
+                    />
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/barchartAdverCheck"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/chart_height" >
+
+                </com.github.mikephil.charting.charts.HorizontalBarChart>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="공지 확인"
+                    style="@style/ChartTitleText"
+                    />
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/barchartNotiCheck"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/chart_height" >
+                </com.github.mikephil.charting.charts.HorizontalBarChart>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="이벤트 확인"
+                    style="@style/ChartTitleText"
+                    />
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/barchartEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/chart_height"  >
+                </com.github.mikephil.charting.charts.HorizontalBarChart>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="이벤트 참여"
+                    style="@style/ChartTitleText"
+                    />
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/barchartEventJoin"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/chart_height" >
+                </com.github.mikephil.charting.charts.HorizontalBarChart>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="뉴스 확인"
+                    style="@style/ChartTitleText"
+                    />
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/barchartNews"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/chart_height" >
+                </com.github.mikephil.charting.charts.HorizontalBarChart>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="문의 요청"
+                    style="@style/ChartTitleText"
+                    />
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/barchartQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/chart_height"  >
+                </com.github.mikephil.charting.charts.HorizontalBarChart>
+
+
 
 
             </LinearLayout> <!--   end of llChartNpoints -->
+           </ScrollView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -189,7 +268,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:layout_marginTop="10dp"
+
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -280,7 +359,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 

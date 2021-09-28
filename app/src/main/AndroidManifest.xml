@@ -32,9 +32,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="Instantiatable">
-        <activity android:name=".activity.NotiDetailInfoActivity"
+        <activity
+            android:name=".activity.QuestionRegisterActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Transparent"
-            ></activity>
+             />
+        <activity
+            android:name=".activity.NotiDetailInfoActivity"
+            android:theme="@style/Transparent" />
         <activity
             android:name=".activity.BlockPhoneNumberDetailActivity"
             android:screenOrientation="portrait"
@@ -65,23 +70,10 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name=".receiver.SmsReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter android:priority="2147483647">
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-                <action android:name="Telephony.Sms.Intents.SMS_RECEIVED_ACTION" />
-
-
-            </intent-filter>
-        </receiver>
-
         <service
             android:name=".service.CallingService"
             android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.BROADCAST_SMS" />
+            android:exported="true" />
     </application>
 
 </manifest>
