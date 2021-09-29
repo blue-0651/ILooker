@@ -34,20 +34,24 @@
                 android:layout_height="wrap_content"
                 android:text="문의제목" />
 
-            <TextView
-                android:id="@+id/tv_title"
+            <EditText
+                android:id="@+id/et_title"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="center_vertical" />
+                android:gravity="center_vertical"
+                android:tooltipText="제목을 입력하세요."
+                />
 
             <TextView
                 style="@style/MainTitleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="회신받을 이메일 주소" />
+                android:text="회신받을 이메일 주소"
+                android:tooltipText="이메일 주소를 입력하세요."
+                />
 
-            <TextView
-                android:id="@+id/tv_email"
+            <EditText
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical" />
@@ -73,10 +77,16 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tvQuestionContent"
+                    <EditText
+                        android:id="@+id/etQuestionContent"
                         android:layout_width="match_parent"
-                        android:layout_height="250dp" />
+                        android:layout_height="250dp"
+                        android:inputType="textMultiLine"
+                        android:text=""
+                        android:scrollbars="vertical"
+                        android:gravity="top"
+                        android:tooltipText="문의내용을 입력하세요."
+                        />
                 </LinearLayout>
             </ScrollView>
 
@@ -86,7 +96,7 @@
                 android:gravity="center">
 
                 <Button
-                    android:id="@+id/btnQuestionContent"
+                    android:id="@+id/btnQuestionRegister"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:gravity="center"

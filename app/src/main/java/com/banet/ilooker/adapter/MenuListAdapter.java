@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.banet.ilooker.R;
 import com.banet.ilooker.activity.DetailInfoActivity;
+import com.banet.ilooker.activity.QuestionDetailActivity;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.model.MenuListObject;
 
@@ -101,15 +102,22 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.MenuLi
             tvStartDate = itemView.findViewById(R.id.tvItemDate);
             tvSeq = itemView.findViewById(R.id.tvItemSeq);
             tvPoint = itemView.findViewById(R.id.tvItemPoint);
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION) {
-                        //                       상세화면 띄우기
-                        Intent intent = new Intent(context, DetailInfoActivity.class);
-                        intent.putExtra(AppDef.MENU_LIST_ITEM,  (Serializable)mItemList.get(pos));
-                        context.startActivity(intent);
+                    if(pos != RecyclerView.NO_POSITION) { // 상세화면 띄우기
+                        if(mTitleName.equals(AppDef.title_questions_fragment)){
+                            Intent intent = new Intent(context, QuestionDetailActivity.class);
+                            intent.putExtra(AppDef.MENU_LIST_ITEM_108, (Serializable) mItemList.get(pos));
+                            context.startActivity(intent);
+                        }else {
+                            Intent intent = new Intent(context, DetailInfoActivity.class);
+                            intent.putExtra(AppDef.MENU_LIST_ITEM, (Serializable) mItemList.get(pos));
+                            context.startActivity(intent);
+                        }
                     }
                 }
             });

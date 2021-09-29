@@ -1,6 +1,7 @@
 package com.banet.ilooker.net;
 
 import com.banet.ilooker.model.Advertise100;
+import com.banet.ilooker.model.AppVersion200;
 import com.banet.ilooker.model.Event106;
 import com.banet.ilooker.model.FAQ109;
 import com.banet.ilooker.model.IncommingCall;
@@ -119,10 +120,7 @@ public interface HttpService {
     Call<ResponseData<Object>> api119_ApiQuestionDel(@Body Map<String, Object> params);
 
     @POST("app/200_ApiVerChk/")
-    Call<ResponseData<Object>> api200_ApiVerChk(@Body Map<String, Object> params);
-
-
-
+    Call<ResponseData<AppVersion200>> api200_ApiVerChk(@Body Map<String, Object> params);
 
 
 }

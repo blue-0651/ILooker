@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_gravity="center"
+        android:background="#0020"
+        android:orientation="vertical"
+        android:padding="40dp"
+        tools:context=".activity.QuestionDetailActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/title_bar"
+                layout="@layout/ailooker_detail_titlebar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+            <TextView
+                style="@style/MainTitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="문의제목" />
+
+            <EditText
+                android:id="@+id/et_title"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:tooltipText="제목을 입력하세요."
+                />
+
+            <TextView
+                style="@style/MainTitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이메일 주소"
+                android:tooltipText="이메일 주소를 입력하세요."
+                />
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical" />
+            <TextView
+                android:id="@+id/tv_answer_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/MainTitleText"
+                android:text=" 답변상태 : "
+                />
+            <TextView
+                android:id="@+id/tv_answer_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/MainTitleText"
+                android:text=" 답변일자 : "
+                />
+
+            <ImageView
+                android:id="@+id/ivDivider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/divider" />
+
+            <TextView
+                style="@style/MainTitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="문의내용" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/etQuestionContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:inputType="textMultiLine"
+                        android:text=""
+                        android:scrollbars="vertical"
+                        android:gravity="top"
+                        android:tooltipText="문의내용을 입력하세요."
+                        />
+                </LinearLayout>
+            </ScrollView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <Button
+                    android:id="@+id/btnQuestionUpdate"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:text="수정" />
+                <Button
+                    android:id="@+id/btnQuestionDelete"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:text="삭제" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

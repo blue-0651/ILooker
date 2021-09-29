@@ -1,8 +1,6 @@
 package com.banet.ilooker.fragment;
 
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -18,16 +16,13 @@ import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.util.Util;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
@@ -87,9 +82,9 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
 
         //BarEntry 설정***********************************************************************
         ArrayList entryList = new ArrayList();
-   //     entryList.add(new BarEntry(Float.valueOf(myPoint), 0));
+        entryList.add(new BarEntry(Float.valueOf(myPoint), 0));
        entryList.add(new BarEntry(Float.valueOf(topPoint), 1));
-        entryList.add(new BarEntry(300f, 0));
+    //    entryList.add(new BarEntry(300f, 0));
 
         ArrayList<String> activityLabelList = new ArrayList<>();
         activityLabelList.add(STRING_MY_COUNT);

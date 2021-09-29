@@ -75,6 +75,8 @@ public class Question108 extends MenuListObject {
                     rv.setAdapter(menuListAdapter);
                     tv.setText("문의 총 :" + Question108List.size());
 
+                }else{
+                    Toast.makeText(context, response.getError(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -97,7 +99,7 @@ public class Question108 extends MenuListObject {
         params.put("InqNo",    InqNo   );
 
 
-        DataInterface.getInstance().getApi113_NewsDetail(context, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
+        DataInterface.getInstance().getApi114_questionDetail(context, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
 
             @Override
             public void onSuccess(ResponseData<Object> response) {

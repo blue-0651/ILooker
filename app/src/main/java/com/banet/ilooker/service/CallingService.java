@@ -110,8 +110,8 @@ public class CallingService extends Service {
 
                     } else if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
 
-                        Toast.makeText(context, "Ringing State", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(context, phoneNumber, Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(context, "Ringing State", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(context, phoneNumber, Toast.LENGTH_SHORT).show();
                         Log.i(TAG, " :" + state);
                         requestIncommingCallSmissing(context, intent, state, phoneNumber);
 

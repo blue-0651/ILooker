@@ -25,6 +25,8 @@ public class Global {
    //         "";
     public static final String HOST_ADDRESS_DEV = "http://www.ai-looker.com:8080/" ;
 
+    public static final String HOST_GOOGLE_MARKET= "https://play.google.com/store/apps/details?id=";
+
     private static Global instance;
 
     public static final String EXTRA_INCOMING_CALL_NUMBER = "extra_incoming_call_number" ;

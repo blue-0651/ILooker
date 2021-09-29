@@ -46,6 +46,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
     TextView mTvTime, mTvLeft, mTvLeftNum, mTvRight, mTvRightNum, mTvWhitelist, mTvOrg, mTvType, mTvTypeNum, mTvCallDeny;
     IncommingCall mIncomingCall;
     TelecomManager tcm;
+    Advertise100 mAdvertise100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,6 +170,15 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
                 finish();
             }
         });
+
+        //광고 클릭시 서버에 전송
+        getBinding().ivAdvertise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                request116AdvertisementCheck(PopUpActivity.this);
+            }
+        });
+
         setPhoneNumberColor(mIncomingCall.WhtListYN);
         setPhoneNumberColor("Y");
         showFavoritePart();
@@ -324,9 +334,9 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
             public void onSuccess(ResponseData<Advertise100> response) {
 
                 if (response.getProcRsltCd().equals("100-000")) {
-                    Advertise100 advertise100 = (Advertise100) response.getData();
+                    mAdvertise100 = (Advertise100) response.getData();
                     Glide.with(PopUpActivity.this)
-                            .load(advertise100.AdvtDescPath)
+                            .load(mAdvertise100.AdvtDescPath)
                             .into(getBinding().ivAdvertise);
 
 
@@ -336,6 +346,36 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
 
             @Override
             public void onError(ResponseData<Advertise100> response) {
+                Toast.makeText(getApplicationContext(), response.getError(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(getApplicationContext(), "failure", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    void request116AdvertisementCheck(Context context){
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("UseLangCd", "KOR");
+        params.put("UserPhnNo", Util.getLineNumber(this));
+        params.put("AdvtNo", mAdvertise100.AdvtNo);
+        DataInterface.getInstance().getApi116_AdverCheck(context, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
+
+
+            @Override
+            public void onSuccess(ResponseData<Object> response) {
+
+                if (response.getProcRsltCd().equals("116-000")) {
+                  //  Advertise100 advertise100 = (Advertise100) response.getData();
+                    //*** no comment
+                }
+
+            }
+
+            @Override
+            public void onError(ResponseData<Object> response) {
                 Toast.makeText(getApplicationContext(), response.getError(), Toast.LENGTH_SHORT).show();
             }
 

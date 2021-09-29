@@ -3,6 +3,7 @@ package com.banet.ilooker.net;
 import android.content.Context;
 
 import com.banet.ilooker.model.Advertise100;
+import com.banet.ilooker.model.AppVersion200;
 import com.banet.ilooker.model.Event106;
 import com.banet.ilooker.model.FAQ109;
 import com.banet.ilooker.model.IncommingCall;
@@ -722,6 +723,38 @@ protected String TAG = getClass().getSimpleName();
 		}
 	}
 
+	public void getApi114_questionDetail(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Object>> call = service.api114_ApiQuestionDtl(params);
+
+			call.enqueue(new Callback<ResponseData<Object>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Object>> call, Response<ResponseData<Object>> response) {
+					if (callback == null) return;
+
+					if (response.isSuccessful()) {
+						callback.onSuccess(response.body());
+					} else {
+						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+						callback.onError( response);
+					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Object>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
 	public void getApi115_FAQDetail(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
 			Call<ResponseData<Object>> call = service.api115_ApiFAQDtl(params);
@@ -753,6 +786,171 @@ protected String TAG = getClass().getSimpleName();
 			ex.printStackTrace();
 		}
 	}
+
+	public void getApi116_AdverCheck(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Object>> call = service.api116_ApiAdvertCheck(params);
+
+			call.enqueue(new Callback<ResponseData<Object>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Object>> call, Response<ResponseData<Object>> response) {
+					if (callback == null) return;
+
+					if (response.isSuccessful()) {
+						callback.onSuccess(response.body());
+					} else {
+						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+						callback.onError( response);
+					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Object>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+
+	public void getApi117_QuestionRegister(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Object>> call = service.api117_ApiQuestionReg(params);
+
+			call.enqueue(new Callback<ResponseData<Object>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Object>> call, Response<ResponseData<Object>> response) {
+					if (callback == null) return;
+
+					if (response.isSuccessful()) {
+						callback.onSuccess(response.body());
+					} else {
+						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+						callback.onError( response);
+					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Object>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void getApi118_QuestionUpdate(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Object>> call = service.api118_ApiQuestionChg(params);
+
+			call.enqueue(new Callback<ResponseData<Object>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Object>> call, Response<ResponseData<Object>> response) {
+					if (callback == null) return;
+
+					if (response.isSuccessful()) {
+						callback.onSuccess(response.body());
+					} else {
+						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+						callback.onError( response);
+					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Object>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void getApi119_QuestionDelete(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Object>> call = service.api119_ApiQuestionDel(params);
+
+			call.enqueue(new Callback<ResponseData<Object>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Object>> call, Response<ResponseData<Object>> response) {
+					if (callback == null) return;
+
+					if (response.isSuccessful()) {
+						callback.onSuccess(response.body());
+					} else {
+						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+						callback.onError( response);
+					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Object>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void getApi200_Appver(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<AppVersion200>> call = service.api200_ApiVerChk(params);
+
+			call.enqueue(new Callback<ResponseData<AppVersion200>>() {
+				@Override
+				public void onResponse(Call<ResponseData<AppVersion200>> call, Response<ResponseData<AppVersion200>> response) {
+					if (callback == null) return;
+
+					if (response.isSuccessful()) {
+						callback.onSuccess(response.body());
+					} else {
+						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+						callback.onError( response);
+					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<AppVersion200>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+
+
+
 
 
 

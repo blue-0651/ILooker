@@ -4,10 +4,21 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.346875" />
+        <entry key="app/src/main/res/drawable-v24/background_popup_pink_button.xml" value="0.22552083333333334" />
+        <entry key="app/src/main/res/drawable-v24/background_popup_pink_right_button.xml" value="0.21875" />
+        <entry key="app/src/main/res/drawable-v24/background_white_popup.xml" value="0.21875" />
+        <entry key="app/src/main/res/layout/activity_detail_info.xml" value="0.20260416666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2203125" />
         <entry key="app/src/main/res/layout/activity_noti_detail_info.xml" value="0.17604166666666668" />
+        <entry key="app/src/main/res/layout/activity_question_detail.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_question_register.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.16822916666666668" />
+        <entry key="app/src/main/res/layout/ailooker_custom_dlg.xml" value="0.20260416666666667" />
         <entry key="app/src/main/res/layout/bottom_tab_bar.xml" value="0.2203125" />
+        <entry key="app/src/main/res/layout/fragment_menu_list.xml" value="0.16510416666666666" />
+        <entry key="app/src/main/res/layout/fragment_noti_104.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/macaron_custom_dlg.xml" value="0.209375" />
         <entry key="app/src/main/res/layout/main_fragment.xml" value="0.25" />
       </map>
     </option>

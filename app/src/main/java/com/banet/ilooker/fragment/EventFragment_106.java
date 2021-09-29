@@ -61,6 +61,7 @@ public class EventFragment_106 extends BaseBindingFragment<FragmentEvent106Bindi
     }
 
     private void request106Event(Context context) {
+        showProgress("");
         HashMap<String, Object> params = new HashMap<>();
         params.put("UseLangCd", "KOR");
         params.put("UserPhnNo", Util.getLineNumber(getActivity()));
@@ -91,6 +92,7 @@ public class EventFragment_106 extends BaseBindingFragment<FragmentEvent106Bindi
                 Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
             }
         });
+        hideProgress();
     }
 
 

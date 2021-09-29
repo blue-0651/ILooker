@@ -11,7 +11,6 @@ import com.banet.ilooker.model.FAQ109;
 import com.banet.ilooker.model.MenuListObject;
 import com.banet.ilooker.model.News107;
 import com.banet.ilooker.model.Point103;
-import com.banet.ilooker.model.Question108;
 import com.bumptech.glide.Glide;
 
 
@@ -61,9 +60,9 @@ public class DetailInfoActivity extends BaseActivity<ActivityDetailInfoBinding> 
             Glide.with(this)
                     .load(mMenuListObject.ListContent)
                     .into(getBinding().ivContent);
-        } else if (menuListObject instanceof Question108) {
-            ((Question108) menuListObject).request114QuestionDetail(this, getBinding().date, getBinding().sequenceNumber,
-                    getBinding().tvTitle, getBinding().ivContent, getBinding().tvContent);
+//        } else if (menuListObject instanceof Question108) {
+//            ((Question108) menuListObject).request114QuestionDetail(this, getBinding().date, getBinding().sequenceNumber,
+//                    getBinding().tvTitle, getBinding().ivContent, getBinding().tvContent);
         }
     }
 

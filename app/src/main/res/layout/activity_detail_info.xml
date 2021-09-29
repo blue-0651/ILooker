@@ -46,8 +46,8 @@
                     style="@style/ContentDetailText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:gravity="right" />
 
             </LinearLayout>
 
@@ -67,22 +67,24 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/tvContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        />
-                    <ImageView
-                    android:id="@+id/ivContent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop" />
+                        android:visibility="gone" />
 
-            </FrameLayout>
+                    <ImageView
+                        android:id="@+id/ivContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop" />
+
+                </FrameLayout>
 
             </ScrollView>
 

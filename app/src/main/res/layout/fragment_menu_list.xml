@@ -18,26 +18,37 @@
             <RelativeLayout
                 android:id="@+id/rl_menu_total"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="30dp"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_menu_total"
                     style="@style/NormalDescText"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:gravity="center_vertical"
+                    android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
+                    android:gravity="center_vertical"
                     android:text="" />
+
+                <Button
+                    android:id="@+id/btn_register_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="문의등록"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/tv_current_point"
                     style="@style/NormalDescText"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
                     android:gravity="center_vertical"
-                    android:visibility="gone"
-                    android:layout_alignParentRight="true"
-                    android:text="" />
+                    android:text=""
+                    android:visibility="gone" />
             </RelativeLayout>
 
 

@@ -1,14 +1,9 @@
 package com.banet.ilooker.activity;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,8 +30,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     public static final String TAG = "MainActivity";
     public static String MOVE_TO_FRAGMENT_NAME = "";
     public static String MOVE_TO_BLOCK_PHONE_NUMBER = "";
-    private final int REQ_CODE_OVERLAY_PERMISSION = 101;
-    private final Handler mHandler = new Handler();
+//    private final int REQ_CODE_OVERLAY_PERMISSION = 101;
+ //   private final Handler mHandler = new Handler();
     PreferenceStore pStore ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +68,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             }
         });
 
+        getBinding().bottomTabBar.llSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+              finish();
+            }
+        });
+
         getBinding().titleBar.btnTitleBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +97,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         } else {
             Bundle bundle = new Bundle();
             bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_main_fragment);
-            requestPermissionSystemAlertWindow();
+           // requestPermissionSystemAlertWindow();
 
         }
 
@@ -160,59 +163,60 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private void init() {
 
       //  requirePerms();
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this
-                    , new String[]{Manifest.permission.READ_CALL_LOG, Manifest.permission.INTERNET, Manifest.permission.ANSWER_PHONE_CALLS
-                            , Manifest.permission.READ_PHONE_STATE, Manifest.permission.RECEIVE_MMS, Manifest.permission.RECEIVE_WAP_PUSH,
-                            Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_CONTACTS, Manifest.permission.ANSWER_PHONE_CALLS, Manifest.permission.READ_SMS
-                            , Manifest.permission.BROADCAST_SMS, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.READ_PHONE_NUMBERS, Manifest.permission.FOREGROUND_SERVICE}
-                    , 1);
-        }
+//        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED
+//                || ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(MainActivity.this
+//                    , new String[]{Manifest.permission.READ_CALL_LOG, Manifest.permission.INTERNET, Manifest.permission.ANSWER_PHONE_CALLS
+//                            , Manifest.permission.READ_PHONE_STATE, Manifest.permission.RECEIVE_MMS, Manifest.permission.RECEIVE_WAP_PUSH,
+//                            Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_CONTACTS, Manifest.permission.ANSWER_PHONE_CALLS, Manifest.permission.READ_SMS
+//                            , Manifest.permission.BROADCAST_SMS, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.READ_PHONE_NUMBERS, Manifest.permission.FOREGROUND_SERVICE}
+//                    , 1);
+//        }
 
         Intent serviceIntent = new Intent(this, CallingService.class);
         ContextCompat.startForegroundService(this, serviceIntent);
+        GoHomeScreen();
 
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
-    private void requestPermissionSystemAlertWindow() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.canDrawOverlays(MainActivity.this)) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
-                startActivityForResult(intent, REQ_CODE_OVERLAY_PERMISSION);
-            } else {//이미 권한 획득이면
-                GoHomeScreen();
-            }
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case REQ_CODE_OVERLAY_PERMISSION: {
-                if (Settings.canDrawOverlays(this)) {
-                    GoHomeScreen();
-                    if(pStore.readPrefBoolean("isInstalled", false) == false) {
-                        request001Install("KOR", Util.getLineNumber(MainActivity.this), "", "추천인");
-                        pStore.writePrefBoolean("isInstalled", true);
-                    }
-
-                } else {
-                    Toast.makeText(MainActivity.this, "앱을 정상적으로 이용하려면 overlay 권한동의 설정이 필요합니다.", Toast.LENGTH_SHORT).show();
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            finish();
-                        }
-                    }, 1000);
-                }
-                break;
-            }
-        }
-    }
+//    @TargetApi(Build.VERSION_CODES.M)
+//    private void requestPermissionSystemAlertWindow() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            if (!Settings.canDrawOverlays(MainActivity.this)) {
+//                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+//                startActivityForResult(intent, REQ_CODE_OVERLAY_PERMISSION);
+//            } else {//이미 권한 획득이면
+//                GoHomeScreen();
+//            }
+//        }
+//    }
+//
+//    @TargetApi(Build.VERSION_CODES.M)
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        switch (requestCode) {
+//            case REQ_CODE_OVERLAY_PERMISSION: {
+//                if (Settings.canDrawOverlays(this)) {
+//                    GoHomeScreen();
+//                    if(pStore.readPrefBoolean("isInstalled", false) == false) {
+//                        request001Install("KOR", Util.getLineNumber(MainActivity.this), "", "추천인");
+//                        pStore.writePrefBoolean("isInstalled", true);
+//                    }
+//
+//                } else {
+//                    Toast.makeText(MainActivity.this, "앱을 정상적으로 이용하려면 overlay 권한동의 설정이 필요합니다.", Toast.LENGTH_SHORT).show();
+//                    mHandler.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            finish();
+//                        }
+//                    }, 1000);
+//                }
+//                break;
+//            }
+//        }
+//    }
 
     @Override
     public void onBackPressed() {

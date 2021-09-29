@@ -1,12 +1,14 @@
 package com.banet.ilooker.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
 import com.banet.ilooker.R;
+import com.banet.ilooker.activity.QuestionRegisterActivity;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.databinding.FragmentMenuListBinding;
 import com.banet.ilooker.model.FAQ109;
@@ -55,7 +57,13 @@ public class MenuListFragment extends BaseBindingFragment<FragmentMenuListBindin
 
     @Override
     protected void init(Bundle savedInstanceState) {
-       request(getActivity());
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        request(getActivity());
     }
 
     private void request(Context context) {
@@ -78,9 +86,16 @@ public class MenuListFragment extends BaseBindingFragment<FragmentMenuListBindin
                getBinding().llMenuListSearch.setVisibility(View.GONE);
                getBinding().rlMenuTotal.setVisibility(View.VISIBLE);
                getBinding().tvCurrentPoint.setVisibility(View.VISIBLE);
-               //문의등록버튼 추가
+               getBinding().btnRegisterQuestion.setVisibility(View.VISIBLE);
+
                Question108 question108 = new Question108();
                question108.request108(getActivity(), getBinding().rvMenuList, getBinding().tvMenuTotal);
+               getBinding().btnRegisterQuestion.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       startActivity(new Intent(getActivity(), QuestionRegisterActivity.class));
+                   }
+               });
                break;
            case AppDef.title_faq_fragment:
                getBinding().llMenuListSearch.setVisibility(View.VISIBLE);

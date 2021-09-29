@@ -1,9 +1,9 @@
 package com.banet.ilooker.activity;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
@@ -31,7 +31,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     protected OnTitleListener mOnTitleListener;
     protected BackPressCloseHandler backPressCloseHandler;
     private boolean isForward = true;
-    private ProgressDialog pd; // 프로그레스바 선언
+    private ProgressBar pd; // 프로그레스바 선언
     protected FragmentManager fragmentManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -240,13 +240,14 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
             public void run() {
                 if (pd == null) {
                     // 객체를 1회만 생성한다.
-                    pd = new ProgressDialog(BaseActivity.this); // 생성한다.
-                    pd.setCancelable(true);
+                    pd = new ProgressBar(BaseActivity.this); // 생성한다.
+                  // pd.setCancelable(true);
                     // 백키로 닫는 기능을 제거한다.
                 }
-                pd.setMessage(msg);
+            //    pd.setMessage(msg);
                 // 원하는 메시지를 세팅한다.
-                pd.show();
+                pd.setVisibility(View.VISIBLE);
+                pd.invalidate();
                 // 화면에 띠워라
             }
         });
@@ -258,9 +259,9 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         UIThread.executeInUIThread(new Runnable() {
             @Override
             public void run() {
-                if (pd != null && pd.isShowing()) {
-                    // 닫는다 : 객체가 존재하고, 보일때만
-                    pd.dismiss();
+                if (pd != null && pd.isAnimating()) {
+
+                    pd.setVisibility(View.GONE);
                 }
             }
         });

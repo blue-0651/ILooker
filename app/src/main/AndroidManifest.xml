@@ -33,10 +33,22 @@
         android:theme="@style/AppTheme"
         tools:ignore="Instantiatable">
         <activity
+            android:name=".activity.SettingsActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.QuestionDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent" />
+        <activity
             android:name=".activity.QuestionRegisterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Transparent"
-             />
+            android:theme="@style/Transparent" />
         <activity
             android:name=".activity.NotiDetailInfoActivity"
             android:theme="@style/Transparent" />
@@ -63,11 +75,22 @@
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
 
         <service
