@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class AppVersion200 extends MenuListObject{
 
-    @SerializedName("currVer")
+    @SerializedName("CurrVer")
     @Expose
     public String currVer = "";
 

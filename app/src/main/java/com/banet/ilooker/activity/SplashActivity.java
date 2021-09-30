@@ -25,6 +25,7 @@ import com.banet.ilooker.common.Global;
 import com.banet.ilooker.model.AppVersion200;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
+import com.banet.ilooker.util.PreferenceStore;
 import com.banet.ilooker.util.Util;
 
 import java.util.ArrayList;
@@ -34,12 +35,12 @@ import java.util.List;
 
 
 public class SplashActivity extends AppCompatActivity {
-
+   // Manifest.permission.SYSTEM_ALERT_WINDOW,
     private String TAG = this.getClass().getSimpleName();
     private String[] permissions = { Manifest.permission.READ_CALL_LOG, Manifest.permission.INTERNET, Manifest.permission.ANSWER_PHONE_CALLS
-            , Manifest.permission.READ_PHONE_STATE, Manifest.permission.RECEIVE_MMS, Manifest.permission.RECEIVE_WAP_PUSH,
+            , Manifest.permission.READ_PHONE_STATE, Manifest.permission.RECEIVE_MMS,
             Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_CONTACTS, Manifest.permission.ANSWER_PHONE_CALLS, Manifest.permission.READ_SMS
-            , Manifest.permission.BROADCAST_SMS, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.READ_PHONE_NUMBERS, Manifest.permission.FOREGROUND_SERVICE};
+            ,Manifest.permission.READ_PHONE_NUMBERS, Manifest.permission.FOREGROUND_SERVICE};
 
     private final int PERMISSIONS_REQUEST_ACCOUNTS = 100;
     private final int REQ_CODE_OVERLAY_PERMISSION = 101;
@@ -54,11 +55,10 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        getAppVersion();
+        startLoading();
     }
 
-    private void getAppVersion(){
+    private void checkVersionAndGoToInitActivity(){
         HashMap<String, Object> params = new HashMap<>();
         params.put("UseLangCd", AppDef.USER_LANGUAGE_CODE);  //사용자 국가코드 "KOR"
         params.put("UserPhnNo", Util.getLineNumber(this));   //사용자 전화번호
@@ -135,18 +135,18 @@ public class SplashActivity extends AppCompatActivity {
 
         if(!AppVersionFromServer.isEmpty()) {
             int appVersion = changeVersionNameToInt(BuildConfig.VERSION_NAME);
-            if(appVersion < Integer.valueOf(AppVersionFromServer)) {
+            if(appVersion < changeVersionNameToInt(AppVersionFromServer)) {
 
-                aiLookerCustomDialog = new AiLookerCustomDialog(this,
+                aiLookerCustomDialog = new AiLookerCustomDialog(SplashActivity.this,
                         "AILooker 버전 확인",
                         " 상위 버전이 존재합니다. 업그레이드를 하시겠습니까?" ,
-                        "닫기",
+                        "취소",
                         "확인",
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 aiLookerCustomDialog.dismiss();
-                                startLoading();
+                                startActivity();
                             }
                         },
                         new View.OnClickListener() {
@@ -173,7 +173,7 @@ public class SplashActivity extends AppCompatActivity {
      * AppInfo 정보를 못받았거나 앱이랑 맞지 않았을때 앱종료
      */
     private void terminationToDataReceiveFail() {
-        Toast.makeText(SplashActivity.this, "서버와의 연결이 실패했습니다.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(SplashActivity.this, "서버앱버전이 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -230,7 +230,7 @@ public class SplashActivity extends AppCompatActivity {
 
         return Integer.parseInt(stringBuilder.toString());
     }
-
+   //최종적으로 다음화면으로 넘어갈때 이루틴 통과하고 넘어가야함.
     private void startLoading() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -238,22 +238,29 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if(arePermissionsEnabled()) {
-                        startLoginActivity();
+                        checkVersionAndGoToInitActivity();
+
                     } else {
                         requestMultiplePermissions();
                     }
                 } else {
-                    startLoginActivity();
+                    checkVersionAndGoToInitActivity();
                 }
 
             }
-        }, 2000);
+        }, 1000);
     }
 
 
-    private void startLoginActivity(){
-        Intent intent=new Intent(SplashActivity.this, MainActivity.class);
-        //   intent.putExtra(“text”,String.valueOf(editText.getText()));
+    private void startActivity(){
+        Intent intent;
+        PreferenceStore pStore  = new PreferenceStore(this);
+        if(pStore.readPrefBoolean("isInstalled", false) == false) {
+             intent=new Intent(SplashActivity.this, SettingsActivity.class);
+
+        }else {
+             intent = new Intent(SplashActivity.this, MainActivity.class);
+        }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -331,7 +338,7 @@ public class SplashActivity extends AppCompatActivity {
         if (!Settings.canDrawOverlays(this)) {
             requestPermissionSystemAlertWindow();
         } else {
-            startLoginActivity();
+            startActivity();
         }
     }
 
@@ -351,7 +358,7 @@ public class SplashActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQ_CODE_OVERLAY_PERMISSION: {
                 if (Settings.canDrawOverlays(this)) {
-                    startLoginActivity();
+                    startLoading();
                 } else {
                     Toast.makeText(SplashActivity.this, "앱을 정상적으로 이용하려면 권한동의 설정이 필요합니다.", Toast.LENGTH_SHORT).show();
                     mHandler.postDelayed(new Runnable() {

@@ -10,12 +10,12 @@
 
         <ImageView
             android:id="@+id/iv_bg"
-            android:layout_width="122dp"
-            android:layout_height="122dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="200dp"
 
-            android:src="@drawable/ic_launcher_ailooker_black" />
+            android:src="@drawable/splash_logo" />
 
 <!--        <ImageView-->
 <!--            android:id="@+id/iv_logo"-->

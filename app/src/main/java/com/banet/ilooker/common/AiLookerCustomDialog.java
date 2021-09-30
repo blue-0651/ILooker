@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.banet.ilooker.R;
+import com.banet.ilooker.util.Util;
 
 
 public class AiLookerCustomDialog extends Dialog {
@@ -78,7 +79,7 @@ public class AiLookerCustomDialog extends Dialog {
 
         // 클릭 이벤트 셋팅
         if (mLeftClickListener != null && mRightClickListener != null) {
-            mTitleView.setTextColor(getContext().getResources().getColor(R.color.txtPink));
+            mTitleView.setTextColor(Util.getColor(getContext(), R.color.black));
             mLayoutButtons.setVisibility(View.VISIBLE);
             mSingleButton.setVisibility(View.GONE);
             mLeftButton.setOnClickListener(mLeftClickListener);

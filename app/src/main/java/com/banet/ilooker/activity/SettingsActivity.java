@@ -10,15 +10,17 @@ import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.databinding.ActivitySettingsBinding;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
+import com.banet.ilooker.util.PreferenceStore;
 import com.banet.ilooker.util.Util;
 
 import java.util.HashMap;
 
 public class SettingsActivity extends BaseActivity<ActivitySettingsBinding> {
-
+    PreferenceStore pStore ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        pStore = new PreferenceStore(this);
         getBinding().btnName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,11 +48,16 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding> {
         DataInterface.getInstance().get001Install(SettingsActivity.this, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
             @Override
             public void onSuccess(ResponseData<Object> response) {
-              //  if (response.getProcRsltCd().equals("001-000")) {
-                    Toast.makeText(getApplicationContext(), "사용자등록이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(SettingsActivity.this, MainActivity.class));
-                    finish();
-             //   }
+                if (response.getProcRsltCd().equals("001-000")) {
+                    //인스톨 성공후에 preference에 저장
+                    pStore.writePrefBoolean("isInstalled", true);
+                }
+                Toast.makeText(getApplicationContext(), "사용자등록이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
             }
 
             @Override

@@ -9,26 +9,26 @@
 
         <RelativeLayout
             android:layout_width="318dp"
-            android:layout_height="wrap_content"
+            android:layout_height="280dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/background_white_popup">
+            android:background="@drawable/rectagle_all_round">
 
             <ImageButton
                 android:id="@+id/btn_dlg_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@drawable/shape_3"/>
+                android:background="@drawable/shape_3" />
 
             <LinearLayout
                 android:id="@+id/dlg_message_cover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="65dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_marginTop="65dp"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -38,9 +38,9 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:gravity="center"
+                    android:textColor="#222222"
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    android:textColor="#222222"
                     tools:text="Title" />
 
                 <TextView
@@ -48,54 +48,64 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-
                     android:layout_marginTop="16dp"
-                    android:textSize="18sp"
+
+                    android:layout_marginRight="20dp"
                     android:textColor="#454545"
+                    android:textSize="18sp"
                     tools:text="Message\nMessage" />
 
                 <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_width="318dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="54dp">
 
                     <LinearLayout
                         android:id="@+id/layoutButtons"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="8dp"
                         android:orientation="vertical">
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.3dp"
-                            android:background="#b7b7b7"/>
+                            android:background="#b7b7b7" />
 
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="50dp"
+                            android:gravity="center_vertical"
+                            android:background="@color/bgColorWhite"
+                            android:padding="5dp"
+
+                            >
 
                             <Button
                                 android:id="@+id/btnLeft"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="5"
-                                android:background="@drawable/rectangle_left"
+                                android:layout_width="120dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/rectagle_all_round"
+                                android:gravity="center"
                                 android:text="확인"
-                                android:textSize="22sp"
-                                android:textColor="#b7b7b7" />
+                                android:textColor="#222222"
+                                android:textSize="22sp" />
 
                             <Button
                                 android:id="@+id/btnRight"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="5"
+                                android:layout_width="120dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="3"
+                                android:background="@drawable/rectagle_all_round"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center"
                                 android:text="취소"
-                                android:textColor="#ffffff"
-                                android:textSize="22sp"
-                                android:background="@color/color08"
-                                />
-                        </LinearLayout>
+                                android:textColor="#222222"
+                                android:textSize="22sp" />
+                        </RelativeLayout>
                     </LinearLayout>
 
                     <Button
@@ -104,7 +114,7 @@
                         android:layout_height="60dp"
                         android:background="@color/color05"
                         android:textColor="@color/txtColorWhite"
-                        android:textSize="22sp"/>
+                        android:textSize="22sp" />
                 </FrameLayout>
             </LinearLayout>
         </RelativeLayout>

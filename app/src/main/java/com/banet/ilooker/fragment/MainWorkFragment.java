@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
     protected String TAG = getClass().getSimpleName();
-
+    int colorChangeIndex = 1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,9 +82,9 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
 
         //BarEntry 설정***********************************************************************
         ArrayList entryList = new ArrayList();
-        entryList.add(new BarEntry(Float.valueOf(myPoint), 0));
+     //   entryList.add(new BarEntry(Float.valueOf(myPoint), 0));
        entryList.add(new BarEntry(Float.valueOf(topPoint), 1));
-    //    entryList.add(new BarEntry(300f, 0));
+        entryList.add(new BarEntry(300f, 0));
 
         ArrayList<String> activityLabelList = new ArrayList<>();
         activityLabelList.add(STRING_MY_COUNT);
@@ -98,12 +98,17 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
 //BarChart설정******************************************************************************
 
       //  barChart.setEnabled(false);
-        dataSet.setColors(new int[]{Color.GRAY, Color.BLUE,}, Color.GRAY);
+        if(colorChangeIndex % 2 == 1) {
+            dataSet.setColors(new int[]{Color.LTGRAY, Color.CYAN });
+        }else{
+            dataSet.setColors(new int[]{Color.LTGRAY, Color.parseColor("#8977ad")});
+        }
         barChart.getDrawingCache(false);
         barChart.setData(bardata);
         setChartGridLines(barChart);
-        barChart.animateXY(1000, 1000);
+        barChart.animateXY(0, 0);
         barChart.invalidate();
+        colorChangeIndex++;
 
     }
 

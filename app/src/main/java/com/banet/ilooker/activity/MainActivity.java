@@ -1,13 +1,10 @@
 package com.banet.ilooker.activity;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.banet.ilooker.R;
@@ -21,7 +18,6 @@ import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.service.CallingService;
 import com.banet.ilooker.util.DateUtils;
-import com.banet.ilooker.util.PreferenceStore;
 import com.banet.ilooker.util.Util;
 
 import java.util.HashMap;
@@ -30,15 +26,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     public static final String TAG = "MainActivity";
     public static String MOVE_TO_FRAGMENT_NAME = "";
     public static String MOVE_TO_BLOCK_PHONE_NUMBER = "";
-//    private final int REQ_CODE_OVERLAY_PERMISSION = 101;
- //   private final Handler mHandler = new Handler();
-    PreferenceStore pStore ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle_main = getIntent().getExtras();
-        pStore = new PreferenceStore(this);
-
 
         if (bundle_main != null) {
             MOVE_TO_FRAGMENT_NAME = bundle_main.getString(AppDef.MOVE_TO_FRAGMENT);
@@ -72,7 +64,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             @Override
             public void onClick(View v) {
               startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-              finish();
             }
         });
 
@@ -151,72 +142,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     }
 
 
-
-    private void requirePerms(){
-        String[] permissions = {Manifest.permission.RECEIVE_SMS};
-        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
-        if(permissionCheck == PackageManager.PERMISSION_DENIED){
-            ActivityCompat.requestPermissions(this, permissions, 1);
-        }
-    }
-
     private void init() {
-
-      //  requirePerms();
-//        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED
-//                || ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(MainActivity.this
-//                    , new String[]{Manifest.permission.READ_CALL_LOG, Manifest.permission.INTERNET, Manifest.permission.ANSWER_PHONE_CALLS
-//                            , Manifest.permission.READ_PHONE_STATE, Manifest.permission.RECEIVE_MMS, Manifest.permission.RECEIVE_WAP_PUSH,
-//                            Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_CONTACTS, Manifest.permission.ANSWER_PHONE_CALLS, Manifest.permission.READ_SMS
-//                            , Manifest.permission.BROADCAST_SMS, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.READ_PHONE_NUMBERS, Manifest.permission.FOREGROUND_SERVICE}
-//                    , 1);
-//        }
 
         Intent serviceIntent = new Intent(this, CallingService.class);
         ContextCompat.startForegroundService(this, serviceIntent);
         GoHomeScreen();
 
     }
-
-//    @TargetApi(Build.VERSION_CODES.M)
-//    private void requestPermissionSystemAlertWindow() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            if (!Settings.canDrawOverlays(MainActivity.this)) {
-//                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
-//                startActivityForResult(intent, REQ_CODE_OVERLAY_PERMISSION);
-//            } else {//이미 권한 획득이면
-//                GoHomeScreen();
-//            }
-//        }
-//    }
-//
-//    @TargetApi(Build.VERSION_CODES.M)
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        switch (requestCode) {
-//            case REQ_CODE_OVERLAY_PERMISSION: {
-//                if (Settings.canDrawOverlays(this)) {
-//                    GoHomeScreen();
-//                    if(pStore.readPrefBoolean("isInstalled", false) == false) {
-//                        request001Install("KOR", Util.getLineNumber(MainActivity.this), "", "추천인");
-//                        pStore.writePrefBoolean("isInstalled", true);
-//                    }
-//
-//                } else {
-//                    Toast.makeText(MainActivity.this, "앱을 정상적으로 이용하려면 overlay 권한동의 설정이 필요합니다.", Toast.LENGTH_SHORT).show();
-//                    mHandler.postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            finish();
-//                        }
-//                    }, 1000);
-//                }
-//                break;
-//            }
-//        }
-//    }
 
     @Override
     public void onBackPressed() {
