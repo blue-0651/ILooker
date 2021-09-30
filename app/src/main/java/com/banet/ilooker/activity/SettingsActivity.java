@@ -46,11 +46,11 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding> {
         DataInterface.getInstance().get001Install(SettingsActivity.this, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
             @Override
             public void onSuccess(ResponseData<Object> response) {
-                if (response.getProcRsltCd().equals("001-000")) {
+              //  if (response.getProcRsltCd().equals("001-000")) {
                     Toast.makeText(getApplicationContext(), "사용자등록이 성공적으로 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(SettingsActivity.this, MainActivity.class));
                     finish();
-                }
+             //   }
             }
 
             @Override
