@@ -35,7 +35,7 @@ import java.util.List;
 
 
 public class SplashActivity extends AppCompatActivity {
-   // Manifest.permission.SYSTEM_ALERT_WINDOW,
+
     private String TAG = this.getClass().getSimpleName();
     private String[] permissions = { Manifest.permission.READ_CALL_LOG, Manifest.permission.INTERNET, Manifest.permission.ANSWER_PHONE_CALLS
             , Manifest.permission.READ_PHONE_STATE, Manifest.permission.RECEIVE_MMS,
@@ -105,30 +105,6 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-
-//    // 시스템 알림
-//    private void systemAlertCheck(ArrayList<AppInfo> appInfo) {
-//        HashMap<String, String> appVersionDetail = getAppVersionDetailInfo(appInfo, true);
-//
-//        if (!appVersionDetail.isEmpty()) {
-//            final String systemAction = appVersionDetail.get(Global.AppVersionCheck.ACTION);
-//            aiLookerCustomDialog = new MacaronCustomDialog(this, null, appVersionDetail.get(Global.AppVersionCheck.MESSAGE), "이동", new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    aiLookerCustomDialog.dismiss();
-//                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(systemAction));
-//                    startActivity(intent);
-//                    finish();
-//                }
-//            }, true);
-//
-//            aiLookerCustomDialog.setCancelable(false);
-//            aiLookerCustomDialog.show();
-//
-//        } else {
-//            appVersionCheck(appInfo);
-//        }
-//    }
 
     // 일반 버전체크
     private void appVersionCheck(String AppVersionFromServer) {

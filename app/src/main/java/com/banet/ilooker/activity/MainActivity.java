@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
     public static final String TAG = "MainActivity";
-    public static String MOVE_TO_FRAGMENT_NAME = "";
+    public static String STRING_MOVE_TO_FRAGMENT_NAME = "";
     public static String MOVE_TO_BLOCK_PHONE_NUMBER = "";
 
     @Override
@@ -32,9 +32,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         super.onCreate(savedInstanceState);
         Bundle bundle_main = getIntent().getExtras();
 
-        if (bundle_main != null) {
-            MOVE_TO_FRAGMENT_NAME = bundle_main.getString(AppDef.MOVE_TO_FRAGMENT);
-            MOVE_TO_BLOCK_PHONE_NUMBER = bundle_main.getString(AppDef.MOVE_TO_BLOCK_PHONE_NUMBER);
+        if (bundle_main != null && bundle_main.getString(AppDef.MOVE_TO_FRAGMENT).equals(AppDef.title_block_and_report_phone_number_fragment)) {
+            STRING_MOVE_TO_FRAGMENT_NAME = bundle_main.getString(AppDef.MOVE_TO_FRAGMENT);
         }
 
         if (bundle_main == null) {
@@ -77,8 +76,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         });
 
         //popup에서 번호 차단시 바로 차단 프래그먼트로 이동
-        if (MOVE_TO_FRAGMENT_NAME != "") {  //신고차단 타이틀 만들것
-            if (MOVE_TO_FRAGMENT_NAME.equals(AppDef.title_block_and_report_phone_number_fragment)) {
+        if (STRING_MOVE_TO_FRAGMENT_NAME != "") {  //신고차단 타이틀 만들것
+            if (STRING_MOVE_TO_FRAGMENT_NAME.equals(AppDef.title_block_and_report_phone_number_fragment)) {
                 Bundle bundle_move_to_005_block_report = new Bundle();
                 bundle_move_to_005_block_report.putString(AppDef.incoming_number_extra, MOVE_TO_BLOCK_PHONE_NUMBER);
                 bundle_move_to_005_block_report.putString(AppDef.incoming_date_time, DateUtils.getDateTime());

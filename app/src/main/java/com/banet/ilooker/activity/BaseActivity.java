@@ -106,51 +106,6 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         transaction.replace(R.id.vw_NativeContent, mBaseFragment).addToBackStack("AILookerFrStack").commitAllowingStateLoss();
     }
 
-//    public void GoNativeScreenAdd(BaseBindingFragment<T> fragment, Bundle bundle) {
-//        if (fragment == null) {
-//            return;
-//        }
-//
-//        mNativeFragment = fragment;
-//        if (bundle != null) {
-//            mNativeFragment.setArguments(bundle);
-//        }
-//
-////        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-////        transaction.replace(R.id.vw_NativeContent, mNativeFragment).addToBackStack(null).commitAllowingStateLoss();
-//
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        if (isForward) {
-//            transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
-//        } else {
-//            transaction.setCustomAnimations(R.anim.horizon_slide_in_left, R.anim.horizon_slide_out_right);
-//        }
-//        transaction.replace(R.id.vw_NativeContent, mNativeFragment).commitAllowingStateLoss();
-//    }
-
-//    public void GoNativeScreenAdd(BaseBindingFragment<T> fragment, Bundle bundle, String backStack) {
-//        if (fragment == null)
-//            return;
-//
-//        mNativeFragment = fragment;
-//        if (bundle != null) {
-//            mNativeFragment.setArguments(bundle);
-//        }
-//
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        if (isForward) {
-//            transaction.setCustomAnimations(R.anim.horizon_slide_in_right, R.anim.horizon_slide_out_left);
-//        } else {
-//            transaction.setCustomAnimations(R.anim.horizon_slide_in_left, R.anim.horizon_slide_out_right);
-//        }
-//        transaction.replace(R.id.vw_NativeContent, mNativeFragment).commitAllowingStateLoss();
-//
-//
-////        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-////        transaction.replace(R.id.vw_NativeContent, mNativeFragment).addToBackStack(null).commitAllowingStateLoss();
-//    }
-
-
     /**
      * 메인 화면 구성하는 Fragment 반환
      *
