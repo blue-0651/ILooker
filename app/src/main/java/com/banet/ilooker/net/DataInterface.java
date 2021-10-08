@@ -659,7 +659,7 @@ protected String TAG = getClass().getSimpleName();
 		}
 	}
 
-	public void getApi112_EventDtail(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
+	public void getApi112_EventDetail(Context context, HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
 			Call<ResponseData<Object>> call = service.api112_ApiEventDtl(params);
 

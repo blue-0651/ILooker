@@ -25,20 +25,16 @@
                 android:id="@+id/call_receive_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="21/01/03 오후4:02" />
+                android:text="" />
 
             <LinearLayout
                 android:id="@+id/ll_block_phone_no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
-<!--                <ImageView-->
-<!--                    android:layout_width="40dp"-->
-<!--                    android:layout_height="40dp"-->
-<!--                    android:src="@drawable/ic_call_not_present" />-->
 
                 <TextView
                     android:id="@+id/block_phone_no"
@@ -50,6 +46,11 @@
                     android:textStyle="bold"
                     />
             </LinearLayout>
+            <ImageView
+                android:id="@+id/ivDivider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/divider" />
             <RadioGroup
                 android:id="@+id/rdLikeGroup"
                 android:layout_width="match_parent"
@@ -78,7 +79,18 @@
                         />
 
             </RadioGroup>
-
+            <ImageView
+                android:id="@+id/ivDivider2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/divider" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="분류유형을 선택하세요."
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                />
             <RadioGroup
                 android:id="@+id/rdCategoryGroup"
                 android:layout_width="match_parent"
@@ -90,6 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
                     android:weightSum="10">
 
                     <RadioButton
@@ -353,6 +366,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ll_menu_main"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:weightSum="12"
             >
             <LinearLayout
@@ -360,8 +374,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="4"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:gravity="center"
 
                 >
             <ImageView
@@ -380,8 +394,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="4"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:gravity="center"
                 >
                 <ImageView
                     android:layout_width="40dp"
@@ -399,8 +413,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="4"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:gravity="center"
                 >
                 <ImageView
                     android:layout_width="40dp"

@@ -20,6 +20,11 @@ public class Advertise100 implements Serializable {
     @Expose
     public String AdvtDescPath = "";
 
+    //광고 경로
+    @SerializedName("AdvtPath")
+    @Expose
+    public String AdvtPath = "";
+
 
 
 }

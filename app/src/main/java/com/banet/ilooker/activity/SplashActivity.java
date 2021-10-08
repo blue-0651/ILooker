@@ -137,7 +137,7 @@ public class SplashActivity extends AppCompatActivity {
                 aiLookerCustomDialog.setCancelable(false);
                 aiLookerCustomDialog.show();
             } else {
-                startLoading();
+                startActivity();
             }
 
         } else {

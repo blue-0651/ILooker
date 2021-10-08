@@ -56,7 +56,7 @@ public class EventDetailInfoActivity extends BaseActivity<ActivityEventDetailInf
         params.put("UserPhnNo", Util.getLineNumber(this));   //사용자 전화번호
         params.put("EvtNo", EventNumber);
         showProgress("");
-        DataInterface.getInstance().getApi112_EventDtail(EventDetailInfoActivity.this, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
+        DataInterface.getInstance().getApi112_EventDetail(EventDetailInfoActivity.this, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
             @Override
             public void onSuccess(ResponseData<Object> response) {
                 if (response.getProcRsltCd().equals("112-000")) {

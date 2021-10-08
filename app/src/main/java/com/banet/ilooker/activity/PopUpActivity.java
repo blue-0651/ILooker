@@ -171,6 +171,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
             }
         });
 
+
         //광고 클릭시 서버에 전송
         getBinding().ivAdvertise.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -369,7 +370,9 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
 
                 if (response.getProcRsltCd().equals("116-000")) {
                   //  Advertise100 advertise100 = (Advertise100) response.getData();
-                    //*** no comment
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(mAdvertise100.AdvtPath));
+                    startActivity(i);
                 }
 
             }

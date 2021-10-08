@@ -8,6 +8,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.banet.ilooker.R;
+import com.banet.ilooker.activity.MainActivity;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.databinding.FragmentReportReg005Binding;
 import com.banet.ilooker.model.BlockedPhoneNumber;
@@ -53,14 +54,9 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
             mImcommingDateTime = bundle.getString(AppDef.incoming_date_time);
         }
         realm = Realm.getDefaultInstance();
+
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_report_reg_005, container, false);
-//    }
 
     @Override
     protected int getLayoutId() {
@@ -70,6 +66,7 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
     @Override
     protected void init(Bundle savedInstanceState) {
         getBinding().blockPhoneNo.setText(mIncomingPhoneNumber);
+        getBinding().callReceiveDate.setText(DateUtils.getDate(mImcommingDateTime));
         // getBinding()..setText(mImcommingDateTime);
 
         getBinding().rdLikeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -345,7 +342,7 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
                 insertPhoneNumberToBeBlocked(blocked);
             }
         });
-
+        ( (MainActivity)getActivity()).setBottomTabBarVisible(false);
 
     }
 

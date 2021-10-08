@@ -17,13 +17,5 @@
 
             android:src="@drawable/splash_logo" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/iv_logo"-->
-<!--            android:layout_width="208.3dp"-->
-<!--            android:layout_height="18.3dp"-->
-<!--            android:layout_gravity="center_horizontal"-->
-<!--            android:layout_marginTop="23.3dp"-->
-<!--            android:src="@drawable/text" />-->
-
     </LinearLayout>
 </layout>
