@@ -60,7 +60,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             viewHolder.tvEventTitle.setText(item.EvtTitl);
             viewHolder.tvEventSeq.setText(item.EvtNo);
 
-            viewHolder.tvEventDate.setText(item.EvtStaDate + " ~ " + item.EvtEndDate ) ;
+          //  viewHolder.tvEventDate.setText(item.EvtStaDate + " ~ " + item.EvtEndDate ) ;
+            viewHolder.tvEventDate.setText(item.EvtStaDate + " ~ "  ) ;
 
         }else{
             Toast.makeText(context, "이벤트가 존재하지 않습니다.", Toast.LENGTH_SHORT) .show();

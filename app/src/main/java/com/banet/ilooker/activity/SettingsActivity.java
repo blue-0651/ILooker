@@ -21,6 +21,7 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pStore = new PreferenceStore(this);
+        getBinding().tvTitle.setText("설정");
         getBinding().btnName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +44,7 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding> {
         params.put("UseLangCd", AppDef.USER_LANGUAGE_CODE);  //사용자 국가코드 "KOR"
         params.put("UserPhnNo", Util.getLineNumber(this));   //사용자 전화번호
         params.put("UserNm", getBinding().name.getText().toString());        //사용자 이름
-        params.put("RecPhnNo", "01023456789");   //추천인 전화번호
+        params.put("RecPhnNo", getBinding().recommendation.getText().toString().trim().replace("-", ""));   //추천인 전화번호
 
         DataInterface.getInstance().get001Install(SettingsActivity.this, params, new DataInterface.ResponseCallback<ResponseData<Object>>() {
             @Override
