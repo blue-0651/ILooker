@@ -17,6 +17,7 @@ import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.fragment.BaseBindingFragment;
 import com.banet.ilooker.fragment.Report_RegFragment_005;
 import com.banet.ilooker.model.ReportHistory102;
+import com.banet.ilooker.util.Util;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -66,7 +67,7 @@ public class ReportPhoneNumberListAdapter extends RecyclerView.Adapter<ReportPho
          }
         ReportHistory102 item = mItemList.get(position);
        // if(item.BlockYN.equals("Y")) {
-            viewHolder.tvBlockPhoneNumber.setText(item.PhnNo);
+            viewHolder.tvBlockPhoneNumber.setText(Util.formatPhoneNumberWithHyPen(item.PhnNo));
             viewHolder.tvBlockCategory.setText(item.RptTpClsNm);
             viewHolder.tvIncommingDateTime.setText(item.RcvDate + " " + item.RcvTime);
       //  }

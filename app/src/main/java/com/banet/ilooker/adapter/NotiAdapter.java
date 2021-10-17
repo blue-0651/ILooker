@@ -58,7 +58,7 @@ public class NotiAdapter extends RecyclerView.Adapter<NotiAdapter.NotiViewHolder
         Noti104 item = mItemList.get(position);
         if(mItemList.size()>0) {
             viewHolder.tvTitle.setText(item.NtcTitl);
-            viewHolder.tvNotiSeq.setText(item.NtcNo);
+            viewHolder.tvNotiSeq.setText(item.Seq);
 
             viewHolder.tvDate.setText(item.NtcStaDate  ) ;
 

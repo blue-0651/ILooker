@@ -42,7 +42,7 @@ public class CallingService extends Service {
     public static final String CHANNEL_ID = "ILOOKER_00";
     public static final String EXTRA_CALL_NUMBER = "call_number";
     public static final String TAG = "CallingService";
-    public static final String ACTION = "Telephony.Sms.Intents.SMS_RECEIVED_ACTION";
+    public static final String SMS_ACTION = "Telephony.Sms.Intents.SMS_RECEIVED_ACTION";
     public static String mLastState;
 
     TelecomManager tcm;
@@ -52,7 +52,7 @@ public class CallingService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "onReceive()");
-            if (intent.getAction().equals(ACTION)) {
+            if (intent.getAction().equals(SMS_ACTION)) {
                 SmsMessage[] messages = Telephony.Sms.Intents.getMessagesFromIntent(intent);
                 if (messages != null) {
                     if (messages.length == 0)
@@ -74,6 +74,7 @@ public class CallingService extends Service {
 
                 String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
                 phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+
                 /**
                  * http://mmarvick.github.io/blog/blog/lollipop-multiple-broadcastreceiver-call-state/
                  * 2번 호출되는 문제 해결
@@ -85,6 +86,7 @@ public class CallingService extends Service {
                     mLastState = state;
 
                 }
+
 
                 if (Util.isThePhoneNumberExist(CallingService.this, phoneNumber)) {
                     Log.d(TAG, phoneNumber + " : Already Exist.");
@@ -114,7 +116,6 @@ public class CallingService extends Service {
                       //  Toast.makeText(context, phoneNumber, Toast.LENGTH_SHORT).show();
                         Log.i(TAG, " :" + state);
                         requestIncommingCallSmissing(context, intent, state, phoneNumber);
-
                     }
                 }
             }

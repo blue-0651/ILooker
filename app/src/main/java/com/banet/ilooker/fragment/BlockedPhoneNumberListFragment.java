@@ -54,7 +54,7 @@ public class BlockedPhoneNumberListFragment extends BaseBindingFragment<Fragment
         mBlockListAdapter = new BlockedPhoneNumberListAdapter(getActivity(), (List<BlockedPhoneNumber>) blockedPhoneNumberRealmResults) ;
         getBinding().rvReport.setAdapter(mBlockListAdapter);
         ( (MainActivity)getActivity()).setBottomTabBarVisible(false);
-        getBinding().tvTotalNo.setText("차단번호 총: " + mBlockList.size());
+        getBinding().tvTotalNo.setText("차단번호 총 : " + mBlockList.size() + "건");
 
     }
 }

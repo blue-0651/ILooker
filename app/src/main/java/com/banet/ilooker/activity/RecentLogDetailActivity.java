@@ -43,7 +43,7 @@ public class RecentLogDetailActivity extends BaseActivity<ActivityRecentLogDetai
         });
 
         getBinding().tvDate.setText(mRecentCallLog.date + " " + mRecentCallLog.time);
-        getBinding().tvRecentLogPhoneNumber.setText(mRecentCallLog.phoneNumber);
+        getBinding().tvRecentLogPhoneNumber.setText(Util.formatPhoneNumberWithHyPen(mRecentCallLog.phoneNumber));
         if (mRecentCallLog.smsContent != null && !mRecentCallLog.smsContent.equals("")) {
             getBinding().smsContent.setVisibility(View.VISIBLE);
             getBinding().smsContent.setText(mRecentCallLog.smsContent);

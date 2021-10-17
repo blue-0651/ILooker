@@ -23,6 +23,7 @@ import android.os.Build;
 import android.os.Debug;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
+import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -1634,7 +1635,7 @@ public class Util {
     }
 
     public static boolean isThePhoneNumberAlreadyBlocked(String phoneNumber) {
-        if(phoneNumber == null || "".equals(phoneNumber))
+        if (phoneNumber == null || "".equals(phoneNumber))
             return false; //차단 안된번호로 간주
         Realm realm = Realm.getDefaultInstance();
         BlockedPhoneNumber blockedPhoneNumberRealmResults = realm.where(BlockedPhoneNumber.class)
@@ -1647,7 +1648,13 @@ public class Util {
         } else {
             return true;
         }
+
     }
+
+    public static String formatPhoneNumberWithHyPen(String phoneNumber){
+        return PhoneNumberUtils.formatNumber(phoneNumber, Locale.getDefault().getCountry());
+    }
+
 
 
 }

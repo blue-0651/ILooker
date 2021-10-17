@@ -82,9 +82,9 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
 
         //BarEntry 설정***********************************************************************
         ArrayList entryList = new ArrayList();
-     //   entryList.add(new BarEntry(Float.valueOf(myPoint), 0));
+        entryList.add(new BarEntry(Float.valueOf(myPoint), 0));
        entryList.add(new BarEntry(Float.valueOf(topPoint), 1));
-        entryList.add(new BarEntry(300f, 0));
+     //   entryList.add(new BarEntry(300f, 0));
 
         ArrayList<String> activityLabelList = new ArrayList<>();
         activityLabelList.add(STRING_MY_COUNT);

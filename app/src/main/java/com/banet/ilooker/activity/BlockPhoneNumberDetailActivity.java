@@ -40,7 +40,7 @@ public class BlockPhoneNumberDetailActivity extends BaseActivity<ActivityBlockPh
         });
 
         getBinding().titleBar.tvTitle.setText(AppDef.title_blocked_phone_number_detail);
-        getBinding().blockPhoneNo.setText(mBlockedPhoneNumber.PhnNo);
+        getBinding().blockPhoneNo.setText(Util.formatPhoneNumberWithHyPen(mBlockedPhoneNumber.PhnNo));
 
         setLikeChecked(mBlockedPhoneNumber.GoodYN);
         setCategoryChecked(mBlockedPhoneNumber.RptTpClsCd);

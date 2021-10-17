@@ -18,8 +18,10 @@
             <RelativeLayout
                 android:id="@+id/rl_menu_total"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center_vertical">
+                android:layout_height="35dp"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                >
 
                 <TextView
                     android:id="@+id/tv_menu_total"
@@ -32,20 +34,22 @@
 
                 <Button
                     android:id="@+id/btn_register_question"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
+                    android:background="@drawable/btn_round_grey"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="문의등록"
-                    android:visibility="invisible" />
+                    android:textSize="13sp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tv_current_point"
                     style="@style/NormalDescText"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
                     android:text=""
                     android:visibility="gone" />

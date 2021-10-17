@@ -62,7 +62,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
         tcm = (TelecomManager) PopUpActivity.this.getSystemService(Context.TELECOM_SERVICE);
 
         tvPhoneNumber = findViewById(R.id.tv_call_number);
-        tvPhoneNumber.setText(incomingCallNumber);
+        tvPhoneNumber.setText(Util.formatPhoneNumberWithHyPen(incomingCallNumber));
 
         mIvCallStatus = findViewById(R.id.iv_call_status);
         mIvCallStatus.setImageDrawable(Util.getDrawable(this, R.drawable.ic_calling));
@@ -336,9 +336,12 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
 
                 if (response.getProcRsltCd().equals("100-000")) {
                     mAdvertise100 = (Advertise100) response.getData();
-                    Glide.with(PopUpActivity.this)
-                            .load(mAdvertise100.AdvtDescPath)
-                            .into(getBinding().ivAdvertise);
+                    if(mAdvertise100.AdvtDescPath != null || ! mAdvertise100.AdvtDescPath.equals("")) {
+                        getBinding().ivAdvertise.setVisibility(View.VISIBLE);
+                        Glide.with(PopUpActivity.this)
+                                .load(mAdvertise100.AdvtDescPath)
+                                .into(getBinding().ivAdvertise);
+                    }
 
 
                 }

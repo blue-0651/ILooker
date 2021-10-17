@@ -293,7 +293,9 @@
                 android:layout_height="100dp"
                 android:background="#ffffff"
                 android:gravity="center"
-                android:src="@drawable/ic_web_logo" />
+                android:src="@drawable/ic_web_logo"
+                android:visibility="gone"
+                />
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 </layout>

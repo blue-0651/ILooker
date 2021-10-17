@@ -65,7 +65,7 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        getBinding().blockPhoneNo.setText(mIncomingPhoneNumber);
+        getBinding().blockPhoneNo.setText(Util.formatPhoneNumberWithHyPen(mIncomingPhoneNumber));
         getBinding().callReceiveDate.setText(DateUtils.getDate(mImcommingDateTime));
         // getBinding()..setText(mImcommingDateTime);
 

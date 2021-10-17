@@ -85,8 +85,8 @@ public class LastCallLogAdapter extends RecyclerView.Adapter<LastCallLogAdapter.
         if(item.cachedName != null && ! "".equals(item.cachedName))
             viewHolder.tvLogPhoneNumber.setText(item.cachedName);
         else
-            viewHolder.tvLogPhoneNumber.setText(item.phoneNumber);
-        viewHolder.tvLogDateTime.setText(item.time);
+            viewHolder.tvLogPhoneNumber.setText(Util.formatPhoneNumberWithHyPen(item.phoneNumber));
+        viewHolder.tvLogDateTime.setText(item.date + " " + item.time);
 
     }
 

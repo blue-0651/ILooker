@@ -16,6 +16,7 @@ import com.banet.ilooker.R;
 import com.banet.ilooker.activity.BlockPhoneNumberDetailActivity;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.model.BlockedPhoneNumber;
+import com.banet.ilooker.util.Util;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -67,7 +68,7 @@ public class BlockedPhoneNumberListAdapter extends RecyclerView.Adapter<BlockedP
        }
         BlockedPhoneNumber item = mItemList.get(position);
         if(item.BlockYN.equals("Y")) {
-            viewHolder.tvBlockPhoneNumber.setText(item.PhnNo);
+            viewHolder.tvBlockPhoneNumber.setText(Util.formatPhoneNumberWithHyPen(item.PhnNo));
             viewHolder.tvBlockCategory.setText(item.RptTpClsNm);
             viewHolder.tvIncommingDateTime.setText(item.RcvDate + " " + item.RcvTime);
         }
