@@ -1,7 +1,9 @@
 package com.banet.ilooker.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -31,6 +33,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle_main = getIntent().getExtras();
+
+        ignorePowerBatteryOpt();
 
         if (bundle_main != null && bundle_main.getString(AppDef.MOVE_TO_FRAGMENT).equals(AppDef.title_block_and_report_phone_number_fragment)) {
             STRING_MOVE_TO_FRAGMENT_NAME = bundle_main.getString(AppDef.MOVE_TO_FRAGMENT);
@@ -92,6 +96,22 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         }
 
     }
+    private void
+    ignorePowerBatteryOpt() {
+        PowerManager pm = (PowerManager) getApplicationContext().getSystemService(POWER_SERVICE);
+        boolean isWhiteListing = false;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            isWhiteListing = pm.isIgnoringBatteryOptimizations(getApplicationContext().getPackageName());
+        }
+        if (!isWhiteListing) {
+            Intent intent = new Intent();
+            intent.setAction(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+            intent.setData(Uri.parse("package:" + getApplicationContext().getPackageName()));
+            startActivity(intent);
+        }
+    }
+
+
 
     @Override
     public int getLayoutId() {

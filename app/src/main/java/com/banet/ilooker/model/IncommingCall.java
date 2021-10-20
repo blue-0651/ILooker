@@ -51,5 +51,5 @@ public class IncommingCall implements Serializable {
     public String BadTotCnt = "";
 
     public boolean isInSystem = false;
-
+    public String ProcessResultCd = "";
 }

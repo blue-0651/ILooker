@@ -176,8 +176,8 @@ public class CallingService extends Service {
 
     private void showIncomingPhoneUI(Context context, Intent intent, String state, IncommingCall result) {
 
-        if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
-            //               || TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
+        if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)//) {
+                          || TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
             String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
             String phone_number = PhoneNumberUtils.formatNumber(incomingNumber);
 
@@ -250,10 +250,12 @@ public class CallingService extends Service {
                 //002-000으로 바꿈
                 if (response.getProcRsltCd().equals("002-000") ) {
                     IncommingCall incommingCall = (IncommingCall) response.getData();
+                    incommingCall.ProcessResultCd = response.getProcRsltCd();
                     incommingCall.isInSystem = true;
                     showIncomingPhoneUI(context, intent, state, incommingCall);
                 }else {
                     IncommingCall incommingCall = (IncommingCall) response.getData();
+                    incommingCall.ProcessResultCd = response.getProcRsltCd();
                     incommingCall.isInSystem = false;
                     showIncomingPhoneUI(context, intent, state, incommingCall);
                 }

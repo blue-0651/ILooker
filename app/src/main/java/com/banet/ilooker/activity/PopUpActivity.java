@@ -26,6 +26,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.banet.ilooker.R;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.common.Global;
+import com.banet.ilooker.common.UIThread;
 import com.banet.ilooker.databinding.CallPopupTopBinding;
 import com.banet.ilooker.model.Advertise100;
 import com.banet.ilooker.model.IncommingCall;
@@ -34,6 +35,7 @@ import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.service.CallingService;
 import com.banet.ilooker.util.Util;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -51,7 +53,6 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.call_popup_top);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -179,6 +180,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
                 request116AdvertisementCheck(PopUpActivity.this);
             }
         });
+
 
         setPhoneNumberColor(mIncomingCall.WhtListYN);
         setPhoneNumberColor("Y");
@@ -308,19 +310,23 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
     }
 
     void showOrgWhiteList() {
-        if (! mIncomingCall.isInSystem || mIncomingCall.OrgNm == null || "".equals(mIncomingCall.OrgNm)){
-            mllWhiteList.setVisibility(View.VISIBLE);
-            mTvOrg.setVisibility(View.INVISIBLE);
-            mTvWhitelist.setText("시스템에 등록되지 않은 전화번호입니다.");
-            return;
-        }
+        if(mIncomingCall.ProcessResultCd.equals("002-900") || mIncomingCall.ProcessResultCd.equals("003-900")
+                ||( mIncomingCall.ProcessResultCd.contains("004") && ! mIncomingCall.ProcessResultCd.contains("000")))
+        {
+            if (!mIncomingCall.isInSystem || mIncomingCall.OrgNm == null || "".equals(mIncomingCall.OrgNm)) {
+                mllWhiteList.setVisibility(View.VISIBLE);
+                mTvOrg.setVisibility(View.INVISIBLE);
+                mTvWhitelist.setText("시스템에 등록되지 않은 전화번호입니다.");
+                return;
+            }
 
-        if (mIncomingCall.WhtListYN.equals("Y")) {
-            mllWhiteList.setVisibility(View.VISIBLE);
-            mTvOrg.setVisibility(View.VISIBLE);
-            mTvOrg.setText(mIncomingCall.OrgNm + "는(은) ");
-            mTvWhitelist.setText("화이트리스트 기관입니다.");
-            mTvWhitelist.setTextColor(Util.getColor(this, R.color.good_number_color));
+            if (mIncomingCall.WhtListYN.equals("Y")) {
+                mllWhiteList.setVisibility(View.VISIBLE);
+                mTvOrg.setVisibility(View.VISIBLE);
+                mTvOrg.setText(mIncomingCall.OrgNm + "는(은) ");
+                mTvWhitelist.setText("화이트리스트 기관입니다.");
+                mTvWhitelist.setTextColor(Util.getColor(this, R.color.good_number_color));
+            }
         }
     }
 
@@ -337,12 +343,20 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
                 if (response.getProcRsltCd().equals("100-000")) {
                     mAdvertise100 = (Advertise100) response.getData();
                     if(mAdvertise100.AdvtDescPath != null || ! mAdvertise100.AdvtDescPath.equals("")) {
-                        getBinding().ivAdvertise.setVisibility(View.VISIBLE);
-                        Glide.with(PopUpActivity.this)
-                                .load(mAdvertise100.AdvtDescPath)
-                                .into(getBinding().ivAdvertise);
-                    }
+                        UIThread.executeInUIThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                getBinding().adverCard.setVisibility(View.VISIBLE);
+                                Glide.with(PopUpActivity.this)
+                                        .load(mAdvertise100.AdvtDescPath)
+                                        .error(R.drawable.ic_web_logo)
+                                        // .apply(new RequestOptions().override(400, 200))
+                                        .into(getBinding().ivAdvertise);
+                            }
+                        }, 100);
 
+
+                    }
 
                 }
 
@@ -373,9 +387,11 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
 
                 if (response.getProcRsltCd().equals("116-000")) {
                   //  Advertise100 advertise100 = (Advertise100) response.getData();
+                if(mAdvertise100.AdvtPath != null && mAdvertise100.AdvtPath != "") {
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(mAdvertise100.AdvtPath));
                     startActivity(i);
+                }
                 }
 
             }
