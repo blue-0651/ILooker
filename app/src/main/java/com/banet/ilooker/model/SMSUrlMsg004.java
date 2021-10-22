@@ -6,32 +6,8 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 //sms에 url이 포함된경우
-public class SMSUrlMsg004 implements Serializable {
-    //순번
-    @SerializedName("OrgNm")
-    @Expose
-    public String OrgNm ="";
+public class SMSUrlMsg004 extends IncommingCall   implements Serializable {
 
-    @SerializedName("GoodTotCnt")
-    @Expose
-    public String GoodTotCnt ="";
-
-    @SerializedName("BadTotCnt")
-    @Expose
-    public String BadTotCnt ="";
-
-    @SerializedName("TopTpClsNm")
-    @Expose
-    public String TopTpClsNm ="";
-
-    //대표유형 좋아요 건수
-    @SerializedName("TopTpGoodCnt")
-    @Expose
-    public String TopTpGoodCnt ="";
-
-    @SerializedName("TopTpBadCnt")
-    @Expose
-    public String TopTpBadCnt ="";
 
     @SerializedName("SmisDoubtYN")
     @Expose

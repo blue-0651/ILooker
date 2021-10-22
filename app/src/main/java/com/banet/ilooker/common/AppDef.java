@@ -9,12 +9,12 @@ public class AppDef {
     };
 
     public static final String FRAGMENT_TITLE_NAME = "fragment_title";
-    public static final String incoming_number_extra = "incoming_number_extra";
+    public static final String incoming_call = "incoming_call";
     public static final String incoming_date_time = "called_date_time";
     public static final String action_phone_state_changed = "action_phone_state_changed";
     public static final String phone_state = "phone_state";
     public static final String MOVE_TO_FRAGMENT = "move_to_fragment";
-    public static final String MOVE_TO_BLOCK_PHONE_NUMBER = "move_to_block_phone_number";
+    public static final String MOVE_TO_BLOCK_INCOMMING_CALL = "move_to_block_inccomming_call";
     public static final String USER_LANGUAGE_CODE = "KOR";
     public static final String NOTICE_104 = "notice_104";
     public static final String QUESTION_108 = "question_108";

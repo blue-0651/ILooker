@@ -52,4 +52,5 @@ public class IncommingCall implements Serializable {
 
     public boolean isInSystem = false;
     public String ProcessResultCd = "";
+    public String phnNumber ="";
 }

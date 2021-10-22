@@ -13,6 +13,7 @@ import com.banet.ilooker.model.Noti104;
 import com.banet.ilooker.model.Point103;
 import com.banet.ilooker.model.Question108;
 import com.banet.ilooker.model.ReportHistory102;
+import com.banet.ilooker.model.SMSUrlMsg004;
 
 import java.util.HashMap;
 
@@ -135,7 +136,7 @@ protected String TAG = getClass().getSimpleName();
 		}
 	}
 
-	public void get003IncommingSMS(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
+	public void get003IncommingTxtSMS(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
 			Call<ResponseData<IncommingCall>> call = service.api003requestIncommingSMS(params);
 
@@ -167,6 +168,40 @@ protected String TAG = getClass().getSimpleName();
 			ex.printStackTrace();
 		}
 	}
+
+	public void get004IncommingUrlSMS(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<SMSUrlMsg004>> call = service.api004requestUrlSMS(params);
+
+			call.enqueue(new Callback<ResponseData<SMSUrlMsg004>>() {
+				@Override
+				public void onResponse(Call<ResponseData<SMSUrlMsg004>> call, Response<ResponseData<SMSUrlMsg004>> response) {
+					processCommonError(context, callback, response);
+//					if (callback == null) return;
+//
+//					if (response.isSuccessful()) {
+//						callback.onSuccess(response.body());
+//					} else {
+//						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+//						callback.onError( response);
+//					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<SMSUrlMsg004>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
 
 	public void getapi104requestNormalNoti(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
@@ -436,6 +471,72 @@ protected String TAG = getClass().getSimpleName();
 	public void getapi005requestReportPhonNo(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
 			Call<ResponseData<Object>> call = service.api005requestReportPhoneNo(params);
+
+			call.enqueue(new Callback<ResponseData<Object>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Object>> call, Response<ResponseData<Object>> response) {
+					processCommonError(context, callback, response);
+//					if (callback == null) return;
+//
+//					if (response.isSuccessful()) {
+//						callback.onSuccess(response.body());
+//					} else {
+//						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+//						callback.onError( response);
+//					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Object>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void getapi006requestReportSMSTxtMsg(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Object>> call = service.api006requestReportPhoneNo(params);
+
+			call.enqueue(new Callback<ResponseData<Object>>() {
+				@Override
+				public void onResponse(Call<ResponseData<Object>> call, Response<ResponseData<Object>> response) {
+					processCommonError(context, callback, response);
+//					if (callback == null) return;
+//
+//					if (response.isSuccessful()) {
+//						callback.onSuccess(response.body());
+//					} else {
+//						//		Logger.log(Logger.LogState.E, "error getUserInfo = " + response.errorBody().toString());
+//						callback.onError( response);
+//					}
+				}
+
+				@Override
+				public void onFailure(Call<ResponseData<Object>> call, Throwable t) {
+					if (callback == null) return;
+
+					t.printStackTrace();
+					callback.onFailure(t);
+				}
+			});
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void getapi007requestReportSMSUrlMsg(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
+		try {
+			Call<ResponseData<Object>> call = service.api007requestReportPhoneNo(params);
 
 			call.enqueue(new Callback<ResponseData<Object>>() {
 				@Override

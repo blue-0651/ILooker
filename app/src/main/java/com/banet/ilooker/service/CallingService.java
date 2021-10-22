@@ -32,6 +32,7 @@ import com.banet.ilooker.activity.PopUpActivity;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.common.Global;
 import com.banet.ilooker.model.IncommingCall;
+import com.banet.ilooker.model.SMSUrlMsg004;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.util.Util;
@@ -63,9 +64,11 @@ public class CallingService extends Service {
                     }
                     String senderPhoneNo = messages[0].getOriginatingAddress();
                     String message = sb.toString();
-
-                    send003TxtMsg(context, intent, senderPhoneNo, message);
-                }else{
+//                    if (isMessageContainUrl(message))
+//                        send004UrlMsg(context, intent, senderPhoneNo, message, msgUrl);
+//                    else
+                        send003TxtMsg(context, intent, senderPhoneNo, message);
+                } else {
                     Log.d(TAG, "Massage not found");
                 }
 
@@ -88,10 +91,10 @@ public class CallingService extends Service {
                 }
 
 
-                if (Util.isThePhoneNumberExist(CallingService.this, phoneNumber)) {
-                    Log.d(TAG, phoneNumber + " : Already Exist.");
-                    return;
-                }
+//                if (Util.isThePhoneNumberExist(CallingService.this, phoneNumber)) {
+//                    Log.d(TAG, phoneNumber + " : Already Exist.");
+//                    return;
+//                }
 
                 if (Util.isThePhoneNumberAlreadyBlocked(phoneNumber)) {
                     Toast.makeText(getApplicationContext(), "차단된 번호입니다.", Toast.LENGTH_SHORT).show();
@@ -112,8 +115,8 @@ public class CallingService extends Service {
 
                     } else if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
 
-                    //    Toast.makeText(context, "Ringing State", Toast.LENGTH_SHORT).show();
-                      //  Toast.makeText(context, phoneNumber, Toast.LENGTH_SHORT).show();
+                        //    Toast.makeText(context, "Ringing State", Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(context, phoneNumber, Toast.LENGTH_SHORT).show();
                         Log.i(TAG, " :" + state);
                         requestIncommingCallSmissing(context, intent, state, phoneNumber);
                     }
@@ -143,7 +146,7 @@ public class CallingService extends Service {
         tcm = (TelecomManager) getSystemService(Context.TELECOM_SERVICE);
 
         IntentFilter filter = new IntentFilter();
-      //  filter.setPriority(2147483647);
+        //  filter.setPriority(2147483647);
         filter.addAction("android.provider.Telephony.SMS_RECEIVED");
         filter.addAction("Telephony.Sms.Intents.SMS_RECEIVED_ACTION");
         filter.addAction("android.intent.action.RECEIVE_SMS");
@@ -177,7 +180,7 @@ public class CallingService extends Service {
     private void showIncomingPhoneUI(Context context, Intent intent, String state, IncommingCall result) {
 
         if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)//) {
-                          || TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
+                || TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
             String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
             String phone_number = PhoneNumberUtils.formatNumber(incomingNumber);
 
@@ -248,12 +251,13 @@ public class CallingService extends Service {
             @Override
             public void onSuccess(ResponseData<IncommingCall> response) {
                 //002-000으로 바꿈
-                if (response.getProcRsltCd().equals("002-000") ) {
+                if (response.getProcRsltCd().equals("002-000")) {
                     IncommingCall incommingCall = (IncommingCall) response.getData();
+                    incommingCall.phnNumber = incomingCallNumber.replace("-", "");
                     incommingCall.ProcessResultCd = response.getProcRsltCd();
                     incommingCall.isInSystem = true;
                     showIncomingPhoneUI(context, intent, state, incommingCall);
-                }else {
+                } else {
                     IncommingCall incommingCall = (IncommingCall) response.getData();
                     incommingCall.ProcessResultCd = response.getProcRsltCd();
                     incommingCall.isInSystem = false;
@@ -282,7 +286,7 @@ public class CallingService extends Service {
         params.put("MedPartCd", "002");
         params.put("Msg", msg);
 
-        DataInterface.getInstance().get003IncommingSMS(this, params, new DataInterface.ResponseCallback<ResponseData<IncommingCall>>() {
+        DataInterface.getInstance().get003IncommingTxtSMS(this, params, new DataInterface.ResponseCallback<ResponseData<IncommingCall>>() {
 
 
             @Override
@@ -290,6 +294,7 @@ public class CallingService extends Service {
 
                 if (response.getProcRsltCd().equals("003-000")) {
                     IncommingCall incommingSms = (IncommingCall) response.getData();
+                    incommingSms.phnNumber = incomingCallNumber.replace("-", "");
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
                         if (Settings.canDrawOverlays(CallingService.this)) {              // 체크
                             showIncomingPhoneSMSUI(context, intent, incomingCallNumber, incommingSms);
@@ -301,6 +306,44 @@ public class CallingService extends Service {
 
             @Override
             public void onError(ResponseData<IncommingCall> response) {
+                Toast.makeText(getApplicationContext(), response.getError(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(getApplicationContext(), "failure", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void send004UrlMsg(Context context, Intent intent, String incomingCallNumber, String msg, String msgInUrl) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("UseLangCd", "KOR");
+        params.put("UserPhnNo", Util.getLineNumber(this));
+        params.put("PhnNo", incomingCallNumber);
+        params.put("MedPartCd", "003");
+        params.put("Msg", msg);
+        params.put("MsgInURL", msgInUrl); //메시지내 url
+
+        DataInterface.getInstance().get004IncommingUrlSMS(this, params, new DataInterface.ResponseCallback<ResponseData<SMSUrlMsg004>>() {
+
+            @Override
+            public void onSuccess(ResponseData<SMSUrlMsg004> response) {
+
+                if (response.getProcRsltCd().equals("004-000")) {
+                    SMSUrlMsg004 smsUrlMsg004 = (SMSUrlMsg004) response.getData();
+                    smsUrlMsg004.phnNumber = incomingCallNumber.replace("-", "");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
+                        if (Settings.canDrawOverlays(CallingService.this)) {              // 체크
+                            showIncomingPhoneSMSUI(context, intent, incomingCallNumber, smsUrlMsg004);
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onError(ResponseData<SMSUrlMsg004> response) {
                 Toast.makeText(getApplicationContext(), response.getError(), Toast.LENGTH_SHORT).show();
             }
 

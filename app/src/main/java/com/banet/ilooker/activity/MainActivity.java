@@ -16,6 +16,7 @@ import com.banet.ilooker.fragment.BaseBindingFragment;
 import com.banet.ilooker.fragment.LastCallLogFragment;
 import com.banet.ilooker.fragment.MainWorkFragment;
 import com.banet.ilooker.fragment.Report_RegFragment_005;
+import com.banet.ilooker.model.IncommingCall;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.service.CallingService;
@@ -27,7 +28,7 @@ import java.util.HashMap;
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
     public static final String TAG = "MainActivity";
     public static String STRING_MOVE_TO_FRAGMENT_NAME = "";
-    public static String MOVE_TO_BLOCK_PHONE_NUMBER = "";
+    public static IncommingCall MOVE_TO_BLOCK_INCOMIMG_CALL = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         if (bundle_main != null && bundle_main.getString(AppDef.MOVE_TO_FRAGMENT).equals(AppDef.title_block_and_report_phone_number_fragment)) {
             STRING_MOVE_TO_FRAGMENT_NAME = bundle_main.getString(AppDef.MOVE_TO_FRAGMENT);
+            MOVE_TO_BLOCK_INCOMIMG_CALL = (IncommingCall) bundle_main.getSerializable(AppDef.MOVE_TO_BLOCK_INCOMMING_CALL);
         }
 
         if (bundle_main == null) {
@@ -83,7 +85,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         if (STRING_MOVE_TO_FRAGMENT_NAME != "") {  //신고차단 타이틀 만들것
             if (STRING_MOVE_TO_FRAGMENT_NAME.equals(AppDef.title_block_and_report_phone_number_fragment)) {
                 Bundle bundle_move_to_005_block_report = new Bundle();
-                bundle_move_to_005_block_report.putString(AppDef.incoming_number_extra, MOVE_TO_BLOCK_PHONE_NUMBER);
+                bundle_move_to_005_block_report.putSerializable(AppDef.incoming_call, MOVE_TO_BLOCK_INCOMIMG_CALL);
                 bundle_move_to_005_block_report.putString(AppDef.incoming_date_time, DateUtils.getDateTime());
                 bundle_move_to_005_block_report.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_block_and_report_phone_number_fragment);
                 GoNativeScreen((BaseBindingFragment) new Report_RegFragment_005(), bundle_move_to_005_block_report);

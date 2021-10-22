@@ -157,7 +157,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
                 Intent intent = new Intent(PopUpActivity.this, MainActivity.class);
                 intent.putExtra(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_main_fragment);
                 intent.putExtra(AppDef.MOVE_TO_FRAGMENT, AppDef.title_block_and_report_phone_number_fragment);
-                intent.putExtra(AppDef.MOVE_TO_BLOCK_PHONE_NUMBER, incomingCallNumber);
+                intent.putExtra(AppDef.MOVE_TO_BLOCK_INCOMMING_CALL, mIncomingCall);
 
                 startActivity(intent);
                 finish();
