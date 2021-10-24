@@ -55,7 +55,7 @@ public class RecentLogDetailActivity extends BaseActivity<ActivityRecentLogDetai
                 Intent intent = new Intent(RecentLogDetailActivity.this, MainActivity.class);
                 intent.putExtra(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_main_fragment);
                 intent.putExtra(AppDef.MOVE_TO_FRAGMENT, AppDef.title_block_and_report_phone_number_fragment);
-                intent.putExtra(AppDef.MOVE_TO_BLOCK_PHONE_NUMBER, mRecentCallLog.phoneNumber.replace("-", ""));
+                intent.putExtra(AppDef.MOVE_TO_BLOCK_INCOMMING_CALL, mRecentCallLog.phoneNumber.replace("-", ""));
 
                 startActivity(intent);
                 finish();

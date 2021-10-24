@@ -20,6 +20,9 @@ public class IncommingCall implements Serializable {
         this.BadTotCnt = "20";
 
     }
+    public IncommingCall(String phoneNumber){
+        this.phnNumber = phoneNumber;
+    }
 
     //분류유형
     @SerializedName("TopTpClsNm")

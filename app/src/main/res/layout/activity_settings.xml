@@ -59,13 +59,37 @@
             android:layout_height="wrap_content"
             android:hint="추천인 전화번호를 입력하세요."
             />
+        <Button
+            android:id="@+id/btnName"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="확인"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+
+            />
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="30dp"
+            android:text="문자내용"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            />
+        <EditText
+            android:id="@+id/et_sms"
+            android:gravity="left|top"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_gravity="center_horizontal"
+            />
     <Button
-        android:id="@+id/btnName"
-        android:layout_width="60dp"
+        android:id="@+id/btnSendSms"
+        android:layout_width="100dp"
         android:layout_height="40dp"
-        android:text="확인"
+        android:text="문자전송"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
+
         />
 </LinearLayout>
 

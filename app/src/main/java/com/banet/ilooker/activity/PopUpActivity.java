@@ -30,12 +30,13 @@ import com.banet.ilooker.common.UIThread;
 import com.banet.ilooker.databinding.CallPopupTopBinding;
 import com.banet.ilooker.model.Advertise100;
 import com.banet.ilooker.model.IncommingCall;
+import com.banet.ilooker.model.SMSTxt003;
+import com.banet.ilooker.model.SMSUrlMsg004;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.service.CallingService;
 import com.banet.ilooker.util.Util;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -45,7 +46,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
     ImageView btnClose, mIvCallStatus, mIvLeft, mIvRight;
     LinearLayout mllFavorite, mllWhiteList, mllCallDeny, mllReturnCall, mllSendSms, mllReportBlock;
     String incomingCallNumber = "";
-    TextView mTvTime, mTvLeft, mTvLeftNum, mTvRight, mTvRightNum, mTvWhitelist, mTvOrg, mTvType, mTvTypeNum, mTvCallDeny;
+    TextView mTvTime, mTvLeft, mTvLeftNum, mTvRight, mTvRightNum, mTvWhitelist, mTvOrg, mTvType, mTvTypeNum, mTvCallDeny, mSmsContent;
     IncommingCall mIncomingCall;
     TelecomManager tcm;
     Advertise100 mAdvertise100;
@@ -92,6 +93,34 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
 
         mTvOrg = findViewById(R.id.tv_org_name);
         mTvWhitelist = findViewById(R.id.tv_whitelist);
+        mSmsContent = findViewById(R.id.sms_content);
+
+        if(mIncomingCall.ProcessResultCd.contains("003")){
+            mIvCallStatus.setImageDrawable(Util.getDrawable(PopUpActivity.this, R.drawable.ic_receive_sms));
+            mSmsContent.setVisibility(View.VISIBLE);
+            mSmsContent.setText(((SMSTxt003)mIncomingCall).smsContent);
+        } else if(mIncomingCall.ProcessResultCd.contains("004")){
+           if(((SMSUrlMsg004)mIncomingCall).SmisDoubtYN.equals("Y")){
+               mTvWhitelist.setText("스미싱 문자로 의심됩니다. 접근에 유의하세요.");
+               mTvWhitelist.setTextColor(Util.getColor(getApplicationContext(), R.color.bad_number_color));
+               mllWhiteList.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       Glide.with(PopUpActivity.this)
+                               .load(((SMSUrlMsg004)mIncomingCall).UrlImgPath)
+                               .error(R.drawable.ic_web_logo)
+                               // .apply(new RequestOptions().override(400, 200))
+                               .into(getBinding().ivAdvertise);
+                              //일단 광고 뷰에 뜨게 함.
+
+                   }
+               });
+           }
+            mIvCallStatus.setImageDrawable(Util.getDrawable(PopUpActivity.this, R.drawable.ic_receive_sms));
+            mSmsContent.setVisibility(View.VISIBLE);
+            mSmsContent.setText(((SMSUrlMsg004)mIncomingCall).smsContent);
+
+        }
 
 
         mllCallDeny = findViewById(R.id.ll_call_deny);

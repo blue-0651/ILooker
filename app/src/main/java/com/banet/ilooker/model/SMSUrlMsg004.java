@@ -18,4 +18,6 @@ public class SMSUrlMsg004 extends IncommingCall   implements Serializable {
     @Expose
     public String UrlImgPath ="";
 
+    public String smsContent ="";
+
 }
