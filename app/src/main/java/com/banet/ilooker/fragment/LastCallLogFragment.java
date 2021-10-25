@@ -135,7 +135,7 @@ public class LastCallLogFragment extends BaseBindingFragment<FragmentLastCallLog
             recentCallLogList.add(new RecentCallLog(phNumber,"001", callType, cachedNameString, "", dateString, ""));
         }
         managedCursor.close();
-        Log.d(TAG,  sb.toString() );
+   //     Log.d(TAG,  sb.toString() );
         return recentCallLogList;
     }
 

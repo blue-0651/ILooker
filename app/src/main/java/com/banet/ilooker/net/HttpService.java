@@ -11,6 +11,7 @@ import com.banet.ilooker.model.Noti104;
 import com.banet.ilooker.model.Point103;
 import com.banet.ilooker.model.Question108;
 import com.banet.ilooker.model.ReportHistory102;
+import com.banet.ilooker.model.SMSTxt003;
 import com.banet.ilooker.model.SMSUrlMsg004;
 
 import java.util.Map;
@@ -33,7 +34,7 @@ public interface HttpService {
     Call<ResponseData<IncommingCall>> api200requestIncommingCallSpam(@Body Map<String, Object> params);
     //수신문자 스팸여부
     @POST("app/003_ApiReceiveTxtMsg/")
-    Call<ResponseData<IncommingCall>> api003requestIncommingSMS(@Body Map<String, Object> params);
+    Call<ResponseData<SMSTxt003>> api003requestIncommingSMS(@Body Map<String, Object> params);
 
     @POST("app/004_ApiReceiveUrlMsg/")
     Call<ResponseData<SMSUrlMsg004>> api004requestUrlSMS(@Body Map<String, Object> params);

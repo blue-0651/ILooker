@@ -13,6 +13,7 @@ import com.banet.ilooker.model.Noti104;
 import com.banet.ilooker.model.Point103;
 import com.banet.ilooker.model.Question108;
 import com.banet.ilooker.model.ReportHistory102;
+import com.banet.ilooker.model.SMSTxt003;
 import com.banet.ilooker.model.SMSUrlMsg004;
 
 import java.util.HashMap;
@@ -138,11 +139,11 @@ protected String TAG = getClass().getSimpleName();
 
 	public void get003IncommingTxtSMS(Context context,  HashMap<String, Object> params, final ResponseCallback callback ){
 		try {
-			Call<ResponseData<IncommingCall>> call = service.api003requestIncommingSMS(params);
+			Call<ResponseData<SMSTxt003>> call = service.api003requestIncommingSMS(params);
 
-			call.enqueue(new Callback<ResponseData<IncommingCall>>() {
+			call.enqueue(new Callback<ResponseData<SMSTxt003>>() {
 				@Override
-				public void onResponse(Call<ResponseData<IncommingCall>> call, Response<ResponseData<IncommingCall>> response) {
+				public void onResponse(Call<ResponseData<SMSTxt003>> call, Response<ResponseData<SMSTxt003>> response) {
 					processCommonError(context, callback, response);
 //					if (callback == null) return;
 //
@@ -155,7 +156,7 @@ protected String TAG = getClass().getSimpleName();
 				}
 
 				@Override
-				public void onFailure(Call<ResponseData<IncommingCall>> call, Throwable t) {
+				public void onFailure(Call<ResponseData<SMSTxt003>> call, Throwable t) {
 					if (callback == null) return;
 
 					t.printStackTrace();

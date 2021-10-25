@@ -20,7 +20,13 @@ public class IncommingCall implements Serializable {
         this.BadTotCnt = "20";
 
     }
+
     public IncommingCall(String phoneNumber){
+        this.phnNumber = phoneNumber;
+    }
+
+    public IncommingCall(String processResultCd, String phoneNumber){
+        this.ProcessResultCd = processResultCd;
         this.phnNumber = phoneNumber;
     }
 
@@ -56,4 +62,5 @@ public class IncommingCall implements Serializable {
     public boolean isInSystem = false;
     public String ProcessResultCd = "";
     public String phnNumber ="";
+
 }

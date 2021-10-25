@@ -44,13 +44,14 @@ import java.util.HashMap;
 public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
     TextView tvPhoneNumber;
     ImageView btnClose, mIvCallStatus, mIvLeft, mIvRight;
-    LinearLayout mllFavorite, mllWhiteList, mllCallDeny, mllReturnCall, mllSendSms, mllReportBlock;
+    LinearLayout mllFavorite, mllWhiteList, mllCallDeny, mllReturnCall, mllSendSms, mllReportBlock, mllSms;
     String incomingCallNumber = "";
     TextView mTvTime, mTvLeft, mTvLeftNum, mTvRight, mTvRightNum, mTvWhitelist, mTvOrg, mTvType, mTvTypeNum, mTvCallDeny, mSmsContent;
     IncommingCall mIncomingCall;
     TelecomManager tcm;
     Advertise100 mAdvertise100;
-
+    SMSTxt003 smsTxt003;
+    SMSUrlMsg004 smsUrlMsg004;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +59,15 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             incomingCallNumber = bundle.getString(Global.EXTRA_INCOMING_CALL_NUMBER);
-            mIncomingCall = (IncommingCall) bundle.getSerializable(Global.EXTRA_INCOMING_CALL_DATA);
 
+            mIncomingCall = (IncommingCall) bundle.getSerializable(Global.EXTRA_INCOMING_CALL_DATA);
+            if(mIncomingCall.ProcessResultCd.contains("003")){
+                smsTxt003 = (SMSTxt003) mIncomingCall;
+            }else if(mIncomingCall.ProcessResultCd.contains("004")){
+                smsUrlMsg004 = (SMSUrlMsg004) mIncomingCall;
+            }
         }
+
         tcm = (TelecomManager) PopUpActivity.this.getSystemService(Context.TELECOM_SERVICE);
 
         tvPhoneNumber = findViewById(R.id.tv_call_number);
@@ -93,21 +100,22 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
 
         mTvOrg = findViewById(R.id.tv_org_name);
         mTvWhitelist = findViewById(R.id.tv_whitelist);
-        mSmsContent = findViewById(R.id.sms_content);
+        mSmsContent = findViewById(R.id.smsContents);
+        mllSms = findViewById(R.id.ll_sms);
 
         if(mIncomingCall.ProcessResultCd.contains("003")){
             mIvCallStatus.setImageDrawable(Util.getDrawable(PopUpActivity.this, R.drawable.ic_receive_sms));
-            mSmsContent.setVisibility(View.VISIBLE);
-            mSmsContent.setText(((SMSTxt003)mIncomingCall).smsContent);
+            mllSms.setVisibility(View.VISIBLE);
+            mSmsContent.setText(smsTxt003.smsContent);
         } else if(mIncomingCall.ProcessResultCd.contains("004")){
-           if(((SMSUrlMsg004)mIncomingCall).SmisDoubtYN.equals("Y")){
+           if(smsUrlMsg004.SmisDoubtYN.equals("Y")){
                mTvWhitelist.setText("스미싱 문자로 의심됩니다. 접근에 유의하세요.");
                mTvWhitelist.setTextColor(Util.getColor(getApplicationContext(), R.color.bad_number_color));
                mllWhiteList.setOnClickListener(new View.OnClickListener() {
                    @Override
                    public void onClick(View v) {
                        Glide.with(PopUpActivity.this)
-                               .load(((SMSUrlMsg004)mIncomingCall).UrlImgPath)
+                              .load(smsUrlMsg004.UrlImgPath)
                                .error(R.drawable.ic_web_logo)
                                // .apply(new RequestOptions().override(400, 200))
                                .into(getBinding().ivAdvertise);
@@ -117,8 +125,8 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
                });
            }
             mIvCallStatus.setImageDrawable(Util.getDrawable(PopUpActivity.this, R.drawable.ic_receive_sms));
-            mSmsContent.setVisibility(View.VISIBLE);
-            mSmsContent.setText(((SMSUrlMsg004)mIncomingCall).smsContent);
+            mllSms.setVisibility(View.VISIBLE);
+            mSmsContent.setText(smsUrlMsg004.smsContent);
 
         }
 

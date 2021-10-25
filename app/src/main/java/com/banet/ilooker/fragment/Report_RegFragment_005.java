@@ -311,11 +311,11 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
         getBinding().llReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mIncomingCall.ProcessResultCd.contains("002"))
+                if (mIncomingCall.ProcessResultCd.contains("200"))
                     request005RequestReportBlockPhoneNo(getActivity(), "N");
-                else if (mIncomingCall.ProcessResultCd.contains("003"))   //sms txt 일때
+                else if (mIncomingCall.ProcessResultCd.contains("300"))   //sms txt 일때
                     request006TxtMsgRequestReportBlockPhoneNo(getActivity(), "N", "메시지 내용");
-                else if (mIncomingCall.ProcessResultCd.contains("004"))   //sms url일때
+                else if (mIncomingCall.ProcessResultCd.contains("400"))   //sms url일때
                     request007UrlMsgRequestReportBlockPhoneNo(getActivity(), "N", "메시지 내용", "msgurl;msgUrl2");
             }
         });
@@ -323,11 +323,11 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
         getBinding().llReportBlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mIncomingCall.ProcessResultCd.contains("002"))
+                if (mIncomingCall.ProcessResultCd.contains("200"))
                     request005RequestReportBlockPhoneNo(getActivity(), "Y");
-                else if (mIncomingCall.ProcessResultCd.contains("003"))   //sms txt 일때
+                else if (mIncomingCall.ProcessResultCd.contains("300"))   //sms txt 일때
                     request006TxtMsgRequestReportBlockPhoneNo(getActivity(), "Y", "메시지 내용");
-                else if (mIncomingCall.ProcessResultCd.contains("004"))   //sms url일때
+                else if (mIncomingCall.ProcessResultCd.contains("400"))   //sms url일때
                     request007UrlMsgRequestReportBlockPhoneNo(getActivity(), "Y", "메시지 내용", "msgurl;msgUrl2");
             }
         });

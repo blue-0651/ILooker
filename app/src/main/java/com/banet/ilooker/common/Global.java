@@ -49,7 +49,4 @@ public class Global {
             instance = null;
     }
 
-    public static String PhoneNumberForUI = "";
-
-
 }

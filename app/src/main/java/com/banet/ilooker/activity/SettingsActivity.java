@@ -17,6 +17,7 @@ import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.common.Global;
 import com.banet.ilooker.databinding.ActivitySettingsBinding;
 import com.banet.ilooker.model.IncommingCall;
+import com.banet.ilooker.model.SMSTxt003;
 import com.banet.ilooker.model.SMSUrlMsg004;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
@@ -112,14 +113,15 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding> {
         params.put("MedPartCd", "002");
         params.put("Msg", msg);
 
-        DataInterface.getInstance().get003IncommingTxtSMS(this, params, new DataInterface.ResponseCallback<ResponseData<IncommingCall>>() {
+        DataInterface.getInstance().get003IncommingTxtSMS(this, params, new DataInterface.ResponseCallback<ResponseData<SMSTxt003>>() {
 
             @Override
-            public void onSuccess(ResponseData<IncommingCall> response) {
+            public void onSuccess(ResponseData<SMSTxt003> response) {
 
                 if (response.getProcRsltCd().equals("003-000")) {
-                    IncommingCall incommingSms = (IncommingCall) response.getData();
+                    SMSTxt003 incommingSms = (SMSTxt003) response.getData();
                     incommingSms.ProcessResultCd = response.getProcRsltCd();
+                    incommingSms.smsContent = msg;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
                         if (Settings.canDrawOverlays(SettingsActivity.this)) {              // 체크
                             showIncomingPhoneSMSUI(context,  incomingCallNumber, incommingSms);
@@ -130,7 +132,7 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding> {
             }
 
             @Override
-            public void onError(ResponseData<IncommingCall> response) {
+            public void onError(ResponseData<SMSTxt003> response) {
                 Toast.makeText(getApplicationContext(), response.getError(), Toast.LENGTH_SHORT).show();
             }
 
@@ -158,6 +160,7 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding> {
                 if (response.getProcRsltCd().equals("004-000")) {
                     SMSUrlMsg004 smsUrlMsg004 = (SMSUrlMsg004) response.getData();
                     smsUrlMsg004.ProcessResultCd = response.getProcRsltCd();
+                    smsUrlMsg004.smsContent = msg;
                     smsUrlMsg004.phnNumber = incomingCallNumber.replace("-", "");
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
                         if (Settings.canDrawOverlays(SettingsActivity.this)) {              // 체크

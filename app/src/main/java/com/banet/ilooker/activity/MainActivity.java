@@ -37,14 +37,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         ignorePowerBatteryOpt();
 
-        if (bundle_main != null && bundle_main.getString(AppDef.MOVE_TO_FRAGMENT).equals(AppDef.title_block_and_report_phone_number_fragment)) {
+        if (bundle_main == null) {
+            init();
+        }else if (bundle_main != null && bundle_main.getString(AppDef.MOVE_TO_FRAGMENT).equals(AppDef.title_block_and_report_phone_number_fragment)) {
             STRING_MOVE_TO_FRAGMENT_NAME = bundle_main.getString(AppDef.MOVE_TO_FRAGMENT);
             MOVE_TO_BLOCK_INCOMIMG_CALL = (IncommingCall) bundle_main.getSerializable(AppDef.MOVE_TO_BLOCK_INCOMMING_CALL);
         }
 
-        if (bundle_main == null) {
-            init();
-        }
+
 
 
         getBinding().bottomTabBar.llHome.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +93,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         } else {
             Bundle bundle = new Bundle();
             bundle.putString(AppDef.FRAGMENT_TITLE_NAME, AppDef.title_main_fragment);
-           // requestPermissionSystemAlertWindow();
 
         }
 
