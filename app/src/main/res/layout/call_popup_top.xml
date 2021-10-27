@@ -151,9 +151,9 @@
                 <LinearLayout
                     android:id="@+id/ll_url_smissing_text"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
                     >
@@ -176,10 +176,11 @@
                         />
                     <ImageView
                         android:id="@+id/url_smissing_iv"
-                        android:layout_width="300dp"
-                        android:layout_height="300dp"
-                        android:scaleType="centerCrop" />
-
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        />
                 </LinearLayout>
 
 

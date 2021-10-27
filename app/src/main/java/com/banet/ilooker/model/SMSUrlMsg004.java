@@ -14,7 +14,7 @@ public class SMSUrlMsg004 extends IncommingCall   implements Serializable {
     public String SmisDoubtYN ="";
 
     //2021.10.08 신규추가 (팝업에 사이트 이미지 캡쳐 보기)
-    @SerializedName("UrlImgPath")
+    @SerializedName("URLImgPath")
     @Expose
     public String UrlImgPath ="";
 

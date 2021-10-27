@@ -115,6 +115,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
                getBinding().urlSmissingBtn.setOnClickListener(new View.OnClickListener() {
                    @Override
                    public void onClick(View v) {
+                       getBinding().urlSmissingIv.setVisibility(View.VISIBLE);
                        Glide.with(PopUpActivity.this)
                               .load(smsUrlMsg004.UrlImgPath)
                                .error(R.drawable.ic_web_logo)
@@ -219,6 +220,12 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
             }
         });
 
+        getBinding().urlSmissingIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.setVisibility(View.GONE);
+            }
+        });
 
         setPhoneNumberColor(mIncomingCall.WhtListYN);
         setPhoneNumberColor("Y");
@@ -226,6 +233,8 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
         showOrgWhiteList();
         request100Advertisement(this);
     }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     private void endCall() {
@@ -242,6 +251,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
                 e.printStackTrace();
             }
         }
+
     }
 
 
