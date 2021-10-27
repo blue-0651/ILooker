@@ -109,17 +109,18 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
             mSmsContent.setText(smsTxt003.smsContent);
         } else if(mIncomingCall.ProcessResultCd.contains("004")){
            if(smsUrlMsg004.SmisDoubtYN.equals("Y")){
-               mTvWhitelist.setText("스미싱 문자로 의심됩니다. 접근에 유의하세요.");
-               mTvWhitelist.setTextColor(Util.getColor(getApplicationContext(), R.color.bad_number_color));
-               mllWhiteList.setOnClickListener(new View.OnClickListener() {
+               getBinding().llUrlSmissingText.setVisibility(View.VISIBLE);
+               getBinding().urlSmissingText.setText("스미싱 문자로 의심됩니다. 접근에 유의하세요.");
+               getBinding().urlSmissingText.setTextColor(Util.getColor(getApplicationContext(), R.color.bad_number_color));
+               getBinding().urlSmissingBtn.setOnClickListener(new View.OnClickListener() {
                    @Override
                    public void onClick(View v) {
                        Glide.with(PopUpActivity.this)
                               .load(smsUrlMsg004.UrlImgPath)
                                .error(R.drawable.ic_web_logo)
                                // .apply(new RequestOptions().override(400, 200))
-                               .into(getBinding().ivAdvertise);
-                              //일단 광고 뷰에 뜨게 함.
+                               .into(getBinding().urlSmissingIv);
+
 
                    }
                });
