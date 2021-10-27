@@ -91,10 +91,10 @@ public class CallingService extends Service {
                 }
 
 
-//                if (Util.isThePhoneNumberExist(CallingService.this, phoneNumber)) {
-//                    Log.d(TAG, phoneNumber + " : Already Exist.");
-//                    return;
-//                }
+                if (Util.isThePhoneNumberExist(CallingService.this, phoneNumber)) {
+                    Log.d(TAG, phoneNumber + " : Already Exist.");
+                    return;
+                }
 
                 if (Util.isThePhoneNumberAlreadyBlocked(phoneNumber)) {
                     Toast.makeText(getApplicationContext(), "차단된 번호입니다.", Toast.LENGTH_SHORT).show();
