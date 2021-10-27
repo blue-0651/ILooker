@@ -212,7 +212,7 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding> {
 
     public static List<String> extractUrls(String sms) {
         List<String> containedUrls = new ArrayList<String>();
-        String text = sms;
+        String text = sms.replace("\n" , " ");
 
        // Split the sms to analyze if each part is a URL
         String[] split = text.split(" ");
