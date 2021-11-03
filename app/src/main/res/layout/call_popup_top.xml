@@ -1,356 +1,380 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <LinearLayout
-        android:id="@+id/ll_pop_up"
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="30dp">
+        android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
+            android:id="@+id/ll_pop_up"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="30dp">
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="vertical"
-                android:padding="5dp">
+                app:cardCornerRadius="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
+                    android:background="#ffffff"
+                    android:orientation="vertical"
                     android:padding="5dp">
 
-                    <TextView
-                        android:id="@+id/tv_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_weight="1"
-                        android:text="dddddd"
-                        android:textColor="@color/text_black"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:id="@+id/btn_close"
-                        android:layout_width="100dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_web_logo" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:id="@+id/iv_call_status"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginRight="20dp"
-                        android:src="@drawable/ic_calling" />
-
-                    <TextView
-                        android:id="@+id/tv_call_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toRightOf="@id/iv_call_status"
-                        android:gravity="center"
-                        android:text="1800-5567"
-                        android:textColor="@color/good_number_color"
-                        android:textSize="25sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_favorite"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/iv_left"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="5dp" />
-
-                        <TextView
-                            android:id="@+id/tv_favorite_left"
-                            style="@style/likeDislikeMiniText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="좋아요" />
-
-                        <TextView
-                            android:id="@+id/tv_favorite_left_num"
-                            style="@style/likeDislikeMiniText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_marginLeft="5dp"
-                            android:gravity="center"
-                            android:text="0" />
-
-
-                        <TextView
-                            android:id="@+id/tv_type_cate"
-                            style="@style/likeDislikeMiniText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_marginLeft="5dp"
-                            android:gravity="center"
-                            android:text="주식"
-                            android:textColor="@color/teal_700" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        >
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:id="@+id/tv_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_weight="1"
+                            android:text="dddddd"
+                            android:textColor="@color/text_black"
+                            android:textSize="16sp" />
 
                         <ImageView
-                            android:id="@+id/iv_right"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="5dp"
-                            />
-
-                        <TextView
-                            android:id="@+id/tv_favorite_right"
-                            style="@style/likeDislikeMiniText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="싫어요" />
-
-                        <TextView
-                            android:id="@+id/tv_favorite_right_num"
-                            style="@style/likeDislikeMiniText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="0" />
+                            android:id="@+id/btn_close"
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_web_logo" />
                     </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/ll_url_smissing_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="visible"
-                    android:gravity="center_horizontal"
-                    android:padding="5dp"
-                    >
-                    <TextView
-                        android:id="@+id/url_smissing_text"
-                        style="@style/likeDislikeMiniText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textSize="14sp" />
-                    <Button
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/url_smissing_btn"
-                        android:layout_width="200dp"
-                        android:layout_height="20dp"
-                        android:text="사이트 캡쳐 이미지 보기"
-                        android:textColor="@color/good_number_color"
-                        android:textSize="10sp"
-                        android:gravity="center"
-                        />
-                    <ImageView
-                        android:id="@+id/url_smissing_iv"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
-                        android:scaleType="centerCrop"
-                        android:visibility="gone"
-                        />
-                </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/iv_call_status"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginRight="20dp"
+                            android:src="@drawable/ic_calling" />
+
+                        <TextView
+                            android:id="@+id/tv_call_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@id/iv_call_status"
+                            android:gravity="center"
+                            android:text="1800-5567"
+                            android:textColor="@color/good_number_color"
+                            android:textSize="25sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_favorite"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/iv_left"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginRight="5dp" />
+
+                            <TextView
+                                android:id="@+id/tv_favorite_left"
+                                style="@style/likeDislikeMiniText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="좋아요" />
+
+                            <TextView
+                                android:id="@+id/tv_favorite_left_num"
+                                style="@style/likeDislikeMiniText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="25dp"
+                                android:layout_marginLeft="5dp"
+                                android:gravity="center"
+                                android:text="0" />
 
 
-                <LinearLayout
-                    android:id="@+id/ll_whitelist"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:visibility="invisible">
+                            <TextView
+                                android:id="@+id/tv_type_cate"
+                                style="@style/likeDislikeMiniText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="25dp"
+                                android:layout_marginLeft="5dp"
+                                android:gravity="center"
+                                android:text="주식"
+                                android:textColor="@color/teal_700" />
+                        </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_org_name"
-                        style="@style/likeDislikeMiniText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textSize="14sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tv_whitelist"
-                        style="@style/likeDislikeMiniText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="  입니다." />
+                            <ImageView
+                                android:id="@+id/iv_right"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginRight="5dp" />
 
-                </LinearLayout>
+                            <TextView
+                                android:id="@+id/tv_favorite_right"
+                                style="@style/likeDislikeMiniText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="싫어요" />
 
-                <LinearLayout
-                    android:id="@+id/ll_sms"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                            <TextView
+                                android:id="@+id/tv_favorite_right_num"
+                                style="@style/likeDislikeMiniText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="0" />
+                        </LinearLayout>
+                    </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/ivDivider"
+                    <LinearLayout
+                        android:id="@+id/ll_url_smissing_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:src="@drawable/divider" />
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:visibility="gone">
 
-                    <TextView
-                        android:id="@+id/smsContents"
-                        android:layout_width="350dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/not_in_system" />
+
+                            <TextView
+                                android:id="@+id/url_smissing_text"
+                                style="@style/likeDislikeMiniText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/url_smissing_btn"
+                            style="@style/TextAppearance.AppCompat.Button"
+                            android:layout_width="200dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/txtGray"
+                            android:gravity="center"
+                            android:text="사이트 캡쳐 이미지 보기"
+                            android:textColor="@color/good_number_color"
+                            android:textSize="11sp" />
+
+                        <ImageView
+                            android:id="@+id/url_smissing_iv"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            android:scaleType="centerCrop"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_whitelist"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="invisible">
+
+                        <TextView
+                            android:id="@+id/tv_org_name"
+                            style="@style/likeDislikeMiniText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_whitelist"
+                            style="@style/likeDislikeMiniText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="  입니다." />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_sms"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLines="100" />
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/ivDivider"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:src="@drawable/divider" />
+
+                        <TextView
+                            android:id="@+id/smsContents"
+                            android:layout_width="350dp"
+                            android:layout_height="wrap_content"
+                            android:maxLines="100" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <LinearLayout
+                            android:id="@+id/ll_call_return"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="10dp">
+
+                            <ImageView
+                                android:layout_width="@dimen/popup_bottom_layout_width"
+                                android:layout_height="@dimen/popup_bottom_layout_height"
+                                android:src="@drawable/ic_receive_call" />
+
+                            <TextView
+                                android:id="@+id/tv_call_return"
+                                android:layout_width="@dimen/popup_bottom_layout_width"
+                                android:layout_height="@dimen/popup_bottom_layout_text_height"
+                                android:background="#ffffff"
+                                android:gravity="center"
+                                android:text="응답"
+                                android:textColor="@color/text_black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_call_deny"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:id="@+id/iv_call_deny"
+                                android:layout_width="@dimen/popup_bottom_layout_width"
+                                android:layout_height="@dimen/popup_bottom_layout_height"
+                                android:src="@drawable/ic_deny" />
+
+                            <TextView
+                                android:id="@+id/tv_call_deny"
+                                android:layout_width="@dimen/popup_bottom_layout_width"
+                                android:layout_height="@dimen/popup_bottom_layout_text_height"
+                                android:background="#ffffff"
+                                android:gravity="center"
+                                android:text="거절"
+                                android:textColor="@color/text_black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_send_sms"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:layout_width="@dimen/popup_bottom_layout_width"
+                                android:layout_height="@dimen/popup_bottom_layout_height"
+                                android:src="@drawable/ic_send_sms" />
+
+                            <TextView
+                                android:id="@+id/tv_sned_sms"
+                                android:layout_width="@dimen/popup_bottom_layout_width"
+                                android:layout_height="@dimen/popup_bottom_layout_text_height"
+                                android:background="#ffffff"
+                                android:gravity="center"
+                                android:text="문자전송"
+                                android:textColor="@color/text_black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_report_block"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:layout_width="@dimen/popup_bottom_layout_width"
+                                android:layout_height="@dimen/popup_bottom_layout_height"
+                                android:src="@drawable/ic_report_and_block" />
+
+                            <TextView
+                                android:id="@+id/tv_report_deny"
+                                android:layout_width="60dp"
+                                android:layout_height="30dp"
+                                android:background="#ffffff"
+                                android:gravity="center"
+                                android:text="신고/차단"
+                                android:textColor="@color/text_black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    android:weightSum="4">
-
-                    <LinearLayout
-                        android:id="@+id/ll_call_return"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="5dp"
-                        android:paddingRight="10dp"
-
-                        >
-
-                        <ImageView
-                            android:layout_width="@dimen/popup_bottom_layout_width"
-                            android:layout_height="@dimen/popup_bottom_layout_height"
-                            android:src="@drawable/ic_receive_call" />
-
-                        <TextView
-                            android:id="@+id/tv_call_return"
-                            android:layout_width="@dimen/popup_bottom_layout_width"
-                            android:layout_height="@dimen/popup_bottom_layout_text_height"
-                            android:background="#ffffff"
-                            android:gravity="center"
-                            android:text="응답"
-                            android:textColor="@color/text_black"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_call_deny"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:padding="5dp">
-
-                        <ImageView
-                            android:id="@+id/iv_call_deny"
-                            android:layout_width="@dimen/popup_bottom_layout_width"
-                            android:layout_height="@dimen/popup_bottom_layout_height"
-                            android:src="@drawable/ic_deny" />
-
-                        <TextView
-                            android:id="@+id/tv_call_deny"
-                            android:layout_width="@dimen/popup_bottom_layout_width"
-                            android:layout_height="@dimen/popup_bottom_layout_text_height"
-                            android:background="#ffffff"
-                            android:gravity="center"
-                            android:text="거절"
-                            android:textColor="@color/text_black"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_send_sms"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:padding="5dp">
-
-                        <ImageView
-                            android:layout_width="@dimen/popup_bottom_layout_width"
-                            android:layout_height="@dimen/popup_bottom_layout_height"
-                            android:src="@drawable/ic_send_sms" />
-
-                        <TextView
-                            android:id="@+id/tv_sned_sms"
-                            android:layout_width="@dimen/popup_bottom_layout_width"
-                            android:layout_height="@dimen/popup_bottom_layout_text_height"
-                            android:background="#ffffff"
-                            android:gravity="center"
-                            android:text="문자전송"
-                            android:textColor="@color/text_black"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_report_block"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:padding="5dp">
-
-                        <ImageView
-                            android:layout_width="@dimen/popup_bottom_layout_width"
-                            android:layout_height="@dimen/popup_bottom_layout_height"
-                            android:src="@drawable/ic_report_and_block" />
-
-                        <TextView
-                            android:id="@+id/tv_report_deny"
-                            android:layout_width="60dp"
-                            android:layout_height="30dp"
-                            android:background="#ffffff"
-                            android:gravity="center"
-                            android:text="신고/차단"
-                            android:textColor="@color/text_black"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/adver_card"
@@ -375,4 +399,6 @@
                 app:layout_scrollFlags="scroll|enterAlways" />
         </androidx.cardview.widget.CardView>
     </LinearLayout>
+</LinearLayout>
+
 </layout>

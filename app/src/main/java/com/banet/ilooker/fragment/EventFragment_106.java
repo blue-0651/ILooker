@@ -76,7 +76,7 @@ public class EventFragment_106 extends BaseBindingFragment<FragmentEvent106Bindi
                     event106List =  (List<Event106>) response.getList();
                     EventAdapter eventAdapter = new EventAdapter(getActivity(), event106List);
                     getBinding().rvEvent.setAdapter(eventAdapter);
-                    getBinding().tvTotalEvent.setText("이벤트 총 :" + event106List.size());
+                    getBinding().tvTotalEvent.setText("이벤트 총 :" + event106List.size() + " 건");
 
 
                 }

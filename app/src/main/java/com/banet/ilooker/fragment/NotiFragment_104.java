@@ -102,7 +102,7 @@ public class NotiFragment_104 extends BaseBindingFragment<FragmentNoti104Binding
             @Override
             public void onSuccess(ResponseData<Noti104> response) {
                 normalNoti104List =  (List<Noti104>) response.getList();
-                getBinding().tvTotalNoti.setText("일반공지 총 :" + normalNoti104List.size());
+                getBinding().tvTotalNoti.setText("일반공지 총 :" + normalNoti104List.size() + " 건");
                 getBinding().rvNoti.setAdapter(null);
                 if( response.getProcRsltCd().equals("104-000")){
                     NotiAdapter notiAdapter = new NotiAdapter(getActivity(), normalNoti104List);
