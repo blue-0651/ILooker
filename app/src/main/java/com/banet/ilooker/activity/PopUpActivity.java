@@ -132,10 +132,10 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
 
         }
 
-
+        //전화 응답 거절
         mllCallDeny = findViewById(R.id.ll_call_deny);
         mllCallDeny.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.P)
+          //  @RequiresApi(api = Build.VERSION_CODES.P)
             @Override
             public void onClick(View v) {
 
@@ -145,7 +145,8 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
                         try {
                             if (incomingCallNumber != null) {
                                 tcm.endCall();
-                                Log.d(TAG, "Incoming Call Blocked " + incomingCallNumber);
+                                Log.d(TAG, "Incoming Call Denied " + incomingCallNumber);
+                                finish();
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -319,7 +320,7 @@ public class PopUpActivity extends BaseActivity<CallPopupTopBinding> {
 
     void showFavoritePart() {
 
-        if (Integer.valueOf(mIncomingCall.GoodTotCnt) == 0 && Integer.valueOf(mIncomingCall.GoodTotCnt) == 0) {
+        if (Integer.valueOf(mIncomingCall.GoodTotCnt) == 0) {
             mllFavorite.setVisibility(View.INVISIBLE);
             return;
         } else

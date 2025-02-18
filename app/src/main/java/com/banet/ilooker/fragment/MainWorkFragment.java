@@ -14,7 +14,6 @@ import com.banet.ilooker.databinding.MainFragmentBinding;
 import com.banet.ilooker.model.MainUserInfo101;
 import com.banet.ilooker.net.DataInterface;
 import com.banet.ilooker.net.ResponseData;
-import com.banet.ilooker.util.Util;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -59,7 +58,7 @@ public class MainWorkFragment extends BaseBindingFragment<MainFragmentBinding> {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        request101MainUserInfo(Util.getLineNumber(getActivity()));
+        //request101MainUserInfo(Util.getLineNumber(getActivity()));
         ((MainActivity) getActivity()).setBottomTabBarVisible(true);
 
     }

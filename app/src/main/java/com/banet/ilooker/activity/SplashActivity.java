@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -22,9 +21,6 @@ import com.banet.ilooker.R;
 import com.banet.ilooker.common.AiLookerCustomDialog;
 import com.banet.ilooker.common.AppDef;
 import com.banet.ilooker.common.Global;
-import com.banet.ilooker.model.AppVersion200;
-import com.banet.ilooker.net.DataInterface;
-import com.banet.ilooker.net.ResponseData;
 import com.banet.ilooker.util.PreferenceStore;
 import com.banet.ilooker.util.Util;
 
@@ -63,29 +59,30 @@ public class SplashActivity extends AppCompatActivity {
         params.put("UseLangCd", AppDef.USER_LANGUAGE_CODE);  //사용자 국가코드 "KOR"
         params.put("UserPhnNo", Util.getLineNumber(this));   //사용자 전화번호
         params.put("CurrVer", BuildConfig.VERSION_NAME);        //현재버전 올려줌
+        startActivity();
 
-        DataInterface.getInstance().getApi200_Appver(SplashActivity.this, params, new DataInterface.ResponseCallback<ResponseData<AppVersion200>>(){
-
-            @Override
-            public void onSuccess(ResponseData<AppVersion200> response) {
-                Log.i(TAG, "response: " + response.getProcRsltCd());
-                if(response.getProcRsltCd().equals("200-000")){
-                    AppVersion200 appVersion200 = (AppVersion200) response.getData();
-                    appVersionCheck(appVersion200.currVer);
-
-                }
-            }
-
-            @Override
-            public void onError(ResponseData<AppVersion200> response) {
-                showDialog(SplashActivity.this, null, "네트웍상태를 확인해주세요.");
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                showDialog(SplashActivity.this, null, "네트웍상태를 확인해주세요.");
-            }
-        });
+//        DataInterface.getInstance().getApi200_Appver(SplashActivity.this, params, new DataInterface.ResponseCallback<ResponseData<AppVersion200>>(){
+//
+//            @Override
+//            public void onSuccess(ResponseData<AppVersion200> response) {
+//                Log.i(TAG, "response: " + response.getProcRsltCd());
+//                if(response.getProcRsltCd().equals("200-000")){
+//                    AppVersion200 appVersion200 = (AppVersion200) response.getData();
+//                    appVersionCheck(appVersion200.currVer);
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onError(ResponseData<AppVersion200> response) {
+//                showDialog(SplashActivity.this, null, "네트웍상태를 확인해주세요.");
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t) {
+//                showDialog(SplashActivity.this, null, "네트웍상태를 확인해주세요.");
+//            }
+//        });
     }
 
 
@@ -214,7 +211,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if(arePermissionsEnabled()) {
-                        checkVersionAndGoToInitActivity();
+                       checkVersionAndGoToInitActivity();
 
                     } else {
                         requestMultiplePermissions();
@@ -231,12 +228,14 @@ public class SplashActivity extends AppCompatActivity {
     private void startActivity(){
         Intent intent;
         PreferenceStore pStore  = new PreferenceStore(this);
-        if(pStore.readPrefBoolean("isInstalled", false) == false) {
-             intent=new Intent(SplashActivity.this, SettingsActivity.class);
+//        if(pStore.readPrefBoolean("isInstalled", false) == false) {
+//             intent=new Intent(SplashActivity.this, SettingsActivity.class);
+//
+//        }else {
+//             intent = new Intent(SplashActivity.this, MainActivity.class);
+//        }
 
-        }else {
-             intent = new Intent(SplashActivity.this, MainActivity.class);
-        }
+        intent = new Intent(SplashActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

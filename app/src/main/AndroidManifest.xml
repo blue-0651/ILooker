@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.banet.ilooker">
 
-    <uses-feature android:name="android.hardware.telephony" /> <!-- 전화걸려올경우 상대방 정보 확인 -->
+    <uses-feature android:name="android.hardware.telephony"
+        android:required="false" /> <!-- 전화걸려올경우 상대방 정보 확인 -->
     <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -22,9 +23,11 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
 
-    출처: https://forest71.tistory.com/185 [SW 개발이 좋은 사람]
+
+
 
     <application
         android:name=".ILookerApp"
@@ -38,7 +41,7 @@
         tools:ignore="Instantiatable">
         <activity
             android:name=".activity.SettingsActivity"
-            android:exported="true">
+            android:exported="false">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
@@ -47,38 +50,38 @@
 
         <activity
             android:name=".activity.QuestionDetailActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:theme="@style/Transparent" />
         <activity
             android:name=".activity.QuestionRegisterActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:theme="@style/Transparent" />
         <activity
             android:name=".activity.NotiDetailInfoActivity"
             android:theme="@style/Transparent" />
         <activity
             android:name=".activity.BlockPhoneNumberDetailActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:theme="@style/Transparent" />
         <activity
             android:name=".activity.RecentLogDetailActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:theme="@style/Transparent" />
         <activity
             android:name=".activity.DetailInfoActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:theme="@style/Transparent" />
         <activity
             android:name=".activity.EventDetailInfoActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:theme="@style/Transparent" />
         <activity
             android:name=".activity.PopUpActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:theme="@style/Transparent" />
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
 
@@ -87,7 +90,9 @@
         </activity>
         <activity
             android:name=".activity.SplashActivity"
-            android:screenOrientation="portrait">
+            android:exported="true"
+            android:screenOrientation="fullSensor"
+            >
 
              <intent-filter>
              <action android:name="android.intent.action.MAIN" />
@@ -99,8 +104,9 @@
 
         <service
             android:name=".service.CallingService"
+            android:foregroundServiceType="phoneCall"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
     </application>
 
 </manifest>

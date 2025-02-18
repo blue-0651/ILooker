@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class IncommingCall implements Serializable {
 
     public IncommingCall(){
-        this.TopTpClsNm = "도박";
+        this.TopTpClsNm = "진상손님";
          this.TopTpGoodCnt = "10";
         this.TopTpBadCnt = "5";
         this.WhtListYN = "N";
@@ -53,11 +53,11 @@ public class IncommingCall implements Serializable {
 
     @SerializedName("GoodTotCnt")
     @Expose
-    public String GoodTotCnt = "";
+    public String GoodTotCnt = "0";
 
     @SerializedName("BadTotCnt")
     @Expose
-    public String BadTotCnt = "";
+    public String BadTotCnt = "0";
 
     public boolean isInSystem = false;
     public String ProcessResultCd = "";

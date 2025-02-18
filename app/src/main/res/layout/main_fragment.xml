@@ -50,7 +50,8 @@
                     style="@style/NormalDescText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="님의 활동지수(전일자 기준)" />
+                    android:text="님의 활동지수(전일자 기준)"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
@@ -65,14 +66,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="포인트: "
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    tools:ignore="HardcodedText"
                     />
 
                 <TextView
                     android:id="@+id/tvRank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    tools:ignore="HardcodedText"
                     android:text="현재순위:" />
 
             </RelativeLayout> <!--   end of llCustInfo -->
@@ -94,6 +97,7 @@
                     android:layout_height="wrap_content"
                     android:text="신고 등록"
                     style="@style/ChartTitleText"
+                    tools:ignore="HardcodedText"
                     />
                 <com.github.mikephil.charting.charts.HorizontalBarChart
                     android:id="@+id/barchartReport"
@@ -105,6 +109,7 @@
                     android:layout_height="wrap_content"
                     android:text="광고 확인"
                     style="@style/ChartTitleText"
+                    tools:ignore="HardcodedText"
                     />
                 <com.github.mikephil.charting.charts.HorizontalBarChart
                     android:id="@+id/barchartAdverCheck"
@@ -116,6 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="공지 확인"
+                    tools:ignore="HardcodedText"
                     style="@style/ChartTitleText"
                     />
                 <com.github.mikephil.charting.charts.HorizontalBarChart
@@ -127,6 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="이벤트 확인"
+                    tools:ignore="HardcodedText"
                     style="@style/ChartTitleText"
                     />
                 <com.github.mikephil.charting.charts.HorizontalBarChart
@@ -138,6 +145,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="이벤트 참여"
+                    tools:ignore="HardcodedText"
                     style="@style/ChartTitleText"
                     />
                 <com.github.mikephil.charting.charts.HorizontalBarChart
@@ -149,6 +157,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="뉴스 확인"
+                    tools:ignore="HardcodedText"
                     style="@style/ChartTitleText"
                     />
                 <com.github.mikephil.charting.charts.HorizontalBarChart
@@ -160,6 +169,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="문의 요청"
+                    tools:ignore="HardcodedText"
                     style="@style/ChartTitleText"
                     />
                 <com.github.mikephil.charting.charts.HorizontalBarChart

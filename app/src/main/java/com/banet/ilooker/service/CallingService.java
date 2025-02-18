@@ -22,6 +22,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -91,10 +92,10 @@ public class CallingService extends Service {
                 }
 
 
-                if (Util.isThePhoneNumberExist(CallingService.this, phoneNumber)) {
-                    Log.d(TAG, phoneNumber + " : Already Exist.");
-                    return;
-                }
+//                if (Util.isThePhoneNumberExist(CallingService.this, phoneNumber)) {
+//                    Log.d(TAG, phoneNumber + " : Already Exist.");
+//                    return;
+//                }
 
                 if (Util.isThePhoneNumberAlreadyBlocked(phoneNumber)) {
                     Toast.makeText(getApplicationContext(), "차단된 번호입니다.", Toast.LENGTH_SHORT).show();
@@ -140,6 +141,7 @@ public class CallingService extends Service {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
     public void onCreate() {
         super.onCreate();
@@ -155,7 +157,7 @@ public class CallingService extends Service {
         filter.addAction("android.intent.action.NEW_OUTGOING_CALL");
         filter.addAction("android.provider.Telephony.WAP_PUSH_RECEIVED");
         filter.addAction("android.provider.Telephony.WAP_PUSH_R");
-        registerReceiver(receiver, filter);
+        registerReceiver(receiver, filter, Context.RECEIVER_NOT_EXPORTED);
     }
 
     private void showIncomingPhoneSMSUI(Context context, Intent intent, String incomingPhoneNumber, IncommingCall incommingMsg) {
@@ -179,7 +181,7 @@ public class CallingService extends Service {
 
     private void showIncomingPhoneUI(Context context, Intent intent, String state, IncommingCall result) {
 
-        if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
+        if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)|| TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
             //    || TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
             String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
             String phone_number = PhoneNumberUtils.formatNumber(incomingNumber);
@@ -204,7 +206,7 @@ public class CallingService extends Service {
         createNotificationChannel();
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, 0);
+                0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("AILooker")
@@ -213,7 +215,13 @@ public class CallingService extends Service {
                 .setContentIntent(pendingIntent)
                 .build();
 
-        startForeground(1, notification);
+        startForeground(1, notification );
+    //    startForeground(1, notification,FOREGROUND_SERVICE_TYPE_PHONE_CALL);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//            startForeground(1, notification, FOREGROUND_SERVICE_TYPE_PHONE_CALL);
+//        } else {
+//            startForeground(1, notification);
+//        }
 
         return START_STICKY;
     }
@@ -245,37 +253,44 @@ public class CallingService extends Service {
         params.put("UserPhnNo", Util.getLineNumber(this));
         params.put("PhnNo", incomingCallNumber.replace("-", ""));
         params.put("MedPartCd", "001");
-        DataInterface.getInstance().get002IncommingCallSmissing(this, params, new DataInterface.ResponseCallback<ResponseData<IncommingCall>>() {
+        IncommingCall incommingCall = new IncommingCall(incomingCallNumber);
+        showIncomingPhoneUI(context, intent, state, incommingCall);
+
+        return;
 
 
-            @Override
-            public void onSuccess(ResponseData<IncommingCall> response) {
-                //002-000으로 바꿈
-                if (response.getProcRsltCd().equals("002-000")) {
-                    IncommingCall incommingCall = (IncommingCall) response.getData();
-                    incommingCall.phnNumber = incomingCallNumber.replace("-", "");
-                    incommingCall.ProcessResultCd = response.getProcRsltCd();
-                    incommingCall.isInSystem = true;
-                    showIncomingPhoneUI(context, intent, state, incommingCall);
-                } else {
-                    IncommingCall incommingCall = (IncommingCall) response.getData();
-                    incommingCall.ProcessResultCd = response.getProcRsltCd();
-                    incommingCall.isInSystem = false;
-                    showIncomingPhoneUI(context, intent, state, incommingCall);
-                }
 
-            }
-
-            @Override
-            public void onError(ResponseData<IncommingCall> response) {
-                Toast.makeText(getApplicationContext(), response.getError(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Toast.makeText(getApplicationContext(), "failure", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        DataInterface.getInstance().get002IncommingCallSmissing(this, params, new DataInterface.ResponseCallback<ResponseData<IncommingCall>>() {
+//
+//
+//            @Override
+//            public void onSuccess(ResponseData<IncommingCall> response) {
+//                //002-000으로 바꿈
+//                if (response.getProcRsltCd().equals("002-000")) {
+//                    IncommingCall incommingCall = (IncommingCall) response.getData();
+//                    incommingCall.phnNumber = incomingCallNumber.replace("-", "");
+//                    incommingCall.ProcessResultCd = response.getProcRsltCd();
+//                    incommingCall.isInSystem = true;
+//                    showIncomingPhoneUI(context, intent, state, incommingCall);
+//                } else {
+//                    IncommingCall incommingCall = (IncommingCall) response.getData();
+//                    incommingCall.ProcessResultCd = response.getProcRsltCd();
+//                    incommingCall.isInSystem = false;
+//                    showIncomingPhoneUI(context, intent, state, incommingCall);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onError(ResponseData<IncommingCall> response) {
+//                Toast.makeText(getApplicationContext(), response.getError(), Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t) {
+//                Toast.makeText(getApplicationContext(), "failure", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     private void send003TxtMsg(Context context, Intent intent, String incomingCallNumber, String msg) {

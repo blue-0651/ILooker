@@ -74,14 +74,14 @@ public class Report_RegFragment_005 extends BaseBindingFragment<FragmentReportRe
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 mRadioLikeCheckedId = checkedId;
-                switch (checkedId) {
-                    case R.id.rdLike:
-                        mRadioLikeCheckedCode = "Y";
-                        break;
-                    case R.id.rdDisLike:
-                        mRadioLikeCheckedCode = "N";
-                        break;
-                }
+//                switch (checkedId) {
+//                    case R.id.rdLike:
+//                        mRadioLikeCheckedCode = "Y";
+//                        break;
+//                    case R.id.rdDisLike:
+//                        mRadioLikeCheckedCode = "N";
+//                        break;
+//                }
             }
         });
 

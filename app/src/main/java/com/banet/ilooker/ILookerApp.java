@@ -8,6 +8,9 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 public class ILookerApp extends Application {
+    public ILookerApp() {
+        super(); // 다른 생성자가 있는 경우 super() 호출 포함
+    }
     @Override
     public void onCreate() {
 
